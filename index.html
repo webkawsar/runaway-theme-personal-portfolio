@@ -357,40 +357,34 @@
     <script src="./js/plugins.js"></script>
     <script src="./js/custom.js"></script>
     <script>
-      $(document).ready(function () {
-        // 	$(document).ready(function() {
-        // 	//=========================================
-        // 	//  Water Effect
-        // 	//=========================================
-
-        $(".banner_water_effect").ripples({
-          resolution: 256,
-          dropRadius: 20,
-          perturbance: 0.03,
-          interactive: true,
-        });
-        // 	//  Smoothscroll js
-        // 	//=========================================
-        $("a").on("click", function (event) {
-          if (this.hash !== "") {
-            event.preventDefault();
-
-            var hash = this.hash;
-
-            $("html, body").animate(
-              {
-                scrollTop: $(hash).offset().top,
-              },
-              1000,
-              function () {
-                window.location.hash = hash;
-              }
-            );
-          }
-        });
-        // 	 });
-        //
-      });
+      // $(document).ready(function () {
+      //=========================================
+      //  Water Effect
+      //=========================================
+      // $(".banner_water_effect").ripples({
+      //   resolution: 256,
+      //   dropRadius: 20,
+      //   perturbance: 0.03,
+      //   interactive: true,
+      // });
+      //  Smoothscroll js
+      //=========================================
+      // $("a").on("click", function (event) {
+      //   if (this.hash !== "") {
+      //     event.preventDefault();
+      //     var hash = this.hash;
+      //     $("html, body").animate(
+      //       {
+      //         scrollTop: $(hash).offset().top,
+      //       },
+      //       1000,
+      //       function () {
+      //         window.location.hash = hash;
+      //       }
+      //     );
+      //   }
+      // });
+      // });
     </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>

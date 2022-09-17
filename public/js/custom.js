@@ -56,17 +56,17 @@ $(document).ready(function () {
 		// 02.  Scroll Top
 		//======================================================================================
 	
-		$(window).scroll(function () {
-			if ($(this).scrollTop() > 500) {
-				$('#scroll').fadeIn();
-			} else {
-				$('#scroll').fadeOut();
-			}
-		});
-		$('#scroll').click(function () {
-			$('html, body').animate({ scrollTop: 0 }, 1000);
-			return false;
-		});
+		// $(window).scroll(function () {
+		// 	if ($(this).scrollTop() > 500) {
+		// 		$('#scroll').fadeIn();
+		// 	} else {
+		// 		$('#scroll').fadeOut();
+		// 	}
+		// });
+		// $('#scroll').click(function () {
+		// 	$('html, body').animate({ scrollTop: 0 }, 1000);
+		// 	return false;
+		// });
 	
 		//====================================================================================
 		// 03.    Navbar scrolling navbar Fixed

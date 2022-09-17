@@ -4,6 +4,7 @@ const Home = () => {
   return (
     <section
       id="main_banner"
+      name="main_banner"
       className="banner_water_effect background3 overlay_one"
     >
       <div className="container h-100">

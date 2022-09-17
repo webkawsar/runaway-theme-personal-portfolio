@@ -2,7 +2,7 @@ import React from 'react';
 
 const Portfolio = () => {
     return (
-        <section id="portfolio" className="py_80 bg_secondery full_row">
+        <section id="portfolio" name="portfolio" className="py_80 bg_secondery full_row">
             <div className="container">
                 <div className="row">
                     <div className="col-md-12 col-lg-12">
