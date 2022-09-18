@@ -459,6 +459,7 @@ header {
   font-weight: 700;
   letter-spacing: 2px;
   font-family: "Poppins", sans-serif;
+  cursor: pointer;
 }
 .main_nav {
   width: 100%;
@@ -1398,11 +1399,11 @@ ul#menu li a {
   width: 50px;
   height: 50px;
   text-indent: -9999px;
-  display: none;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   border-radius: 60px;
   z-index: 11;
+  display: none;
 }
 #scroll span {
   position: absolute;
@@ -1413,6 +1414,10 @@ ul#menu li a {
   height: 0;
   width: 0;
   border: 8px solid transparent;
+}
+
+.scrollVisible {
+  display: block !important;
 }
 /*===============================================================================
 25.   Page Banner

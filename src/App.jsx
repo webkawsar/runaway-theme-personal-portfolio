@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from './components/layout/Layout';
+import ScrollBottom from './components/ScrollBottom';
 import About from './sections/About';
 import Blog from './sections/Blog';
 import Contact from './sections/Contact';
@@ -24,6 +25,7 @@ const App = () => {
           <Testimonial />
           <Blog />
           <Contact />
+          <ScrollBottom />
         </>
       </Layout>
     </>

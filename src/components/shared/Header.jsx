@@ -1,23 +1,45 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-scroll";
 
 const Header = () => {
-  const handleScrollToTop = () => {
-    console.log("Scrolling");
+  const elm = useRef();
+  
+  const handleScroll = () => {
+    const scrolledValue = window.scrollY;
+
+    // back to top handle
+    if (scrolledValue >= 500) {
+      document.querySelector("#scroll").classList.add("scrollVisible");
+    } else {
+      document.querySelector("#scroll").classList.remove("scrollVisible");
+    }
+
+    // navbar handle
+    if (scrolledValue >= 100) {
+      elm.current.classList.add("nav-scroll");
+    } else {
+      elm.current.classList.remove("nav-scroll");
+    }
   };
 
-  window.addEventListener("scroll", handleScrollToTop);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="main_nav">
+    <header className="main_nav" ref={elm}>
       <div className="container">
         <nav
           id="navbar-example2"
           className="navbar navbar-expand-lg navbar-light w-100"
         >
-          <a className="navbar-brand" href="#top">
+          <Link className="navbar-brand" to="top" smooth={true}>
             <img className="nav-logo" src="images/logo/1.png" alt="logo" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
