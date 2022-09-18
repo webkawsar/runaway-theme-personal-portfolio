@@ -1,6 +1,28 @@
 import React from "react";
+import Typed from "react-typed";
 
 const Home = () => {
+  const typedStrings = [
+    "JS Developer.",
+    "React Developer.",
+    "Node.JS Developer.",
+    "MERN Stack Developer.",
+  ];
+
+  const typedOptions = {
+    stringsElement: null,
+    typeSpeed: 50,
+    startDelay: 500,
+    backSpeed: 50,
+    backDelay: 500,
+    loop: true,
+    loopCount: 100,
+    showCursor: false,
+    cursorChar: "|",
+    attr: null,
+    contentType: "html",
+  };
+
   return (
     <section
       id="main_banner"
@@ -14,13 +36,9 @@ const Home = () => {
               <span className="pb_5 banner_title color_white">
                 I Am Austin Jackson!
               </span>
-              <h1 className="cd-headline clip is-full-width text-uppercase">
-                <span className="color_white">I am a</span>
-                <span className="cd-words-wrapper color_default">
-                  <b className="is-visible">UI/UX Designer.</b>
-                  <b>Developer.</b>
-                  <b>Freelancer.</b>
-                </span>
+              <h1 className="cd-headline clip is-full-width text-uppercase mt-2 mb-3">
+                <span className="color_white">I am a </span>
+                <span className="color_default"><Typed strings={typedStrings} {...typedOptions} /></span>
               </h1>
               <p className="color_white mb_30">
                 Libero habitasse sollicitudin aliquet venenatis iaculis placerat
