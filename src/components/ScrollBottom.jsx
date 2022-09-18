@@ -1,9 +1,10 @@
 import React from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 
 const ScrollBottom = () => {
     return (
         <>
-             <a href="#" id="scroll" ><span></span></a>
+             <div id="scroll" onClick={() => scroll.scrollToTop()}><span></span></div>
         </>
     );
 };
