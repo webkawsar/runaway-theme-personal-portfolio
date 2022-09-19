@@ -1,8 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+const skillSets = [
+  {
+    id: 1,
+    skillName: "javaScript",
+    percent: 0,
+  },
+  {
+    id: 2,
+    skillName: "React",
+    percent: 0,
+  },
+  {
+    id: 3,
+    skillName: "Node.js",
+    percent: 0,
+  },
+  {
+    id: 4,
+    skillName: "MongoDB",
+    percent: 0,
+  },
+  {
+    id: 5,
+    skillName: "Strapi",
+    percent: 0,
+  },
+];
 
 const Skill = () => {
+  const [skills, setSkills] = useState(skillSets);
+
+  const handleScroll = () => {
+    const scrolledValue = window.scrollY;
+
+    // set skills
+    if (scrolledValue >= 1400) {
+      setSkills([
+        {
+          id: 1,
+          skillName: "javaScript",
+          percent: 90,
+        },
+        {
+          id: 2,
+          skillName: "React",
+          percent: 90,
+        },
+        {
+          id: 3,
+          skillName: "Node.js",
+          percent: 85,
+        },
+        {
+          id: 4,
+          skillName: "MongoDB",
+          percent: 90,
+        },
+        {
+          id: 5,
+          skillName: "Strapi",
+          percent: 60,
+        },
+      ]);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <section id="skill" name='skill' className="py_80 bg_secondery full_row">
+    <section id="skill" name="skill" className="py_80 bg_secondery full_row">
       <div className="container">
         <div className="row">
           <div className="col-md-12 col-lg-12">
@@ -44,91 +117,35 @@ const Skill = () => {
             </div>
             <div className="col-md-12 col-lg-6">
               <div className="skill-progress wow animated slideInRight">
-                <div className="prgs-bar fact-counter">
-                  <span>HTML</span>
-                  <div className="progress count wow" data-wow-duration="0ms">
-                    <div className="skill-percent">
-                      <span className="count-num" data-speed="3000" data-stop="90">
-                        0
-                      </span>
-                      %
+                {skills.map((skill) => {
+                  return (
+                    <div key={skill.id} className="prgs-bar fact-counter">
+                      <span>{skill.skillName}</span>
+                      <div
+                        className="progress count wow"
+                        data-wow-duration="0ms"
+                      >
+                        <div className="skill-percent">
+                          <span
+                            className="count-num"
+                            data-speed="3000"
+                            data-stop={skill.percent}
+                          >
+                            {skill.percent}
+                          </span>
+                          %
+                        </div>
+                        <div
+                          className="progress-bar"
+                          role="progressbar"
+                          aria-valuenow={skill.percent}
+                          aria-valuemax="100"
+                          style={{ width: `${skill.percent}%` }}
+                        ></div>
+                      </div>
                     </div>
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow="90"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div className="prgs-bar fact-counter">
-                  <span>CSS</span>
-                  <div className="progress count wow" data-wow-duration="0ms">
-                    <div className="skill-percent">
-                      <span className="count-num" data-speed="3000" data-stop="95">
-                        0
-                      </span>
-                      %
-                    </div>
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow="95"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div className="prgs-bar fact-counter">
-                  <span>JQuery</span>
-                  <div className="progress count wow" data-wow-duration="0ms">
-                    <div className="skill-percent">
-                      <span className="count-num" data-speed="3000" data-stop="85">
-                        0
-                      </span>
-                      %
-                    </div>
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow="85"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div className="prgs-bar fact-counter">
-                  <span>PHP</span>
-                  <div className="progress count wow" data-wow-duration="0ms">
-                    <div className="skill-percent">
-                      <span className="count-num" data-speed="3000" data-stop="90">
-                        0
-                      </span>
-                      %
-                    </div>
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow="90"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div className="prgs-bar fact-counter">
-                  <span>Wordpress</span>
-                  <div className="progress count wow" data-wow-duration="0ms">
-                    <div className="skill-percent">
-                      <span className="count-num" data-speed="3000" data-stop="90">
-                        0
-                      </span>
-                      %
-                    </div>
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow="90"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>

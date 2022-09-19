@@ -5,7 +5,7 @@ const About = () => {
 
   useEffect(() => {
     new Venobox({
-      autoplay: true,
+      autoplay: false,
       spinner: 'circle-fade'
     })
   }, [])
