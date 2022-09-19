@@ -763,6 +763,11 @@ update-browserslist-db@^1.0.9:
     escalade "^3.1.1"
     picocolors "^1.0.0"
 
+venobox@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/venobox/-/venobox-2.0.4.tgz#742a624edf1f023ecad592cc1a6767c68937b1eb"
+  integrity sha512-+AMA5+Y/Ul9uSUk0I4lYG0DLVJDZmRq1TWXr51jZSz+zPyLWx4Uxwh68W9nYoqqWFrsWJiZPVpr1xzYYSjQlDw==
+
 vite@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/vite/-/vite-3.1.1.tgz#fcfe12c3fe7e4c6def1fc52e4dc9cb0ccb2b1a59"

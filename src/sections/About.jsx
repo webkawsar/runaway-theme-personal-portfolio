@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Venobox from 'venobox';
 
 const About = () => {
+
+  useEffect(() => {
+    new Venobox({
+      autoplay: true,
+      spinner: 'circle-fade'
+    })
+  }, [])
+
   return (
     <section id="about" name='about' className="py_80 full_row bg_white">
       <div className="container">
@@ -46,32 +55,31 @@ const About = () => {
                   <div className="col-md-12 col-lg-6">
                     <ul>
                       <li>
-                        <span className="color_secondery">Name :</span> Austin
-                        Jackson
+                        <span className="color_secondery">Name : </span> 
+                        Kawsar Ahmed
                       </li>
                       <li>
-                        <span className="color_secondery">Email :</span>
-                        yourdomainname@gmail.com
+                        <span className="color_secondery">Email : </span>
+                        kawsarahmed.dev@gmail.com
                       </li>
                       <li>
-                        <span className="color_secondery">Phone :</span> +00 61 700
-                        800
+                        <span className="color_secondery">Phone : </span> +880 1715 103 606
                       </li>
                     </ul>
                   </div>
                   <div className="col-md-12 col-lg-6">
                     <ul>
                       <li>
-                        <span className="color_secondery">Date of Birth :</span>
-                        14 December 1993
+                        <span className="color_secondery">Date of Birth : </span>
+                        21 December 1995
                       </li>
                       <li>
-                        <span className="color_secondery">Blood Group :</span>
-                        A+
+                        <span className="color_secondery">Blood Group : </span>
+                        AB+
                       </li>
                       <li>
-                        <span className="color_secondery">Address :</span>
-                        Mouroubra WA 6472, Australia.
+                        <span className="color_secondery">Address : </span>
+                        MoulviBazar, Sylhet, Bangladesh
                       </li>
                     </ul>
                   </div>
@@ -83,9 +91,11 @@ const About = () => {
                 <img src="images/about/03.png" alt="image" />
                 <div className="iconround">
                   <a
-                    className="video-popup"
-                    href="https://vimeo.com/134660574"
+                    className="venobox"
+                    href="https://www.youtube.com/watch?v=x1dnE0GzKVA&t=8s"
                     title="video popup"
+                    data-vbtype="video"
+                    data-maxwidth="600px"
                   >
                     <i className="fa fa-play" aria-hidden="true"></i>
                   </a>

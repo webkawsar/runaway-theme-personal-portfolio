@@ -34,7 +34,7 @@ const Home = () => {
           <div className="col-md-12 col-lg-12 home-content text-left">
             <div className="mainbanner_content">
               <span className="pb_5 banner_title color_white">
-                I Am Austin Jackson!
+                I Am Kawsar Ahmed!
               </span>
               <h1 className="cd-headline clip is-full-width text-uppercase mt-2 mb-3">
                 <span className="color_white">I am a </span>

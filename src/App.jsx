@@ -1,4 +1,5 @@
 import React from 'react';
+import 'venobox/dist/venobox.min.css';
 import Layout from './components/layout/Layout';
 import ScrollBottom from './components/ScrollBottom';
 import About from './sections/About';
