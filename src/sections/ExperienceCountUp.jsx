@@ -49,7 +49,7 @@ const ExperienceCountUp = () => {
                         ></span>
                         <div className="counting_digit color_default mt_15">
                           <h2 className="count-num" data-speed="3000" data-stop="7">
-                            <CountUp end={counts[0]} duration={2} />
+                            <CountUp end={counts[0]} duration={3} />
                           </h2>
                           <span>+</span>
                         </div>
