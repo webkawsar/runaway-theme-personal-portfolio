@@ -742,7 +742,7 @@ ul#menu li a {
   border-radius: 50%;
   top: 48%;
   left: 78px;
-  z-index: 222;
+  z-index: 11;
 }
 .profile_img.personal_video .iconround:before {
   content: "";

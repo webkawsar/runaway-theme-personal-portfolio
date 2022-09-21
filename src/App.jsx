@@ -5,7 +5,7 @@ import ScrollBottom from './components/ScrollBottom';
 import About from './sections/About';
 import Blog from './sections/Blog';
 import Contact from './sections/Contact';
-import CountUp from './sections/CountUp';
+import ExperienceCountUp from './sections/ExperienceCountUp';
 import Home from './sections/Home';
 import Portfolio from './sections/Portfolio';
 import Services from './sections/Services';
@@ -20,7 +20,7 @@ const App = () => {
           <Home />
           <About />
           <Skill />
-          <CountUp />
+          <ExperienceCountUp />
           <Services />
           <Portfolio />
           <Testimonial />

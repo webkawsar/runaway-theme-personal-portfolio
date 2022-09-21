@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
 
-const CountUp = () => {
+const ExperienceCountUp = () => {
+
+  // const [counts, setCounts] = useState([
+  //   {
+  //     title: 'experience',
+  //     count: 0
+  //   },
+  //   {
+  //     title: 'projects',
+  //     count: 0
+  //   },
+  //   {
+  //     title: 'clients',
+  //     count: 0
+  //   },
+
+  // ])
+
+  const [counts, setCounts] = useState([0, 0, 0])
+
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+   
+    if(inView) {
+      setCounts([6, 100, 27]);
+    }
+
+  }, [inView]);
+  
     return (
-        <div className="experience background2 overlay_two py_60 full_row">
+        <div className="experience background2 overlay_two py_60 full_row" ref={ref}>
           <div className="container">
             <div className="row">
               <div className="col-md-12 col-lg-12">
@@ -18,7 +49,7 @@ const CountUp = () => {
                         ></span>
                         <div className="counting_digit color_default mt_15">
                           <h2 className="count-num" data-speed="3000" data-stop="7">
-                            0
+                            <CountUp end={counts[0]} duration={2} />
                           </h2>
                           <span>+</span>
                         </div>
@@ -37,7 +68,7 @@ const CountUp = () => {
                             data-speed="3000"
                             data-stop="145"
                           >
-                            0
+                            <CountUp end={counts[1]} duration={4} />
                           </h2>
                           <span>+</span>
                         </div>
@@ -56,7 +87,7 @@ const CountUp = () => {
                             data-speed="3000"
                             data-stop="137"
                           >
-                            0
+                            <CountUp end={counts[2]} duration={4} />
                           </h2>
                           <span>+</span>
                         </div>
@@ -72,4 +103,4 @@ const CountUp = () => {
     );
 };
 
-export default CountUp;
+export default ExperienceCountUp;
