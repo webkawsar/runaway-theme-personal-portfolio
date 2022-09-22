@@ -1130,7 +1130,7 @@ ul#menu li a {
   background-position: top right;
   overflow: hidden;
 }
-.owl-carousel .owl-nav button.owl-prev span,
+/* .owl-carousel .owl-nav button.owl-prev span,
 .owl-carousel .owl-nav button.owl-next span {
   font-size: 20px;
   line-height: 40px;
@@ -1138,7 +1138,43 @@ ul#menu li a {
 }
 .owl-carousel .owl-nav button.owl-prev {
   margin-right: 10px;
+} */
+
+.slick-current {
+  margin-right: 30px;
 }
+
+.cust {
+  width: 50px;
+  height: 50px;
+  line-height: 42px;
+  text-align: center;
+  border-radius: 50%;
+  border: 5px solid;
+}
+
+.slick-slider .slick-arrow {
+  background-color: #ffb32f !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  border: 5px solid;
+}
+
+.slick-slider .slick-prev {
+  position: absolute;
+  left: 45%;
+  top: 60%;
+}
+
+.slick-slider .slick-next {
+  position: absolute;
+  right: 45%;
+  top: 60%;
+}
+
 /*===============================================================================
 21.   Blog
 =================================================================================*/

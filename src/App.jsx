@@ -1,4 +1,6 @@
 import React from 'react';
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import 'venobox/dist/venobox.min.css';
 import Layout from './components/layout/Layout';
 import ScrollBottom from './components/ScrollBottom';
@@ -11,6 +13,7 @@ import Portfolio from './sections/Portfolio';
 import Services from './sections/Services';
 import Skill from './sections/Skill';
 import Testimonial from './sections/Testimonial';
+
 
 const App = () => {
   return (
