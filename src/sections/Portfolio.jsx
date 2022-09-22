@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Fade } from "react-reveal";
 
-const data = [
+const projectsData = [
   {
     image: "01.jpg",
     tag_one: "Web Development",
@@ -39,39 +39,93 @@ const data = [
     tags: ["design", "development"],
   },
 ];
+
+const menusData = [
+  {
+    id: 1,
+    name: "all",
+    isActive: true,
+    tag: 'all',
+  },
+  {
+    id: 2,
+    name: "web design",
+    isActive: false,
+    tag: 'design',
+  },
+  {
+    id: 3,
+    name: "wordpress",
+    isActive: false,
+    tag: 'wordpress',
+  },
+  {
+    id: 4,
+    name: "web development",
+    isActive: false,
+    tag: 'development',
+  },
+  {
+    id: 5,
+    name: "branding",
+    isActive: false,
+    tag: 'branding'
+  },
+];
 const Portfolio = () => {
-  const [projects, setProjects] = useState(data);
+  const [projects, setProjects] = useState(projectsData);
+  const [previousSelectedMenu, setPreviousSelectedMenu] = useState("");
+  const ref = useRef();
 
-  //   const selectedMenu = document.querySelector('[data-filter]');
-  //   useEffect(() => {
+  const [menus, setMenus] = useState(menusData);
 
-  //     console.log(selectedMenu, 'selectedMenu');
+  const handleClick = (menu) => {
+    // // add active class clicked menu
+    // e.target.classList.add("active");
 
-  //   }, [selectedMenu])
+    // // filter projects based on menu
+    // const filteredProjects = projectsData.filter((project) => {
+    //   return e.target.getAttribute("data-filter") === "all"
+    //     ? project
+    //     : project.tags.includes(e.target.getAttribute("data-filter"));
+    // });
+    // setProjects(filteredProjects);
 
-  const [previousSelectedMenu, setPreviousSelectedMenu] = useState('');
-  const handleSelectedMenu = (e) => {
+    // // remove active class from menu item all
+    // if (!previousSelectedMenu) {
+    //   const menuItemAll = document.querySelector(".filter");
+    //   menuItemAll.classList.remove("active");
+    // }
 
-    // filter projects by menu
-    const filteredProjects = data.filter((project) => {
-      
-      return e.target.getAttribute('data-filter') === 'all' ? project : project.tags.includes(e.target.getAttribute('data-filter'))
+    // // remove menu item from previous selected menu
+    // if (previousSelectedMenu) {
+    //   previousSelectedMenu.classList.remove("active");
+    // }
+
+    // setPreviousSelectedMenu(e.target);
+
+    
+
+    // add active class clicked menu
+    // e.target.classList.add("active");
+
+    
+
+    // add active and remove active from previous selected menu
+    const modifiedArr = menusData.map(singleMenu => {
+      if(singleMenu.id === menu.id) {
+        singleMenu.isActive = true;
+         return singleMenu;
+      } else {
+        singleMenu.isActive = false;
+        return singleMenu;
+      }
     });
-    setProjects(filteredProjects);
-
-    // remove active class from menu item all
-    if(!previousSelectedMenu) {
-      const menuItemAll = document.querySelector('.filter');
-      menuItemAll.classList.remove('active');
-    }
+    setMenus(modifiedArr);
     
-    // remove menu item from previous selected menu
-    if(previousSelectedMenu) {
-      previousSelectedMenu.classList.remove('active');
-    }
-    
-    setPreviousSelectedMenu(e.target);
-    e.target.classList.add('active');
+    // filtered data
+    const filteredArr = projectsData.filter(project => menu.tag === 'all' ? project : project.tags.includes(menu.tag))
+    setProjects(filteredArr);
   };
 
   return (
@@ -104,48 +158,23 @@ const Portfolio = () => {
               <div className="row">
                 <div className="col-md-12">
                   <div className="filters mb_30 w-100 text-center">
-                    <ul className="filter-tabs mx-auto d-inline-block">
-                      <li
-                        className="active filter"
-                        data-role="button"
-                        data-filter="all"
-                        onClick={(e) => handleSelectedMenu(e)}
-                      >
-                        All
-                      </li>
-
-                      <li
-                        className="filter"
-                        data-role="button"
-                        data-filter="design"
-                        onClick={(e) => handleSelectedMenu(e)}
-                      >
-                        Web Design
-                      </li>
-                      <li
-                        className="filter"
-                        data-role="button"
-                        data-filter="wordpress"
-                        onClick={(e) => handleSelectedMenu(e)}
-                      >
-                        Wordpress
-                      </li>
-                      <li
-                        className="filter"
-                        data-role="button"
-                        data-filter="development"
-                        onClick={(e) => handleSelectedMenu(e)}
-                      >
-                        Web Development
-                      </li>
-                      <li
-                        className="filter"
-                        data-role="button"
-                        data-filter="branding"
-                        onClick={(e) => handleSelectedMenu(e)}
-                      >
-                        Branding
-                      </li>
+                    <ul
+                      ref={ref}
+                      className="filter-tabs mx-auto d-inline-block"
+                    >
+                      {menus.map((menu) => {
+                        return (
+                          <li
+                            key={menu.id}
+                            className={`filter ${menu.isActive ? 'active' : ''}`}
+                            data-role="button"
+                            data-filter="all"
+                            onClick={() => handleClick(menu)}
+                          >
+                            {menu.name}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
