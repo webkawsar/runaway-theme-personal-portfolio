@@ -45,86 +45,57 @@ const menusData = [
     id: 1,
     name: "all",
     isActive: true,
-    tag: 'all',
+    tag: "all",
   },
   {
     id: 2,
     name: "web design",
     isActive: false,
-    tag: 'design',
+    tag: "design",
   },
   {
     id: 3,
     name: "wordpress",
     isActive: false,
-    tag: 'wordpress',
+    tag: "wordpress",
   },
   {
     id: 4,
     name: "web development",
     isActive: false,
-    tag: 'development',
+    tag: "development",
   },
   {
     id: 5,
     name: "branding",
     isActive: false,
-    tag: 'branding'
+    tag: "branding",
   },
 ];
 const Portfolio = () => {
   const [projects, setProjects] = useState(projectsData);
   const [previousSelectedMenu, setPreviousSelectedMenu] = useState("");
+  const [menus, setMenus] = useState(menusData);
   const ref = useRef();
 
-  const [menus, setMenus] = useState(menusData);
 
   const handleClick = (menu) => {
-    // // add active class clicked menu
-    // e.target.classList.add("active");
-
-    // // filter projects based on menu
-    // const filteredProjects = projectsData.filter((project) => {
-    //   return e.target.getAttribute("data-filter") === "all"
-    //     ? project
-    //     : project.tags.includes(e.target.getAttribute("data-filter"));
-    // });
-    // setProjects(filteredProjects);
-
-    // // remove active class from menu item all
-    // if (!previousSelectedMenu) {
-    //   const menuItemAll = document.querySelector(".filter");
-    //   menuItemAll.classList.remove("active");
-    // }
-
-    // // remove menu item from previous selected menu
-    // if (previousSelectedMenu) {
-    //   previousSelectedMenu.classList.remove("active");
-    // }
-
-    // setPreviousSelectedMenu(e.target);
-
-    
-
-    // add active class clicked menu
-    // e.target.classList.add("active");
-
-    
-
-    // add active and remove active from previous selected menu
-    const modifiedArr = menusData.map(singleMenu => {
-      if(singleMenu.id === menu.id) {
+    // add active and remove active 
+    const modifiedArr = menusData.map((singleMenu) => {
+      if (singleMenu.id === menu.id) {
         singleMenu.isActive = true;
-         return singleMenu;
+        return singleMenu;
       } else {
         singleMenu.isActive = false;
         return singleMenu;
       }
     });
     setMenus(modifiedArr);
-    
+
     // filtered data
-    const filteredArr = projectsData.filter(project => menu.tag === 'all' ? project : project.tags.includes(menu.tag))
+    const filteredArr = projectsData.filter((project) =>
+      menu.tag === "all" ? project : project.tags.includes(menu.tag)
+    );
     setProjects(filteredArr);
   };
 
@@ -166,7 +137,9 @@ const Portfolio = () => {
                         return (
                           <li
                             key={menu.id}
-                            className={`filter ${menu.isActive ? 'active' : ''}`}
+                            className={`filter ${
+                              menu.isActive ? "active" : ""
+                            }`}
                             data-role="button"
                             data-filter="all"
                             onClick={() => handleClick(menu)}
