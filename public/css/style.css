@@ -957,7 +957,7 @@ ul#menu li a {
   font-size: 24px;
 }
 .filter-list .mix {
-  display: none;
+  /* display: none; */
 }
 .gallery-section .filters {
   position: relative;
