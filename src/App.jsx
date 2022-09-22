@@ -11,6 +11,7 @@ import ExperienceCountUp from './sections/ExperienceCountUp';
 import Home from './sections/Home';
 import Portfolio from './sections/Portfolio';
 import Services from './sections/Services';
+import SimpleSlider from './sections/SimpleSlider';
 import Skill from './sections/Skill';
 import Testimonial from './sections/Testimonial';
 
@@ -32,6 +33,9 @@ const App = () => {
           <ScrollBottom />
         </>
       </Layout>
+      <div className='container'>
+        <SimpleSlider />
+      </div>
     </>
   );
 };

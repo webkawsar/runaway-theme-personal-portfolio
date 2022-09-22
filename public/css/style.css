@@ -1144,16 +1144,11 @@ ul#menu li a {
   margin-right: 30px;
 }
 
-.cust {
-  width: 50px;
-  height: 50px;
-  line-height: 42px;
-  text-align: center;
-  border-radius: 50%;
-  border: 5px solid;
+.slick-list {
+  height: 400px;
 }
 
-.slick-slider .slick-arrow {
+.testimonial_prev {
   background-color: #ffb32f !important;
   border-color: rgba(255, 255, 255, 0.3) !important;
   width: 50px;
@@ -1161,18 +1156,21 @@ ul#menu li a {
   text-align: center;
   border-radius: 50%;
   border: 5px solid;
+  cursor: pointer;
+  color: white;
+  margin-right: 12px;
 }
 
-.slick-slider .slick-prev {
-  position: absolute;
-  left: 45%;
-  top: 60%;
-}
-
-.slick-slider .slick-next {
-  position: absolute;
-  right: 45%;
-  top: 60%;
+.testimonial_next {
+  background-color: #ffb32f !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  border: 5px solid;
+  cursor: pointer;
+  color: white;
 }
 
 /*===============================================================================
