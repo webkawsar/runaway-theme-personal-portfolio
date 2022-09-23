@@ -8,8 +8,9 @@ const Footer = () => {
               <div className="col-md-12 col-lg-12">
                 <div className="copyright">
                   <p>
-                    <a href="https://www.templateshub.net" target="_blank"
-                      >Templates Hub</a
+                    Developed by {' '}
+                    <a href="https://web.facebook.com/web.kawsarahmed" target="_blank"
+                      > Kawsar Ahmed</a
                     >
                   </p>
                 </div>
