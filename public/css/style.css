@@ -1230,6 +1230,10 @@ ul#menu li a {
 /*===============================================================================
 22.   Contact
 =================================================================================*/
+
+.is-invalid:focus {
+  box-shadow: none !important;
+}
 .contact_info ul li {
   margin-bottom: 10px;
 }
@@ -1241,13 +1245,13 @@ ul#menu li a {
   padding: 5px 15px;
   font-size: 14px;
   height: calc(30px + 15px);
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border-radius: 0px;
   border: none;
   border-bottom: 1px solid;
 }
 .form-control:focus {
-  outline: 0;
+  outline: 0 !important;
   box-shadow: none;
 }
 .error-handel {

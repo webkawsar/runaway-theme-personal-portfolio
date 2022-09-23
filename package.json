@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.8",
     "react": "^18.2.0",
     "react-countup": "^6.3.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.36.0",
     "react-intersection-observer": "^9.4.0",
     "react-reveal": "^1.2.2",
     "react-router-dom": "6",
@@ -19,7 +21,8 @@
     "react-slick": "^0.29.0",
     "react-typed": "^1.2.0",
     "slick-carousel": "^1.8.1",
-    "venobox": "^2.0.4"
+    "venobox": "^2.0.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
