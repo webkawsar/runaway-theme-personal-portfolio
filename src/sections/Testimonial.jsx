@@ -50,7 +50,7 @@ const Testimonial = () => {
                 <Fade bottom>
                   <div className="member_feedback p_30 color_secondery">
                     <div className="client_img">
-                      <img src="images/testimonial/01.jpg" alt="image" />
+                      <img src="/images/testimonial/01.jpg" alt="image" />
                     </div>
                     <div className="star d-inline-block mt_30 color_default">
                       <ul>
@@ -83,7 +83,7 @@ const Testimonial = () => {
                 <Fade bottom>
                   <div className="member_feedback p_30 color_secondery">
                     <div className="client_img">
-                      <img src="images/testimonial/02.jpg" alt="image" />
+                      <img src="/images/testimonial/02.jpg" alt="image" />
                     </div>
                     <div className="star d-inline-block mt_30 color_default">
                       <ul>
@@ -116,7 +116,7 @@ const Testimonial = () => {
 
                 <div className="member_feedback p_30 color_secondery">
                   <div className="client_img">
-                    <img src="images/testimonial/03.jpg" alt="image" />
+                    <img src="/images/testimonial/03.jpg" alt="image" />
                   </div>
                   <div className="star d-inline-block mt_30 color_default">
                     <ul>
@@ -146,7 +146,7 @@ const Testimonial = () => {
                 </div>
                 <div className="member_feedback p_30 color_secondery">
                   <div className="client_img">
-                    <img src="images/testimonial/04.jpg" alt="image" />
+                    <img src="/images/testimonial/04.jpg" alt="image" />
                   </div>
                   <div className="star d-inline-block mt_30 color_default">
                     <ul>

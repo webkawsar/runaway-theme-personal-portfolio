@@ -38,7 +38,7 @@ const Header = () => {
           className="navbar navbar-expand-lg navbar-light w-100"
         >
           <Link className="navbar-brand" to="top" smooth={true}>
-            <img className="nav-logo" src="images/logo/1.png" alt="logo" />
+            <img className="nav-logo" src="/images/logo/1.png" alt="logo" />
           </Link>
           <button
             className="navbar-toggler"

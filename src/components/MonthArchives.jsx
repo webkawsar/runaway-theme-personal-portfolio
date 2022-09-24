@@ -3,9 +3,9 @@ import React from "react";
 const MonthArchives = () => {
   return (
     <>
-      <div class="widget mb_60 d-inline-block p_30 bg_white primary_link full_row wow animated slideInUp">
-        <h3 class="widget_title mb_30 text-capitalize">Archives</h3>
-        <div class="archives">
+      <div className="widget mb_60 d-inline-block p_30 bg_white primary_link full_row wow animated slideInUp">
+        <h3 className="widget_title mb_30 text-capitalize">Archives</h3>
+        <div className="archives">
           <ul>
             <li>
               <a href="#">December 2018</a>

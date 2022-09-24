@@ -3,9 +3,9 @@ import React from "react";
 const Categories = () => {
   return (
     <>
-      <div class="widget mb_60 d-inline-block p_30 primary_link bg_white full_row wow animated slideInUp">
-        <h3 class="widget_title mb_30 text-capitalize">Category</h3>
-        <div class="category_sidebar">
+      <div className="widget mb_60 d-inline-block p_30 primary_link bg_white full_row wow animated slideInUp">
+        <h3 className="widget_title mb_30 text-capitalize">Category</h3>
+        <div className="category_sidebar">
           <ul>
             <li>
               <a href="#">Web Development</a>

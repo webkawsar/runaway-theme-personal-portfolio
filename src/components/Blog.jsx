@@ -26,7 +26,7 @@ const Blog = ({ blog }) => {
               <p className="mt_15 mb_30">{description}</p>
 
               <div className="admin">
-                <img src="images/about/02.jpg" alt="image" />
+                <img src="/images/about/02.jpg" alt="image" />
                 <span className="color_white">By - {author}</span>
               </div>
               <div className="date float-right color_primary">

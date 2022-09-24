@@ -88,7 +88,7 @@ const About = () => {
             </div>
             <div className="col-md-5 col-lg-5">
               <div className="profile_img personal_video wow animated fadeInRight">
-                <img src="images/about/03.png" alt="image" />
+                <img src="/images/about/03.png" alt="image" />
                 <div className="iconround">
                   <a
                     className="venobox"

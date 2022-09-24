@@ -164,11 +164,11 @@ const Portfolio = () => {
                         >
                           <div className="default-portfolio-item">
                             <a
-                              href={`images/portfolio/${project.image}`}
+                              href={`/images/portfolio/${project.image}`}
                               data-fancybox="gallery"
                             >
                               <img
-                                src={`images/portfolio/${project.image}`}
+                                src={`/images/portfolio/${project.image}`}
                                 alt="image"
                               />
                               <div className="overlay-box">

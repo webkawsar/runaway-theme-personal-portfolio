@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const BlogIntro = () => {
+const BlogIntro = ({title}) => {
   return (
     <>
       <section className="banner background9 overlay_three full_row">
@@ -9,17 +10,17 @@ const BlogIntro = () => {
             <div className="col-md-12 col-lg-12">
               <div className="banner_text text-center">
                 <h1 className="page_banner_title color_white text-uppercase">
-                  Blog
+                  {title}
                 </h1>
                 <div className="breadcrumbs m-auto d-inline-block">
                   <ul>
                     <li className="hover_gray">
-                      <a href="index-5.html">Home</a>
+                      <Link to="/home">Home</Link>
                     </li>
                     <li>
                       <i className="fa fa-angle-right" aria-hidden="true"></i>
                     </li>
-                    <li className="color-default">Blog</li>
+                    <li className="color-default">{title}</li>
                   </ul>
                 </div>
               </div>
