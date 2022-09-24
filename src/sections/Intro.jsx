@@ -1,7 +1,7 @@
 import React from "react";
 import Typed from "react-typed";
 
-const Home = () => {
+const Intro = () => {
   const typedStrings = [
     "JS Developer.",
     "React Developer.",
@@ -55,4 +55,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Intro;

@@ -1,37 +1,24 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "venobox/dist/venobox.min.css";
-import Layout from "./components/layout/Layout";
-import ScrollBottom from "./components/ScrollBottom";
-import About from "./sections/About";
-import Blog from "./sections/Blog";
-import Contact from "./sections/Contact";
-import ExperienceCountUp from "./sections/ExperienceCountUp";
-import Home from "./sections/Home";
-import Portfolio from "./sections/Portfolio";
-import Services from "./sections/Services";
-import Skill from "./sections/Skill";
-import Testimonial from "./sections/Testimonial";
+import BlogDetails from "./pages/BlogDetails";
+import BlogPage from "./pages/BlogPage";
+import Home from "./pages/Home";
 
 
 const App = () => {
   return (
     <>
-      <Layout>
-        <>
-          <Home />
-          <About />
-          <Skill />
-          <ExperienceCountUp />
-          <Services />
-          <Portfolio />
-          <Testimonial />
-          <Blog />
-          <Contact />
-          <ScrollBottom />
-        </>
-      </Layout>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/blogs" element={<BlogPage />} />
+          <Route path="/blogs/:id" element={<BlogDetails />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

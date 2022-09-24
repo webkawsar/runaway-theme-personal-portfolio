@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Fade } from "react-reveal";
+import { Link } from "react-router-dom";
+import Blog from "../components/Blog";
 
 const blogsData = [
   {
@@ -39,7 +41,7 @@ const blogsData = [
     publishedAt: "20 Jan 2019",
   },
 ];
-const Blog = () => {
+const Blogs = () => {
   const [blogs, setBlogs] = useState(blogsData);
 
   return (
@@ -66,47 +68,12 @@ const Blog = () => {
           <div className="col-md-12 col-lg-12">
             <div className="blog_grid_1 wow animated slideInUp">
               <div className="row">
-                {blogs.map((blog) => {
-                  return (
-                    <div key={blog.id} className="col-md-12 col-lg-4">
-                      <div className="blog_item">
-                        <div className="comments">
-                          <i className="fa fa-comment" aria-hidden="true"></i>
-                          <span className="color_white">12</span>
-                        </div>
-                        <div className="blog_img overlay_one">
-                          <img src={`/images/blog/${blog.image}`} alt="image" />
-                        </div>
-                        <div className="blog_content bg_white color_secondery">
-                          <div className="blog_title">
-                            <a
-                              className="color_primary"
-                              href="blog-details.html"
-                            >
-                              <h5>{blog.title}</h5>
-                            </a>
-                          </div>
-                          <p className="mt_15 mb_30">{blog.description}</p>
-
-                          <div className="admin">
-                            <img src="images/about/02.jpg" alt="image" />
-                            <span className="color_white">
-                              By - {blog.author}
-                            </span>
-                          </div>
-                          <div className="date float-right color_primary">
-                            {blog.publishedAt}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                {blogs.map((blog) => <Blog key={blog.id} blog={blog} />)}
               </div>
               <div className="mx-auto text-center mt_60">
-                <a className="btn btn-default" href="/blog.html">
+                <Link className="btn btn-default" to="/blogs">
                   View Blog
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -116,4 +83,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Blogs;
