@@ -2,17 +2,17 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import BlogSidebar from "./BlogSidebar";
+import CategorySideBar from "./CategorySideBar";
 
 const blogsData = [
   {
     id: 1,
     title: `Convallis pulvinar morbi. Aenean nisi vitae metus
-      nonummy a morbi.`,
+        nonummy a morbi.`,
     description: `Dictumst integer sollicitudin venenatis ornare quam.
-      Ligula integer luctus, blandit egestas molestie facilisi
-      porttitor neque sodal luctus senectus lacinia euismod
-      adipiscing element turpis dolor curae; posuere augue.`,
+        Ligula integer luctus, blandit egestas molestie facilisi
+        porttitor neque sodal luctus senectus lacinia euismod
+        adipiscing element turpis dolor curae; posuere augue.`,
     image: "01.jpg",
     author: "Rockstar Jack",
     publishedAt: "20 Jan 2019",
@@ -20,11 +20,11 @@ const blogsData = [
   {
     id: 2,
     title: `Ornare fames imperdiet sapien. Iaculis dictum aptent
-      commodo at iaculis.`,
+        commodo at iaculis.`,
     description: `Dictumst integer sollicitudin venenatis ornare quam.
-      Ligula integer luctus, blandit egestas molestie facilisi
-      porttitor neque sodal luctus senectus lacinia euismod
-      adipiscing element turpis dolor curae; posuere augue.`,
+        Ligula integer luctus, blandit egestas molestie facilisi
+        porttitor neque sodal luctus senectus lacinia euismod
+        adipiscing element turpis dolor curae; posuere augue.`,
     image: "02.jpg",
     author: "Rockstar Jack",
     publishedAt: "20 Jan 2019",
@@ -32,19 +32,19 @@ const blogsData = [
   {
     id: 3,
     title: `Vulputate donec sem purus litora varius auctor augue
-      suscipit hac.`,
+        suscipit hac.`,
     description: `Dictumst integer sollicitudin venenatis ornare quam.
-      Ligula integer luctus, blandit egestas molestie facilisi
-      porttitor neque sodal luctus senectus lacinia euismod
-      adipiscing element turpis dolor curae; posuere augue.`,
+        Ligula integer luctus, blandit egestas molestie facilisi
+        porttitor neque sodal luctus senectus lacinia euismod
+        adipiscing element turpis dolor curae; posuere augue.`,
     image: "03.jpg",
     author: "Rockstar Jack",
     publishedAt: "20 Jan 2019",
   },
 ];
 
-const BlogContents = () => {
-  const [blogs, setBlogs] = useState([]);
+const CategoryContents = () => {
+  const [blogs, setBlogs] = useState(blogsData);
 
   useEffect(() => {
     fetchBlogsData();
@@ -62,7 +62,6 @@ const BlogContents = () => {
       console.log(error, "error");
     }
   };
-
 
   return (
     <>
@@ -111,10 +110,11 @@ const BlogContents = () => {
                           </span>
                         </div>
                         <div className="date float-right color_primary">
-                          {
-                            blog?.attributes?.publishedAt && format(new Date(blog?.attributes?.publishedAt), 'd MMM yyyy')
-                          }
-                          
+                          {blog?.attributes?.publishedAt &&
+                            format(
+                              new Date(blog?.attributes?.publishedAt),
+                              "d MMM yyyy"
+                            )}
                         </div>
                       </div>
                     </div>
@@ -146,7 +146,7 @@ const BlogContents = () => {
                 </ul>
               </nav>
             </div>
-            <BlogSidebar />
+            <CategorySideBar />
           </div>
         </div>
       </section>
@@ -154,4 +154,4 @@ const BlogContents = () => {
   );
 };
 
-export default BlogContents;
+export default CategoryContents;
