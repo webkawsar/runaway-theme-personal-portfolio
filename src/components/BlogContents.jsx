@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import BlogSidebar from "./BlogSidebar";
@@ -45,6 +45,26 @@ const blogsData = [
 const BlogContents = () => {
   const [blogs, setBlogs] = useState(blogsData);
 
+  useEffect(() => {
+
+    fetchBlogsData();
+    
+  }, [])
+
+  const fetchBlogsData = async () => {
+    try {
+
+      const response = await fetch('http://localhost:1337/api/posts?populate=*');
+      const data = await response.json();
+      // console.log(data.data, 'data');
+      setBlogs(data.data);
+      
+    } catch (error) {
+      
+      console.log(error, 'error');
+    }
+  }
+
   return (
     <>
       <section className="blog_area py_80 bg_secondery full_row">
@@ -64,7 +84,7 @@ const BlogContents = () => {
                       </div>
                       <div className="blog_img overlay_one">
                         <img
-                          src={`/images/blog/${blog.image}`}
+                          src={`${blog?.attributes?.image?.data?.attributes?.formats?.large?.url}`}
                           alt="Blog Image"
                         />
                       </div>
@@ -74,19 +94,19 @@ const BlogContents = () => {
                             className="color_primary"
                             to={`/blogs/${blog.id}`}
                           >
-                            <h5>{blog.title}</h5>
+                            <h5>{blog?.attributes?.title}</h5>
                           </Link>
                         </div>
-                        <p className="mt_15 mb_30">{blog.description}</p>
+                        <p className="mt_15 mb_30">{blog?.attributes?.description}</p>
 
                         <div className="admin">
                           <img src="/images/about/02.jpg" alt="image" />
                           <span className="color_white">
-                            By - {blog.author}
+                            By - {blog?.attributes?.author?.data?.attributes?.username}
                           </span>
                         </div>
                         <div className="date float-right color_primary">
-                          {blog.publishedAt}
+                          {blog?.attributes?.publishedAt}
                         </div>
                       </div>
                     </div>

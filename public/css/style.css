@@ -1559,18 +1559,22 @@ blockquote {
   padding-left: 30px;
   font-style: italic;
 }
-.author_img {
-  float: left;
+
+.comment_description {
+  display: flex;
 }
+
 .author_img > img {
   width: 70px;
 }
 .author_text {
   padding-left: 30px;
-  display: table;
+  width: 100%;
 }
 .author_info {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 .author_name {
   display: inline-block;
@@ -1578,7 +1582,6 @@ blockquote {
   font-weight: 400;
 }
 .author_info span {
-  float: right;
   font-style: italic;
   font-size: 14px;
   font-weight: 400;
@@ -1586,6 +1589,7 @@ blockquote {
 .replied {
   margin-left: 100px;
 }
+
 /*============================================================================
  29.  Template Default Animation Css
  =============================================================================*/

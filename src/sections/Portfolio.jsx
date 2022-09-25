@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Fade } from "react-reveal";
 
 const projectsData = [
@@ -76,7 +76,6 @@ const Portfolio = () => {
   const [projects, setProjects] = useState(projectsData);
   const [previousSelectedMenu, setPreviousSelectedMenu] = useState("");
   const [menus, setMenus] = useState(menusData);
-  const ref = useRef();
 
 
   const handleClick = (menu) => {
@@ -130,7 +129,6 @@ const Portfolio = () => {
                 <div className="col-md-12">
                   <div className="filters mb_30 w-100 text-center">
                     <ul
-                      ref={ref}
                       className="filter-tabs mx-auto d-inline-block"
                     >
                       {menus.map((menu) => {
