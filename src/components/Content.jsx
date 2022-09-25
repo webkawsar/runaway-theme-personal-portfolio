@@ -9,6 +9,7 @@ const Content = () => {
   const { blogId } = useParams();
   const [loaded, setLoaded] = useState(false);
   const [blog, setBlog] = useState({});
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +24,12 @@ const Content = () => {
           `http://localhost:1337/api/posts/${blogId}?${query}`
         );
         const data = await response.json();
-        console.log(data.data, "data");
+        // console.log(data?.data?.attributes?.comments?.data, "data");
+        
         setBlog(data.data);
+        setComments(data?.data?.attributes?.comments?.data);
         setLoaded(true);
+        
       } catch (error) {
         console.log(error, "error");
       }
@@ -33,7 +37,11 @@ const Content = () => {
     fetchData();
   }, [blogId]);
 
-  
+  const handleAddComment = (newComment) => {
+
+    setComments([...comments, newComment]);
+  }
+
 
   return (
     <>
@@ -135,10 +143,10 @@ const Content = () => {
                     </div>
                   </div>
                   {
-                    blog?.attributes?.comments?.data && <Comments comments={blog?.attributes?.comments?.data} />
+                    comments && <Comments comments={comments} />
                   }
 
-                  <AddComment />
+                  <AddComment postId={blog?.id} handleAddComment={handleAddComment} />
                 </div>
               </div>
               <BlogSidebar />
