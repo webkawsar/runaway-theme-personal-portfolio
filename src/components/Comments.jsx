@@ -59,7 +59,7 @@ const Comments = ({ comments }) => {
               <li key={comment.id} className="mb_20 wow animated slideInUp">
                 <div className="comment_description bg_white p_20">
                   <div className="author_img">
-                    <img src="/images/comments/03.png" alt="images" />
+                    <img src="https://res.cloudinary.com/dqu7xtx64/image/upload/v1664089025/user_avatar_9871a28f94.png?updated_at=2022-09-25T06:57:07.024Z" alt="images" />
                   </div>
                   <div className="author_text">
                     <div className="author_info">
