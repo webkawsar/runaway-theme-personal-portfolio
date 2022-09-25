@@ -1,68 +1,16 @@
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { BlogContext } from "../context/Blog.context";
 import BlogSidebar from "./BlogSidebar";
 
-const blogsData = [
-  {
-    id: 1,
-    title: `Convallis pulvinar morbi. Aenean nisi vitae metus
-      nonummy a morbi.`,
-    description: `Dictumst integer sollicitudin venenatis ornare quam.
-      Ligula integer luctus, blandit egestas molestie facilisi
-      porttitor neque sodal luctus senectus lacinia euismod
-      adipiscing element turpis dolor curae; posuere augue.`,
-    image: "01.jpg",
-    author: "Rockstar Jack",
-    publishedAt: "20 Jan 2019",
-  },
-  {
-    id: 2,
-    title: `Ornare fames imperdiet sapien. Iaculis dictum aptent
-      commodo at iaculis.`,
-    description: `Dictumst integer sollicitudin venenatis ornare quam.
-      Ligula integer luctus, blandit egestas molestie facilisi
-      porttitor neque sodal luctus senectus lacinia euismod
-      adipiscing element turpis dolor curae; posuere augue.`,
-    image: "02.jpg",
-    author: "Rockstar Jack",
-    publishedAt: "20 Jan 2019",
-  },
-  {
-    id: 3,
-    title: `Vulputate donec sem purus litora varius auctor augue
-      suscipit hac.`,
-    description: `Dictumst integer sollicitudin venenatis ornare quam.
-      Ligula integer luctus, blandit egestas molestie facilisi
-      porttitor neque sodal luctus senectus lacinia euismod
-      adipiscing element turpis dolor curae; posuere augue.`,
-    image: "03.jpg",
-    author: "Rockstar Jack",
-    publishedAt: "20 Jan 2019",
-  },
-];
+
+
+
 
 const BlogContents = () => {
-  const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    fetchBlogsData();
-  }, []);
-
-  const fetchBlogsData = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:1337/api/posts?populate=*"
-      );
-      const data = await response.json();
-      // console.log(data.data, '/posts api loaded');
-      setBlogs(data.data);
-    } catch (error) {
-      console.log(error, "error");
-    }
-  };
-
+  const {loaded, blogs} = useContext(BlogContext);
 
   return (
     <>
@@ -79,11 +27,11 @@ const BlogContents = () => {
                     >
                       <div className="comments">
                         <FaComment />
-                        <span className="color_white">180</span>
+                        <span className="color_white">{blog?.comments?.length}</span>
                       </div>
                       <div className="blog_img overlay_one">
                         <img
-                          src={`${blog?.attributes?.image?.data?.attributes?.formats?.large?.url}`}
+                          src={`${blog?.image?.formats?.large?.url}`}
                           alt="Blog Image"
                         />
                       </div>
@@ -93,11 +41,11 @@ const BlogContents = () => {
                             className="color_primary"
                             to={`/blogs/${blog.id}`}
                           >
-                            <h5>{blog?.attributes?.title}</h5>
+                            <h5>{blog?.title}</h5>
                           </Link>
                         </div>
                         <p className="mt_15 mb_30">
-                          {blog?.attributes?.description}
+                          {blog?.description}
                         </p>
 
                         <div className="admin">
@@ -105,14 +53,13 @@ const BlogContents = () => {
                           <span className="color_white">
                             By -{" "}
                             {
-                              blog?.attributes?.author?.data?.attributes
-                                ?.username
+                              blog?.author?.username
                             }
                           </span>
                         </div>
                         <div className="date float-right color_primary">
                           {
-                            blog?.attributes?.publishedAt && format(new Date(blog?.attributes?.publishedAt), 'd MMM yyyy')
+                            blog?.publishedAt && format(new Date(blog?.publishedAt), 'd MMM yyyy')
                           }
                           
                         </div>

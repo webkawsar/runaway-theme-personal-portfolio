@@ -21,7 +21,7 @@ const TagsArchives = () => {
 
       const response = await fetch(`http://localhost:1337/api/tags?${query}`);
       const data = await response.json();
-      console.log(data?.data, "tags data");
+      // console.log(data?.data, "tags data");
       setTags(data.data);
     } catch (error) {
       console.log(error, "error");
