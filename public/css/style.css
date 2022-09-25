@@ -1500,6 +1500,10 @@ nav ul li.page-item {
 /*===============================================================================
 27.  Blog Sidebar
 =================================================================================*/
+.category {
+  text-transform: capitalize;
+}
+
 .widget .socal_media ul li {
   float: left;
   margin-right: 7px;

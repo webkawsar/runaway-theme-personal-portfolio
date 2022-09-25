@@ -1,32 +1,53 @@
-import React from "react";
+import qs from "qs";
+import React, { useEffect, useState } from "react";
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const query = qs.stringify(
+        {
+          populate: "*",
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
+
+      const response = await fetch(
+        `http://localhost:1337/api/categories?${query}`
+      );
+      const data = await response.json();
+      // console.log(data?.data, "data");
+      setCategories(data.data);
+
+      // setBlog(data.data);
+      // setComments(data?.data?.attributes?.comments?.data);
+      // setLoaded(true);
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+
   return (
     <>
       <div className="widget mb_60 d-inline-block p_30 primary_link bg_white full_row wow animated slideInUp">
         <h3 className="widget_title mb_30 text-capitalize">Category</h3>
         <div className="category_sidebar">
           <ul>
-            <li>
-              <a href="#">Web Development</a>
-              <span>(14)</span>
-            </li>
-            <li>
-              <a href="#">Web Design</a>
-              <span>(07)</span>
-            </li>
-            <li>
-              <a href="#">Graphic Design</a>
-              <span>(10)</span>
-            </li>
-            <li>
-              <a href="#">UI/UX Design</a>
-              <span>(12)</span>
-            </li>
-            <li>
-              <a href="#">Consultation</a>
-              <span>(18)</span>
-            </li>
+            {categories.map((category) => {
+              return (
+                <li key={category?.id} className="category">
+                  <a href="#">{category?.attributes?.categoryName}</a>
+                  <span>({category?.attributes?.posts?.data?.length})</span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
