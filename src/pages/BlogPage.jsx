@@ -6,7 +6,7 @@ import ScrollBottom from "../components/ScrollBottom";
 
 
 const BlogPage = () => {
-  
+  // useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <>

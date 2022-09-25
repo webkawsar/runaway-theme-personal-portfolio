@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -46,24 +47,22 @@ const BlogContents = () => {
   const [blogs, setBlogs] = useState(blogsData);
 
   useEffect(() => {
-
     fetchBlogsData();
-    
-  }, [])
+  }, []);
 
   const fetchBlogsData = async () => {
     try {
-
-      const response = await fetch('http://localhost:1337/api/posts?populate=*');
+      const response = await fetch(
+        "http://localhost:1337/api/posts?populate=*"
+      );
       const data = await response.json();
-      // console.log(data.data, 'data');
+      // console.log(data.data, '/posts api loaded');
       setBlogs(data.data);
-      
     } catch (error) {
-      
-      console.log(error, 'error');
+      console.log(error, "error");
     }
-  }
+  };
+
 
   return (
     <>
@@ -97,16 +96,25 @@ const BlogContents = () => {
                             <h5>{blog?.attributes?.title}</h5>
                           </Link>
                         </div>
-                        <p className="mt_15 mb_30">{blog?.attributes?.description}</p>
+                        <p className="mt_15 mb_30">
+                          {blog?.attributes?.description}
+                        </p>
 
                         <div className="admin">
                           <img src="/images/about/02.jpg" alt="image" />
                           <span className="color_white">
-                            By - {blog?.attributes?.author?.data?.attributes?.username}
+                            By -{" "}
+                            {
+                              blog?.attributes?.author?.data?.attributes
+                                ?.username
+                            }
                           </span>
                         </div>
                         <div className="date float-right color_primary">
-                          {blog?.attributes?.publishedAt}
+                          {
+                            blog?.attributes?.publishedAt && format(new Date(blog?.attributes?.publishedAt), 'd MMM yyyy')
+                          }
+                          
                         </div>
                       </div>
                     </div>

@@ -89,9 +89,9 @@ const About = () => {
             <div className="col-md-5 col-lg-5">
               <div className="profile_img personal_video wow animated fadeInRight">
                 <img src="/images/about/03.png" alt="image" />
-                <div className="iconround">
+                <div className="iconround ">
                   <a
-                    className="venobox"
+                    className="venobox round_shape"
                     href="https://www.youtube.com/watch?v=x1dnE0GzKVA&t=8s"
                     title="video popup"
                     data-vbtype="video"

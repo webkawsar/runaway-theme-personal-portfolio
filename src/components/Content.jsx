@@ -24,6 +24,7 @@ const Content = () => {
           `http://localhost:1337/api/posts/${blogId}?${query}`
         );
         const data = await response.json();
+        // console.log(data.data, '/posts/id api is loaded');
         // console.log(data?.data?.attributes?.comments?.data, "data");
         
         setBlog(data.data);
