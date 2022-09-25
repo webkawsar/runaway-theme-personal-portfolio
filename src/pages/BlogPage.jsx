@@ -4,13 +4,13 @@ import BlogIntro from "../components/BlogIntro";
 import Layout from "../components/layout/Layout";
 import ScrollBottom from "../components/ScrollBottom";
 
-
 const BlogPage = () => {
   // useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <>
       <Layout>
+        {/* <ScrollRestoration /> */}
         <ScrollBottom />
         <BlogIntro title='Blog' />
         <BlogContents />
