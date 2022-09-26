@@ -24,7 +24,7 @@ export const BlogProvider = ({ children }) => {
   const [categoryBlogLoaded, setCategoryBlogLoaded] = useState(false);
 
   const [tags, setTags] = useState([]);
-  const [tagsLoaded, setTagsLoaded] = useState(false);
+  const [loadedTags, setLoadedTags] = useState(false);
 
   useEffect(() => {
 
@@ -56,7 +56,9 @@ export const BlogProvider = ({ children }) => {
 
       setBlogs(formattedBlogs);
       setLoadedBlogs(true);
+
     } catch (error) {
+      
       console.log(error, "loadBlogs error");
       setLoadedBlogs(true);
     }
@@ -165,12 +167,12 @@ export const BlogProvider = ({ children }) => {
       const response = await axios.get(`/tags?${query}`);
       
       setTags(response?.data?.data);
-      setTagsLoaded(true);
+      setLoadedTags(true);
 
     } catch (error) {
       
       console.log(error, "fetchTags error");
-      setTagsLoaded(true);
+      setLoadedTags(true);
     }
   };
 
@@ -188,7 +190,7 @@ export const BlogProvider = ({ children }) => {
     categoryBlogLoaded,
     categoryBlog,
     tags,
-    tagsLoaded
+    loadedTags
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

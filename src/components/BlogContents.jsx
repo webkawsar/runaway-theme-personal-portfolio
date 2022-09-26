@@ -17,8 +17,7 @@ const BlogContents = () => {
             <div className="row">
               <div className="col-md-7 col-lg-8">
                 <div className="blog_list mb_60">
-                  {
-                    blogs.length ?
+                  {blogs.length ? (
                     blogs.map((blog) => {
                       return (
                         <div
@@ -51,7 +50,7 @@ const BlogContents = () => {
                               </Link>
                             </div>
                             <p className="mt_15 mb_30">{blog?.description}</p>
-  
+
                             <div className="admin">
                               <img src="/images/about/02.jpg" alt="image" />
                               <span className="color_white">
@@ -60,18 +59,20 @@ const BlogContents = () => {
                             </div>
                             <div className="date float-right color_primary">
                               {blog?.publishedAt &&
-                                format(new Date(blog?.publishedAt), "d MMM yyyy")}
+                                format(
+                                  new Date(blog?.publishedAt),
+                                  "d MMM yyyy"
+                                )}
                             </div>
                           </div>
                         </div>
                       );
                     })
-
-                    :
-                    <div style={{color: 'red', textAlign: 'center'}}>
+                  ) : (
+                    <div style={{ color: "red", textAlign: "center" }}>
                       <h2>Post is not available to show</h2>
                     </div>
-                  }
+                  )}
                 </div>
                 <nav>
                   <ul className="pagination wow animated slideInUp full_row">
