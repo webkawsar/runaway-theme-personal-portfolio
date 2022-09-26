@@ -10,7 +10,7 @@ export const BlogContext = createContext();
 export const BlogProvider = ({ children }) => {
   // const [blogs, dispatch] = useReducer(blogReducer, []);
   const [blogs, setBlogs] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+  const [loadedBlogs, setLoadedBlogs] = useState(false);
   const navigate = useNavigate();
 
   const [blog, setBlog] = useState({});
@@ -49,10 +49,10 @@ export const BlogProvider = ({ children }) => {
       });
 
       setBlogs(formattedBlogs);
-      setLoaded(true);
+      setLoadedBlogs(true);
     } catch (error) {
       console.log(error, "loadBlogs error");
-      setLoaded(true);
+      setLoadedBlogs(true);
     }
   };
 
@@ -148,7 +148,7 @@ export const BlogProvider = ({ children }) => {
 
 
   const value = {
-    loaded,
+    loadedBlogs,
     blogs,
     fetchBlog,
     blog,
