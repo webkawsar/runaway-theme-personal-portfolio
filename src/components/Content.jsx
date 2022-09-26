@@ -53,7 +53,7 @@ const Content = () => {
               <div className="col-md-8 col-lg-8">
                 <div className="blog_details">
                   <div className="blog_img overlay_one wow animated slideInUp">
-                    <img src={`${blog?.attributes?.image?.data?.attributes?.formats?.large?.url}`} alt="image" />
+                    <img src={`${blog?.attributes?.image?.data?.attributes?.formats?.large?.url ? blog?.attributes?.image?.data?.attributes?.formats?.large?.url : blog?.attributes?.image?.data?.attributes?.formats?.thumbnail?.url}`} alt="image" />
                   </div>
                   <div className="blog_content bg_white">
                     <div className="blog_title mb_20 color_primary">
