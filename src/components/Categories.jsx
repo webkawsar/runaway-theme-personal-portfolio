@@ -27,7 +27,7 @@ const Categories = () => {
               </ul>
             ) : (
               <div style={{ color: "red", textAlign: "center" }}>
-                <h2>Categories is not available to show</h2>
+                <h4>Categories is not available to show</h4>
               </div>
             )}
           </div>

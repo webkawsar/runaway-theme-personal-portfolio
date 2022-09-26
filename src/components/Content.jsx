@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
@@ -13,10 +14,6 @@ const Content = () => {
   useEffect(() => {
     fetchBlog(blogId);
   }, [blogId]);
-
-  const handleAddComment = (newComment) => {
-    // setComments([...comments, newComment]);
-  };
 
   return (
     <>
@@ -52,7 +49,8 @@ const Content = () => {
                         </span>
                       </div>
                       <div className="date color_primary float-left">
-                        {blog?.attributes?.publishedAt}
+                        
+                        {blog?.attributes?.publishedAt &&  format(new Date(blog?.attributes?.publishedAt), "d MMM yyyy")}
                       </div>
                       <div className="comments">
                         <i className="fa fa-comment" aria-hidden="true"></i>
@@ -135,10 +133,7 @@ const Content = () => {
                     </div>
                     {comments && <Comments comments={comments} />}
 
-                    <AddComment
-                      postId={blog?.id}
-                      handleAddComment={handleAddComment}
-                    />
+                    <AddComment postId={blog?.id} />
                   </div>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>

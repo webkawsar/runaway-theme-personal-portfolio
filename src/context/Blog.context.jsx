@@ -8,7 +8,6 @@ export const BlogContext = createContext();
 
 // create a provider
 export const BlogProvider = ({ children }) => {
-  
   const [blogs, setBlogs] = useState([]);
   const [blogsLoaded, setBlogsLoaded] = useState(false);
   const navigate = useNavigate();
@@ -27,11 +26,9 @@ export const BlogProvider = ({ children }) => {
   const [tagsLoaded, setTagsLoaded] = useState(false);
 
   useEffect(() => {
-
     loadBlogs();
     fetchCategories();
     fetchTags();
-    
   }, []);
 
   const loadBlogs = async () => {
@@ -56,9 +53,7 @@ export const BlogProvider = ({ children }) => {
 
       setBlogs(formattedBlogs);
       setBlogsLoaded(true);
-
     } catch (error) {
-      
       console.log(error, "loadBlogs error");
       setBlogsLoaded(true);
     }
@@ -66,27 +61,39 @@ export const BlogProvider = ({ children }) => {
 
   const fetchBlog = async (blogId) => {
     try {
-
-      const query = qs.stringify({
-        populate: ['image', 'author', 'comments', 'comments.user'],
-      }, {
-        encodeValuesOnly: true, // prettify URL
-      });
-      const response = await fetch(
-        `http://localhost:1337/api/posts/${blogId}?${query}`
+      const query = qs.stringify(
+        {
+          populate: ["image", "author", "comments", "comments.user"],
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
       );
-      const data = await response.json();
-   
-      setBlog(data.data);
-      setComments(data?.data?.attributes?.comments?.data);
+      const response = await axios.get(`/posts/${blogId}?${query}`);
+
+      setBlog(response?.data?.data);
+      setComments(response?.data?.data?.attributes?.comments?.data);
       setBlogLoaded(true);
-      
+
     } catch (error) {
       console.log(error, "error");
       setBlogLoaded(true);
     }
   };
-  
+
+  const createNewComment = async (newComment) => {
+    try {
+      const response = await axios.post("/comments?populate=*", {
+        data: newComment
+      });
+   
+      // console.log(response?.data?.data, "response");
+      setComments([...comments, response?.data?.data]);
+
+    } catch (error) {
+      console.log(error, "createNewComment error");
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -100,10 +107,9 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/categories?${query}`);
-      // console.log(response?.data?.data, 'response');
       setCategories(response?.data?.data);
       setCategoryLoaded(true);
-      
+
     } catch (error) {
       
       console.log(error, "fetchCategories error");
@@ -112,11 +118,10 @@ export const BlogProvider = ({ children }) => {
   };
 
   const fetchBlogByCategoryID = async (id) => {
-
     try {
       const query = qs.stringify(
         {
-          populate: ['posts', 'posts.image', 'posts.author', 'posts.comments']
+          populate: ["posts", "posts.image", "posts.author", "posts.comments"],
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -125,33 +130,31 @@ export const BlogProvider = ({ children }) => {
 
       const response = await axios.get(`/categories/${id}?${query}`);
 
-      const formattedData = response?.data?.data?.attributes?.posts?.data?.map((blog) => {
-        const { author, comments, image, likes, tag, ...restData } =
-          blog.attributes;
-        return {
-          id: blog.id,
-          author: {
-            id: author?.data?.id,
-            ...author?.data?.attributes,
-          },
-          comments: comments?.data,
-          image: image?.data?.attributes,
-          ...restData,
-        };
-      });
+      const formattedData = response?.data?.data?.attributes?.posts?.data?.map(
+        (blog) => {
+          const { author, comments, image, likes, tag, ...restData } =
+            blog.attributes;
+          return {
+            id: blog.id,
+            author: {
+              id: author?.data?.id,
+              ...author?.data?.attributes,
+            },
+            comments: comments?.data,
+            image: image?.data?.attributes,
+            ...restData,
+          };
+        }
+      );
       setCategoryBlog(formattedData);
       setCategoryBlogLoaded(true);
-      
-      // console.log(formattedData, 'formattedData');
-      // console.log(response?.data?.data?.attributes?.posts?.data, 'fetchBlogByCategoryID response');
-      // console.log(response?.data?.data, 'response?.data?');
-      
+
     } catch (error) {
-      setCategoryBlogLoaded(true);
-      console.log(error, "fetchBlogByCategoryID error");
       
+      console.log(error, "fetchBlogByCategoryID error");
+      setCategoryBlogLoaded(true);
     }
-  }
+  };
 
   const fetchTags = async () => {
     try {
@@ -165,7 +168,7 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/tags?${query}`);
-      
+
       setTags(response?.data?.data);
       setTagsLoaded(true);
 
@@ -176,7 +179,6 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
-
   const value = {
     blogsLoaded,
     blogs,
@@ -184,15 +186,14 @@ export const BlogProvider = ({ children }) => {
     blog,
     comments,
     fetchBlog,
-    
+    createNewComment,
     categoryLoaded,
     categories,
     fetchBlogByCategoryID,
     categoryBlogLoaded,
     categoryBlog,
-    
     tags,
-    tagsLoaded
+    tagsLoaded,
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React from "react";
 
 const Comments = ({ comments }) => {
@@ -66,7 +67,9 @@ const Comments = ({ comments }) => {
                       <h5 className="author_name color_primary">
                         {comment?.attributes?.name}
                       </h5>
-                      <span>{comment?.attributes?.publishedAt}</span>
+                      <span>
+                        { comment?.attributes?.publishedAt && format(new Date(comment?.attributes?.publishedAt), "d MMM yyyy")}
+                      </span>
                     </div>
                     <div>
                       <p>{comment?.attributes?.text}</p>

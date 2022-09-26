@@ -23,7 +23,7 @@ const TagsArchives = () => {
               </ul>
             ) : (
               <div style={{ color: "red", textAlign: "center" }}>
-                <h2>Tags is not available to show</h2>
+                <h4>Tags is not available to show</h4>
               </div>
             )}
           </div>

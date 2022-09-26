@@ -1,7 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { BlogContext } from "../context/Blog.context";
 
 const schema = yup
   .object({
@@ -11,7 +12,9 @@ const schema = yup
   })
   .required();
 
-const AddComment = ({postId, handleAddComment}) => {
+const AddComment = ({ postId }) => {
+  const { createNewComment } = useContext(BlogContext);
+
   const {
     register,
     handleSubmit,
@@ -22,27 +25,10 @@ const AddComment = ({postId, handleAddComment}) => {
   });
 
   const onSubmit = async (data) => {
-    const modifiedData = {...data, post: postId};
+    const modifiedData = { ...data, post: postId };
     // console.log(modifiedData, 'modifiedData');
-    
-    try {
-      const response = await fetch(
-        "http://localhost:1337/api/comments?populate=*",
-        {
-          method: "POST",
-          body: JSON.stringify({data: modifiedData}),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }
-      );
-      const resData = await response.json();
-      handleAddComment(resData.data);
 
-      console.log(resData, 'resData');
-    } catch (error) {
-      console.log(error, 'error');
-    }
+    createNewComment(modifiedData);
   };
   return (
     <>
