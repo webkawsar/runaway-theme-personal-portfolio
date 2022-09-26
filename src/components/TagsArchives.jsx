@@ -3,11 +3,11 @@ import { BlogContext } from "../context/Blog.context";
 import Loader from "./Loader";
 
 const TagsArchives = () => {
-  const { loadedTags, tags } = useContext(BlogContext);
+  const { tagsLoaded, tags } = useContext(BlogContext);
 
   return (
     <>
-      {loadedTags ? (
+      {tagsLoaded ? (
         <div className="widget mb_60 d-inline-block p_30 bg_white full_row wow animated slideInUp">
           <h3 className="widget_title mb_30 text-capitalize">Archives</h3>
           <div className="tags">

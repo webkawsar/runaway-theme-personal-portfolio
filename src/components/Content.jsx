@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { BlogContext } from '../context/Blog.context';
+import { BlogContext } from "../context/Blog.context";
 import AddComment from "./AddComment";
 import BlogSidebar from "./BlogSidebar";
 import Comments from "./Comments";
@@ -8,32 +8,37 @@ import Loader from "./Loader";
 
 const Content = () => {
   const { blogId } = useParams();
-  const {blogLoaded, comments, blog, fetchBlog} = useContext(BlogContext);
-
+  const { blogLoaded, blog, comments, fetchBlog } = useContext(BlogContext);
 
   useEffect(() => {
-
     fetchBlog(blogId);
-
   }, [blogId]);
 
   const handleAddComment = (newComment) => {
-
     // setComments([...comments, newComment]);
-  }
-
+  };
 
   return (
     <>
-      {
-        blogLoaded ? (
-          <section className="blog_area py_80 bg_secondery full_row">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-8 col-lg-8">
+      {blogLoaded ? (
+        <section className="blog_area py_80 bg_secondery full_row">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-8 col-lg-8">
+                {blog ? (
                   <div className="blog_details">
                     <div className="blog_img overlay_one wow animated slideInUp">
-                      <img src={`${blog?.attributes?.image?.data?.attributes?.formats?.large?.url ? blog?.attributes?.image?.data?.attributes?.formats?.large?.url : blog?.attributes?.image?.data?.attributes?.formats?.thumbnail?.url}`} alt="image" />
+                      <img
+                        src={`${
+                          blog?.attributes?.image?.data?.attributes?.formats
+                            ?.large?.url
+                            ? blog?.attributes?.image?.data?.attributes?.formats
+                                ?.large?.url
+                            : blog?.attributes?.image?.data?.attributes?.formats
+                                ?.thumbnail?.url
+                        }`}
+                        alt="image"
+                      />
                     </div>
                     <div className="blog_content bg_white">
                       <div className="blog_title mb_20 color_primary">
@@ -41,14 +46,19 @@ const Content = () => {
                       </div>
                       <div className="admin">
                         <img src="/images/about/02.jpg" alt="image" />
-                        <span className="color_primary">By - {blog?.attributes?.author?.data?.attributes?.username}</span>
+                        <span className="color_primary">
+                          By -{" "}
+                          {blog?.attributes?.author?.data?.attributes?.username}
+                        </span>
                       </div>
                       <div className="date color_primary float-left">
-                      {blog?.attributes?.publishedAt}
+                        {blog?.attributes?.publishedAt}
                       </div>
                       <div className="comments">
                         <i className="fa fa-comment" aria-hidden="true"></i>
-                        <span className="color_primary">{blog?.attributes?.comments?.data?.length}</span>
+                        <span className="color_primary">
+                          {blog?.attributes?.comments?.data?.length}
+                        </span>
                       </div>
                       <div className="single_blog_content d-inline-block mt_30 color_secondery wow animated slideInUp">
                         <p>{blog?.attributes?.description}</p>
@@ -123,21 +133,26 @@ const Content = () => {
                         </div>
                       </div>
                     </div>
-                    {
-                      comments && <Comments comments={comments} />
-                    }
+                    {comments && <Comments comments={comments} />}
 
-                    <AddComment postId={blog?.id} handleAddComment={handleAddComment} />
+                    <AddComment
+                      postId={blog?.id}
+                      handleAddComment={handleAddComment}
+                    />
                   </div>
-                </div>
-                <BlogSidebar />
+                ) : (
+                  <div style={{ color: "red", textAlign: "center" }}>
+                    <h2>Blog is not available to show</h2>
+                  </div>
+                )}
               </div>
+              <BlogSidebar />
             </div>
-          </section>
-        ) : 
-
-        <Loader color='#36d7b7' />
-      }
+          </div>
+        </section>
+      ) : (
+        <Loader color="#36d7b7" />
+      )}
     </>
   );
 };

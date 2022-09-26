@@ -7,11 +7,11 @@ import BlogSidebar from "./BlogSidebar";
 import Loader from "./Loader";
 
 const BlogContents = () => {
-  const { loadedBlogs, blogs } = useContext(BlogContext);
+  const { blogsLoaded, blogs } = useContext(BlogContext);
 
   return (
     <>
-      {loadedBlogs ? (
+      {blogsLoaded ? (
         <section className="blog_area py_80 bg_secondery full_row">
           <div className="container">
             <div className="row">

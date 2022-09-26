@@ -8,9 +8,9 @@ export const BlogContext = createContext();
 
 // create a provider
 export const BlogProvider = ({ children }) => {
-  // const [blogs, dispatch] = useReducer(blogReducer, []);
+  
   const [blogs, setBlogs] = useState([]);
-  const [loadedBlogs, setLoadedBlogs] = useState(false);
+  const [blogsLoaded, setBlogsLoaded] = useState(false);
   const navigate = useNavigate();
 
   const [blog, setBlog] = useState({});
@@ -24,7 +24,7 @@ export const BlogProvider = ({ children }) => {
   const [categoryBlogLoaded, setCategoryBlogLoaded] = useState(false);
 
   const [tags, setTags] = useState([]);
-  const [loadedTags, setLoadedTags] = useState(false);
+  const [tagsLoaded, setTagsLoaded] = useState(false);
 
   useEffect(() => {
 
@@ -55,12 +55,12 @@ export const BlogProvider = ({ children }) => {
       });
 
       setBlogs(formattedBlogs);
-      setLoadedBlogs(true);
+      setBlogsLoaded(true);
 
     } catch (error) {
       
       console.log(error, "loadBlogs error");
-      setLoadedBlogs(true);
+      setBlogsLoaded(true);
     }
   };
 
@@ -167,30 +167,32 @@ export const BlogProvider = ({ children }) => {
       const response = await axios.get(`/tags?${query}`);
       
       setTags(response?.data?.data);
-      setLoadedTags(true);
+      setTagsLoaded(true);
 
     } catch (error) {
       
       console.log(error, "fetchTags error");
-      setLoadedTags(true);
+      setTagsLoaded(true);
     }
   };
 
 
   const value = {
-    loadedBlogs,
+    blogsLoaded,
     blogs,
-    fetchBlog,
+    blogLoaded,
     blog,
     comments,
-    blogLoaded,
+    fetchBlog,
+    
     categoryLoaded,
     categories,
     fetchBlogByCategoryID,
     categoryBlogLoaded,
     categoryBlog,
+    
     tags,
-    loadedTags
+    tagsLoaded
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
