@@ -76,7 +76,7 @@ export const BlogProvider = ({ children }) => {
       setBlogLoaded(true);
 
     } catch (error) {
-      console.log(error, "error");
+      console.log(error, "fetchBlog error");
       setBlogLoaded(true);
     }
   };

@@ -15,6 +15,7 @@ const Content = () => {
     fetchBlog(blogId);
   }, [blogId]);
 
+  console.log(blog, 'blog');
   return (
     <>
       {blogLoaded ? (
@@ -22,7 +23,7 @@ const Content = () => {
           <div className="container">
             <div className="row">
               <div className="col-md-8 col-lg-8">
-                {blog ? (
+                {Object.keys(blog).length ? (
                   <div className="blog_details">
                     <div className="blog_img overlay_one wow animated slideInUp">
                       <img
@@ -137,7 +138,7 @@ const Content = () => {
                   </div>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>
-                    <h2>Blog is not available to show</h2>
+                    <h2>Post is not available to show</h2>
                   </div>
                 )}
               </div>
