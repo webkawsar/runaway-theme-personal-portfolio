@@ -13,6 +13,10 @@ export const BlogProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
+  const [blog, setBlog] = useState({});
+  const [comments, setComments] = useState([]);
+  const [blogLoaded, setBlogLoaded] = useState(false);
+
   const [categories, setCategories] = useState([]);
   const [categoryLoaded, setCategoryLoaded] = useState(false);
 
@@ -51,6 +55,29 @@ export const BlogProvider = ({ children }) => {
       setLoaded(true);
     }
   };
+
+  const fetchBlog = async (blogId) => {
+    try {
+
+      const query = qs.stringify({
+        populate: ['image', 'author', 'comments', 'comments.user'],
+      }, {
+        encodeValuesOnly: true, // prettify URL
+      });
+      const response = await fetch(
+        `http://localhost:1337/api/posts/${blogId}?${query}`
+      );
+      const data = await response.json();
+   
+      setBlog(data.data);
+      setComments(data?.data?.attributes?.comments?.data);
+      setBlogLoaded(true);
+      
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
+  
 
   const fetchCategories = async () => {
     try {
@@ -122,6 +149,10 @@ export const BlogProvider = ({ children }) => {
   const value = {
     loaded,
     blogs,
+    fetchBlog,
+    blog,
+    comments,
+    blogLoaded,
     categoryLoaded,
     categories,
     fetchBlogByCategoryID,

@@ -1,52 +1,30 @@
-import qs from 'qs';
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { BlogContext } from '../context/Blog.context';
 import AddComment from "./AddComment";
 import BlogSidebar from "./BlogSidebar";
 import Comments from "./Comments";
 
 const Content = () => {
   const { blogId } = useParams();
-  const [loaded, setLoaded] = useState(false);
-  const [blog, setBlog] = useState({});
-  const [comments, setComments] = useState([]);
+  const {blogLoaded, comments, blog, fetchBlog} = useContext(BlogContext);
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
 
-        const query = qs.stringify({
-          populate: ['image', 'author', 'comments', 'comments.user'],
-        }, {
-          encodeValuesOnly: true, // prettify URL
-        });
-        const response = await fetch(
-          `http://localhost:1337/api/posts/${blogId}?${query}`
-        );
-        const data = await response.json();
-        // console.log(data.data, '/posts/id api is loaded');
-        // console.log(data?.data?.attributes?.comments?.data, "data");
-        
-        setBlog(data.data);
-        setComments(data?.data?.attributes?.comments?.data);
-        setLoaded(true);
-        
-      } catch (error) {
-        console.log(error, "error");
-      }
-    };
-    fetchData();
+    fetchBlog(blogId);
+
   }, [blogId]);
 
   const handleAddComment = (newComment) => {
 
-    setComments([...comments, newComment]);
+    // setComments([...comments, newComment]);
   }
 
 
   return (
     <>
-      {loaded ? (
+      {blogLoaded ? (
         <section className="blog_area py_80 bg_secondery full_row">
           <div className="container">
             <div className="row">
