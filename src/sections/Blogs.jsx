@@ -1,48 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
 import Blog from "../components/Blog";
+import { BlogContext } from "../context/Blog.context";
 
-const blogsData = [
-  {
-    id: 1,
-    title: `Convallis pulvinar morbi. Aenean nisi vitae metus
-    nonummy a morbi.`,
-    description: `Dictumst integer sollicitudin venenatis ornare quam.
-    Ligula integer luctus, blandit egestas molestie facilisi
-    porttitor neque sodal luctus senectus lacinia euismod
-    adipiscing element turpis dolor curae; posuere augue.`,
-    image: '01.jpg',
-    author: "Rockstar Jack",
-    publishedAt: "20 Jan 2019",
-  },
-  {
-    id: 2,
-    title: `Ornare fames imperdiet sapien. Iaculis dictum aptent
-    commodo at iaculis.`,
-    description: `Dictumst integer sollicitudin venenatis ornare quam.
-    Ligula integer luctus, blandit egestas molestie facilisi
-    porttitor neque sodal luctus senectus lacinia euismod
-    adipiscing element turpis dolor curae; posuere augue.`,
-    image: '02.jpg',
-    author: "Rockstar Jack",
-    publishedAt: "20 Jan 2019",
-  },
-  {
-    id: 3,
-    title: `Vulputate donec sem purus litora varius auctor augue
-    suscipit hac.`,
-    description: `Dictumst integer sollicitudin venenatis ornare quam.
-    Ligula integer luctus, blandit egestas molestie facilisi
-    porttitor neque sodal luctus senectus lacinia euismod
-    adipiscing element turpis dolor curae; posuere augue.`,
-    image: '03.jpg',
-    author: "Rockstar Jack",
-    publishedAt: "20 Jan 2019",
-  },
-];
+
 const Blogs = () => {
-  const [blogs, setBlogs] = useState(blogsData);
+  const {loaded, blogs} = useContext(BlogContext);
 
   return (
     <section id="blog" name="blog" className="py_80 bg_secondery full_row">

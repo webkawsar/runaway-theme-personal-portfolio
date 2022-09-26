@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "venobox/dist/venobox.min.css";
+import NotFound from './components/NotFound';
 import Wrapper from "./components/Wrapper";
 import BlogDetails from "./pages/BlogDetails";
 import BlogPage from "./pages/BlogPage";
@@ -25,7 +26,8 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/blogs/:blogId" element={<BlogDetails />} />
-          <Route path="/categories" element={<Category />} />
+          <Route path="/categories/:catId" element={<Category />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Wrapper>
     </>

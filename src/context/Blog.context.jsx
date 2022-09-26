@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "qs";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,115 +13,120 @@ export const BlogProvider = ({ children }) => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
+  const [categories, setCategories] = useState([]);
+  const [categoryLoaded, setCategoryLoaded] = useState(false);
+
+  const [categoryBlog, setCategoryBlog] = useState([]);
+  const [categoryBlogLoaded, setCategoryBlogLoaded] = useState(false);
 
   useEffect(() => {
-
     loadBlogs();
-
-  }, [])
-
+    fetchCategories();
+  }, []);
 
   const loadBlogs = async () => {
     try {
       const response = await axios.get("/posts?populate=*");
-    //   console.log(response?.data?.data, "loadBlogs response");
+      //   console.log(response?.data?.data, "loadBlogs response");
 
       const formattedBlogs = response?.data?.data.map((blog) => {
-        const {author, comments, image, likes, tag, ...restData} = blog.attributes;
+        const { author, comments, image, likes, tag, ...restData } =
+          blog.attributes;
         return {
-            id: blog.id,
-            author: {
-                id: author?.data?.id,
-                ...author?.data?.attributes
-            },
-            comments: comments?.data,
-            image: image?.data?.attributes,
-            ...restData
-        }
-      })
+          id: blog.id,
+          author: {
+            id: author?.data?.id,
+            ...author?.data?.attributes,
+          },
+          comments: comments?.data,
+          image: image?.data?.attributes,
+          ...restData,
+        };
+      });
 
       setBlogs(formattedBlogs);
       setLoaded(true);
-
     } catch (error) {
-
       console.log(error, "loadBlogs error");
       setLoaded(true);
-      
     }
   };
 
-
-  const addContact = async (contact) => {
+  const fetchCategories = async () => {
     try {
-      const { image, ...restData } = contact;
-      const formData = new FormData();
-      formData.append("image", image[0], image[0]?.name);
-      formData.append("data", JSON.stringify(restData));
-
-      const response = await axiosPrivateInstance(token).post(
-        "/contacts",
-        formData
-      );
-
-      // dispatch({ type: ADD_CONTACT, payload: response?.data });
-
-      // show flash message
-      toast.success("Contact added successfully");
-
-      // redirect to user
-      navigate("/contacts");
-    } catch (error) {
-      console.log(error, "addContact error");
-      toast.error(error?.response?.data?.error?.message);
-    }
-  };
-
-  const updateContact = async (updatedContactValue, id) => {
-    try {
-      const response = await axiosPrivateInstance(token).put(
-        `/contacts/${id}?populate=*`,
+      const query = qs.stringify(
         {
-          data: updatedContactValue,
+          populate: "*",
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
         }
       );
 
-      const updatedContact = formateContact(response?.data?.data);
-
-      dispatch({ type: UPDATE_CONTACT, payload: updatedContact });
-
-      // show flash message
-      toast.success("Contact updated successfully");
-
-      // redirect to user
-      navigate(`/contacts/${updatedContact.id}`);
+      const response = await axios.get(`/categories?${query}`);
+      // console.log(response?.data?.data, 'response');
+      setCategories(response?.data?.data);
+      setCategoryLoaded(true);
+      
     } catch (error) {
-      console.log(error?.response?.data?.error, "addContact error");
-      toast.error(error?.response?.data?.error?.message);
+      
+      console.log(error, "fetchCategories error");
+      setCategoryLoaded(true);
     }
   };
 
-  const deleteContact = async (id) => {
+  const fetchBlogByCategoryID = async (id) => {
+
     try {
-      const response = await axiosPrivateInstance(token).delete(
-        `/contacts/${id}`
+      const query = qs.stringify(
+        {
+          populate: ['posts', 'posts.image', 'posts.author', 'posts.comments']
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
       );
-      dispatch({ type: DELETE_CONTACT, payload: response?.data?.data?.id });
 
-      // show flash message
-      toast.success("Contact delete successfully");
+      const response = await axios.get(`/categories/${id}?${query}`);
 
-      // redirect to user
-      navigate("/contacts");
+      const formattedData = response?.data?.data?.attributes?.posts?.data?.map((blog) => {
+        const { author, comments, image, likes, tag, ...restData } =
+          blog.attributes;
+        return {
+          id: blog.id,
+          author: {
+            id: author?.data?.id,
+            ...author?.data?.attributes,
+          },
+          comments: comments?.data,
+          image: image?.data?.attributes,
+          ...restData,
+        };
+      });
+      setCategoryBlog(formattedData);
+      setCategoryBlogLoaded(true);
+      
+      // console.log(formattedData, 'formattedData');
+      // console.log(response?.data?.data?.attributes?.posts?.data, 'fetchBlogByCategoryID response');
+      // console.log(response?.data?.data, 'response?.data?');
+      
     } catch (error) {
-      console.log(error, "deleteContact error");
-      toast.error(error?.response?.data?.error?.message);
+      setCategoryBlogLoaded(true);
+      console.log(error, "fetchBlogByCategoryID error");
+      
     }
-  };
+  }
+
+
 
   const value = {
     loaded,
     blogs,
+    categoryLoaded,
+    categories,
+    fetchBlogByCategoryID,
+    categoryBlogLoaded,
+    categoryBlog
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

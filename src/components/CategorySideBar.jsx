@@ -1,6 +1,6 @@
 import React from "react";
+import Categories from "./Categories";
 import Social from "./Social";
-import TagsArchives from "./TagsArchives";
 
 const CategorySideBar = () => {
   return (
@@ -8,7 +8,7 @@ const CategorySideBar = () => {
       <div className="col-md-5 col-lg-4">
         <div className="blog_sidebar">
           <Social />
-          <TagsArchives />
+          <Categories />
         </div>
       </div>
     </>

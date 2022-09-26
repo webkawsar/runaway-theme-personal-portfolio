@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React from "react";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
@@ -15,7 +16,14 @@ const Blog = ({ blog }) => {
               <span className="color_white">12</span>
             </div>
             <div className="blog_img overlay_one">
-              <img src={`/images/blog/${image}`} alt="image" />
+              <img
+                src={`${
+                  image?.formats?.large?.url
+                    ? image?.formats?.large?.url
+                    : image?.formats?.thumbnail?.url
+                }`}
+                alt="image"
+              />
             </div>
             <div className="blog_content bg_white color_secondery">
               <div className="blog_title">
@@ -27,10 +35,10 @@ const Blog = ({ blog }) => {
 
               <div className="admin">
                 <img src="/images/about/02.jpg" alt="image" />
-                <span className="color_white">By - {author}</span>
+                <span className="color_white">By - {author?.username}</span>
               </div>
               <div className="date float-right color_primary">
-                {publishedAt}
+                {format(new Date(publishedAt), "d MMM yyyy")}
               </div>
             </div>
           </div>

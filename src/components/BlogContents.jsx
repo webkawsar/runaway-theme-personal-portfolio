@@ -5,12 +5,8 @@ import { Link } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
 import BlogSidebar from "./BlogSidebar";
 
-
-
-
-
 const BlogContents = () => {
-  const {loaded, blogs} = useContext(BlogContext);
+  const { loaded, blogs } = useContext(BlogContext);
 
   return (
     <>
@@ -27,11 +23,13 @@ const BlogContents = () => {
                     >
                       <div className="comments">
                         <FaComment />
-                        <span className="color_white">{blog?.comments?.length}</span>
+                        <span className="color_white">
+                          {blog?.comments?.length}
+                        </span>
                       </div>
                       <div className="blog_img overlay_one">
                         <img
-                          src={`${blog?.image?.formats?.large?.url}`}
+                          src={`${blog?.image?.formats?.large?.url ? blog?.image?.formats?.large?.url : blog?.image?.formats?.thumbnail?.url}`}
                           alt="Blog Image"
                         />
                       </div>
@@ -44,24 +42,17 @@ const BlogContents = () => {
                             <h5>{blog?.title}</h5>
                           </Link>
                         </div>
-                        <p className="mt_15 mb_30">
-                          {blog?.description}
-                        </p>
+                        <p className="mt_15 mb_30">{blog?.description}</p>
 
                         <div className="admin">
                           <img src="/images/about/02.jpg" alt="image" />
                           <span className="color_white">
-                            By -{" "}
-                            {
-                              blog?.author?.username
-                            }
+                            By - {blog?.author?.username}
                           </span>
                         </div>
                         <div className="date float-right color_primary">
-                          {
-                            blog?.publishedAt && format(new Date(blog?.publishedAt), 'd MMM yyyy')
-                          }
-                          
+                          {blog?.publishedAt &&
+                            format(new Date(blog?.publishedAt), "d MMM yyyy")}
                         </div>
                       </div>
                     </div>
