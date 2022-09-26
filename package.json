@@ -23,6 +23,7 @@
     "react-router-dom": "6",
     "react-scroll": "^1.8.7",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.4",
     "react-typed": "^1.2.0",
     "slick-carousel": "^1.8.1",
     "venobox": "^2.0.4",

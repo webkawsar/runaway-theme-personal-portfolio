@@ -75,6 +75,7 @@ export const BlogProvider = ({ children }) => {
       
     } catch (error) {
       console.log(error, "error");
+      setBlogLoaded(true);
     }
   };
   
