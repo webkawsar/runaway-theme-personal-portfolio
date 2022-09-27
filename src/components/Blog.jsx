@@ -4,8 +4,9 @@ import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
 
 const Blog = ({ blog }) => {
-  const { id, title, author, description, image, publishedAt } = blog;
+  const { id, title, author, description, image, publishedAt, comments } = blog;
 
+  // console.log(blog, 'blog');
   return (
     <>
       <Fade bottom>
@@ -13,7 +14,7 @@ const Blog = ({ blog }) => {
           <div className="blog_item">
             <div className="comments">
               <i className="fa fa-comment" aria-hidden="true"></i>
-              <span className="color_white">12</span>
+              <span className="color_white">{comments.length}</span>
             </div>
             <div className="blog_img overlay_one">
               <img
