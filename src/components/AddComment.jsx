@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { BlogContext } from "../context/Blog.context";
@@ -19,7 +19,8 @@ const AddComment = ({ postId }) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    resetField,
+    formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -30,6 +31,16 @@ const AddComment = ({ postId }) => {
 
     createNewComment(modifiedData);
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+    
+      resetField('name')
+      resetField('email')
+      resetField('text')
+    }
+  }, [isSubmitSuccessful]);
+
   return (
     <>
       <div className="replay mt_60 wow animated slideInUp">
@@ -79,7 +90,12 @@ const AddComment = ({ postId }) => {
               )}
             </div>
             <div className="col-md-12">
-              <button type="submit" name="submit" className="btn btn-default">
+              <button
+                type="submit"
+                name="submit"
+                className="btn btn-default"
+                disabled={isSubmitting ? true : false}
+              >
                 Post Comment
               </button>
             </div>

@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-scroll";
 
 const Header = () => {
   const elm = useRef();
-  
+  const location = useLocation();
+
   const handleScroll = () => {
     const scrolledValue = window.scrollY;
 
@@ -30,6 +32,8 @@ const Header = () => {
     };
   }, []);
 
+  // const isNavigate = location.pathname === "/" || location.pathname === "/home";
+
   return (
     <header className="main_nav" ref={elm}>
       <div className="container">
@@ -54,26 +58,30 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="main_banner"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Home
-                </Link>
+                {
+                  <Link
+                    className="nav-link"
+                    to="main_banner"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Home
+                  </Link>
+                }
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="about"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  About
-                </Link>
+                {
+                  <Link
+                    className="nav-link"
+                    to="about"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    About
+                  </Link>
+                }
               </li>
               <li className="nav-item">
                 <Link

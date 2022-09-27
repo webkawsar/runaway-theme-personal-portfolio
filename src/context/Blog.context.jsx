@@ -15,6 +15,7 @@ export const BlogProvider = ({ children }) => {
   const [blog, setBlog] = useState({});
   const [comments, setComments] = useState([]);
   const [blogLoaded, setBlogLoaded] = useState(false);
+  const [isComponentRender, setIsComponentRender] = useState(false);
 
   const [categories, setCategories] = useState([]);
   const [categoryLoaded, setCategoryLoaded] = useState(false);
@@ -29,7 +30,10 @@ export const BlogProvider = ({ children }) => {
     loadBlogs();
     fetchCategories();
     fetchTags();
-  }, []);
+    
+    // console.log('context loaded in first time');
+    
+  }, [isComponentRender]);
 
   const loadBlogs = async () => {
     try {
@@ -91,6 +95,7 @@ export const BlogProvider = ({ children }) => {
    
       // console.log(response?.data?.data, "response");
       setComments([...comments, response?.data?.data]);
+      setIsComponentRender(!isComponentRender);
 
     } catch (error) {
       console.log(error, "createNewComment error");
