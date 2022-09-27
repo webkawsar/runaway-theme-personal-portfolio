@@ -53,7 +53,9 @@ export const BlogProvider = ({ children }) => {
 
       setBlogs(formattedBlogs);
       setBlogsLoaded(true);
+      
     } catch (error) {
+      
       console.log(error, "loadBlogs error");
       setBlogsLoaded(true);
     }

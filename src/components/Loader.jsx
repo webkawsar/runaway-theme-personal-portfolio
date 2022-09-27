@@ -3,8 +3,8 @@ import { RingLoader } from "react-spinners";
 const Loader = ({ loading, color }) => {
 
     const override = {
-        position: 'absolute',
-        left: '40%',
+        position: 'fixed',
+        left: '44%',
         top: '38%',
         zIndex: '999'
       };
