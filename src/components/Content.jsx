@@ -15,7 +15,7 @@ const Content = () => {
     fetchBlog(blogId);
   }, [blogId]);
 
-  console.log(blog, 'blog');
+
   return (
     <>
       {blogLoaded ? (
