@@ -31,7 +31,7 @@ const Blog = ({ blog }) => {
                   <h5>{title}</h5>
                 </Link>
               </div>
-              <p className="mt_15 mb_30">{description}</p>
+              <p className="mt_15 mb_30">{description.slice(0, 260)}</p>
 
               <div className="admin">
                 <img src="/images/about/02.jpg" alt="image" />
