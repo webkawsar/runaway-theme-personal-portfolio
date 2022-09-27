@@ -56,7 +56,7 @@ const Content = () => {
                       <div className="comments">
                         <i className="fa fa-comment" aria-hidden="true"></i>
                         <span className="color_primary">
-                          {blog?.attributes?.comments?.data?.length}
+                          {comments.length}
                         </span>
                       </div>
                       <div className="single_blog_content d-inline-block mt_30 color_secondery wow animated slideInUp">
