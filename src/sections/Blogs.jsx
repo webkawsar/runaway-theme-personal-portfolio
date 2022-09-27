@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
+import Blog from "../components/Blog";
 import Loader from "../components/Loader";
 import { BlogContext } from "../context/Blog.context";
 
@@ -34,7 +35,7 @@ const Blogs = () => {
                 <div className="col-md-12 col-lg-12">
                   <div className="blog_grid_1 wow animated slideInUp">
                     <div className="row">
-                      {blogs.map((blog) => (
+                      {blogs.slice(0, 3).map((blog) => (
                         <Blog key={blog.id} blog={blog} />
                       ))}
                     </div>
