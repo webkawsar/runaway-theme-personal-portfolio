@@ -742,7 +742,7 @@ ul#menu li a {
   border-radius: 50%;
   top: 48%;
   left: 78px;
-  z-index: 11;
+  z-index: 111;
 }
 .profile_img.personal_video .iconround:before {
   content: "";
@@ -780,10 +780,6 @@ ul#menu li a {
   margin: 0 auto;
   margin-left: 8px;
 }
-
-/* .round_shape i:hover {
-  cursor: pointer;
-} */
 
 /*===============================================================================
 14.   Progress Bar and Fact Counter
