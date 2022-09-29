@@ -1442,6 +1442,7 @@ ul#menu li a {
   border-radius: 60px;
   z-index: 11;
   display: none;
+  transition-duration: 5s;
 }
 #scroll span {
   position: absolute;
@@ -1456,6 +1457,7 @@ ul#menu li a {
 
 .scrollVisible {
   display: block !important;
+  transition-duration: 5s;
 }
 /*===============================================================================
 25.   Page Banner

@@ -105,7 +105,7 @@ const About = () => {
                     <a
                       className="venobox round_shape"
                       href="https://www.youtube.com/watch?v=x1dnE0GzKVA&t=8s"
-                      title="video popup"
+                      title="Runaway - Personal Portfolio"
                       data-vbtype="video"
                       data-maxwidth="600px"
                     >
