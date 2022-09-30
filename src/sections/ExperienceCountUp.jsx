@@ -7,17 +7,17 @@ const ExperienceCountUp = () => {
     {
       title: "Years of Experience",
       value: 0,
-      duration: 3
+      duration: 0
     },
     {
       title: "Projects Done",
       value: 0,
-      duration: 4
+      duration: 0
     },
     {
       title: "Happy Clients",
       value: 0,
-      duration: 4
+      duration: 0
     },
   ]);
 
@@ -60,7 +60,7 @@ const ExperienceCountUp = () => {
 
                 {counts.map((counter) => {
                   return (
-                    <div className="col-md-4 col-lg-4">
+                    <div key={counter.title} className="col-md-4 col-lg-4">
                       <div
                         className="counter count wow text-center"
                         data-wow-duration="300ms"
