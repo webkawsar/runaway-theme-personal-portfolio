@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { Link } from "react-scroll";
 
 const Header = () => {
   const elm = useRef();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   const handleScroll = () => {
     const scrolledValue = window.scrollY;
+    console.log(scrolledValue, 'scrolledValue');
 
     // back to top handle
     if (scrolledValue >= 500) {
@@ -32,7 +33,8 @@ const Header = () => {
     };
   }, []);
 
-  // const isNavigate = location.pathname === "/" || location.pathname === "/home";
+  const isNavigate = pathname === "/" || pathname === "/home";
+  
 
   return (
     <header className="main_nav" ref={elm}>
@@ -58,7 +60,7 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                {
+                {isNavigate ? (
                   <Link
                     className="nav-link"
                     to="main_banner"
@@ -68,10 +70,18 @@ const Header = () => {
                   >
                     Home
                   </Link>
-                }
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`main_banner`}
+                  >
+                    Home
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                {
+                {isNavigate ? (
                   <Link
                     className="nav-link"
                     to="about"
@@ -81,73 +91,141 @@ const Header = () => {
                   >
                     About
                   </Link>
-                }
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`about`}
+                  >
+                    About
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="skill"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Skill
-                </Link>
+                {isNavigate ? (
+                  <Link
+                    className="nav-link"
+                    to="skill"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Skill
+                  </Link>
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`skill`}
+                  >
+                    Skill
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="services"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Services
-                </Link>
+                {isNavigate ? (
+                  <Link
+                    className="nav-link"
+                    to="services"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Services
+                  </Link>
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`services`}
+                  >
+                    Services
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="portfolio"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Portfolio
-                </Link>
+                {isNavigate ? (
+                  <Link
+                    className="nav-link"
+                    to="portfolio"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Portfolio
+                  </Link>
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`portfolio`}
+                  >
+                    Portfolio
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="testimonial"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Testimonial
-                </Link>
+                {isNavigate ? (
+                  <Link
+                    className="nav-link"
+                    to="testimonial"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Testimonial
+                  </Link>
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`testimonial`}
+                  >
+                    Testimonial
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="blog"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Blog
-                </Link>
+                {isNavigate ? (
+                  <Link
+                    className="nav-link"
+                    to="blog"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Blog
+                  </Link>
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`blog`}
+                  >
+                    Blog
+                  </RouterLink>
+                )}
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  to="contact"
-                  smooth={true}
-                  spy={true}
-                  activeClass="active"
-                >
-                  Contact
-                </Link>
+                {isNavigate ? (
+                  <Link
+                    className="nav-link"
+                    to="contact"
+                    smooth={true}
+                    spy={true}
+                    activeClass="active"
+                  >
+                    Contact
+                  </Link>
+                ) : (
+                  <RouterLink
+                    className="nav-link"
+                    to="/"
+                    state={`contact`}
+                  >
+                    Contact
+                  </RouterLink>
+                )}
               </li>
             </ul>
           </div>
