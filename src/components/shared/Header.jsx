@@ -8,8 +8,7 @@ const Header = () => {
 
   const handleScroll = () => {
     const scrolledValue = window.scrollY;
-    console.log(scrolledValue, 'scrolledValue');
-
+    
     // back to top handle
     if (scrolledValue >= 500) {
       document.querySelector("#scroll").classList.add("scrollVisible");
