@@ -1,8 +1,27 @@
-import React, { useEffect } from "react";
+import format from "date-fns/format";
+import React, { useContext, useEffect } from "react";
 import { Fade } from "react-reveal";
 import Venobox from "venobox";
+import { BlogContext } from "../context/Blog.context";
 
 const About = () => {
+  const { myInfo } = useContext(BlogContext);
+  const {
+    aboutIntro,
+    aboutIntroDetails,
+    fullName,
+    phone_number,
+    dob,
+    blood_group,
+    address,
+    introVideo,
+    roundImage: {
+      formats: {
+        thumbnail: { url },
+      },
+    },
+  } = myInfo.profile;
+
   useEffect(() => {
     new Venobox({
       autoplay: false,
@@ -23,11 +42,7 @@ const About = () => {
                   </span>
                   about myself
                 </h2>
-                <span className="sub_title">
-                  Interdum a etiam sagittis vehicula porta. Massa felis eros
-                  quam blandit nulla dolor habitant. Ullamcorper quis ornare et
-                  proin pellentesque.
-                </span>
+                <span className="sub_title">{aboutIntro}</span>
               </div>
             </div>
           </div>
@@ -37,15 +52,7 @@ const About = () => {
             <Fade left>
               <div className="col-md-7 col-lg-7">
                 <div className="myself color_secondery wow animated fadeInLeft">
-                  <p>
-                    Sodales iaculis est Scelerisque sociis magna dolor pulvinar
-                    magnis. Varius praesent suscipit. Donec morbi feugiat
-                    placerat gravida porttitor natoque nonummy parturient
-                    posuere. Magnis suspendisse parturient. Magna ultricies
-                    nostra nunc magna. Sodales etiam arcu suscipit, mollis.
-                    Aenean tempor eu ipsum nisi sociosqu lorem hymenaeos sapien.
-                    Aptent maecenas ac ante molestie habitant.
-                  </p>
+                  <p>{aboutIntroDetails}</p>
 
                   <p>
                     Duis vulputate nisi nam sem penatibus parturient volutpat
@@ -61,15 +68,14 @@ const About = () => {
                       <ul>
                         <li>
                           <span className="color_secondery">Name : </span>
-                          Kawsar Ahmed
+                          {fullName}
                         </li>
                         <li>
                           <span className="color_secondery">Email : </span>
-                          kawsarahmed.dev@gmail.com
+                          {myInfo?.email}
                         </li>
                         <li>
-                          <span className="color_secondery">Phone : </span> +880
-                          1715 103 606
+                          <span className="color_secondery">Phone : </span> {phone_number}
                         </li>
                       </ul>
                     </div>
@@ -79,17 +85,19 @@ const About = () => {
                           <span className="color_secondery">
                             Date of Birth :{" "}
                           </span>
-                          21 December 1995
+                          {
+                            format(new Date(dob), 'dd MMM yyyy')
+                          }
                         </li>
                         <li>
                           <span className="color_secondery">
                             Blood Group :{" "}
                           </span>
-                          AB+
+                          {blood_group}
                         </li>
                         <li>
                           <span className="color_secondery">Address : </span>
-                          MoulviBazar, Sylhet, Bangladesh
+                          {address}
                         </li>
                       </ul>
                     </div>
@@ -100,11 +108,12 @@ const About = () => {
             <Fade right>
               <div className="col-md-5 col-lg-5">
                 <div className="profile_img personal_video wow animated fadeInRight">
-                  <img src="/images/about/03.png" alt="image" />
+                  {/* <img src="/images/about/03.png" alt="image" /> */}
+                  <img src={url} alt="image" />
                   <div className="iconround ">
                     <a
                       className="venobox round_shape"
-                      href="https://www.youtube.com/watch?v=x1dnE0GzKVA&t=8s"
+                      href={introVideo?.url}
                       title="Runaway - Personal Portfolio"
                       data-vbtype="video"
                       data-maxwidth="600px"
