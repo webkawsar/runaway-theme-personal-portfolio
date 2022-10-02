@@ -4,8 +4,8 @@ const Loader = ({ loading, color }) => {
 
     const override = {
         position: 'fixed',
-        left: '44%',
-        top: '38%',
+        left: '42%',
+        top: '34%',
         zIndex: '999'
       };
   return <RingLoader cssOverride={override} color={color ? color : ""} loading={loading} size={200} />;

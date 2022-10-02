@@ -26,14 +26,46 @@ export const BlogProvider = ({ children }) => {
   const [tags, setTags] = useState([]);
   const [tagsLoaded, setTagsLoaded] = useState(false);
 
+
   useEffect(() => {
     loadBlogs();
     fetchCategories();
     fetchTags();
+    loadMyProfile();
     
     // console.log('context loaded in first time');
     
   }, [isComponentRender]);
+
+
+  const [myInfo, setMyInfo] = useState({});
+  const [myInfoLoaded, setMyInfoLoaded] = useState(false);
+
+  const loadMyProfile = async () => {
+    try {
+
+      const query = qs.stringify(
+        {
+          populate: ["posts", "profile", "profile.professions", "profile.introVideo", 'profile.roundImage', 'profile.introImage'],
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
+
+      const response = await axios.get(`/users?${query}`);
+      // console.log(response?.data[0], 'response');
+      setMyInfo(response?.data[0]);
+      setMyInfoLoaded(true);
+      
+    } catch (error) {
+      
+      console.log(error, 'error');
+      setMyInfoLoaded(true);
+    }
+  }
+
+
 
   const loadBlogs = async () => {
     try {
@@ -186,7 +218,12 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
+
+ 
+
   const value = {
+    myInfoLoaded,
+    myInfo,
     blogsLoaded,
     blogs,
     blogLoaded,

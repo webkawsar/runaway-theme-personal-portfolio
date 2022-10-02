@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Typed from "react-typed";
+import { BlogContext } from "../context/Blog.context";
 
 const Intro = () => {
+  const { myInfo} = useContext(BlogContext);
+  console.log(myInfo, 'myInfo');
+  const {fullName, professions, bio, cv_url } = myInfo.profile;
+
+
   const typedStrings = [
     "JS Developer.",
     "React Developer.",
@@ -23,6 +29,7 @@ const Intro = () => {
     contentType: "html",
   };
 
+
   return (
     <section
       id="main_banner"
@@ -34,17 +41,16 @@ const Intro = () => {
           <div className="col-md-12 col-lg-12 home-content text-left">
             <div className="mainbanner_content">
               <span className="pb_5 banner_title color_white">
-                I Am Kawsar Ahmed!
+                I Am {fullName}!
               </span>
               <h1 className="cd-headline clip is-full-width text-uppercase mt-2 mb-3">
                 <span className="color_white">I am a </span>
                 <span className="color_default"><Typed strings={typedStrings} {...typedOptions} /></span>
               </h1>
               <p className="color_white mb_30">
-                Libero habitasse sollicitudin aliquet venenatis iaculis placerat
-                amet ligula, eleifend nonummy enim in volutpat diam.
+                {bio}
               </p>
-              <a className="btn btn-default" href="#">
+              <a target='__blank' className="btn btn-default" href={cv_url}>
                 Download CV
               </a>
             </div>
