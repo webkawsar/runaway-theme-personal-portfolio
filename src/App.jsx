@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import 'react-typed/dist/animatedCursor.css';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "venobox/dist/venobox.min.css";

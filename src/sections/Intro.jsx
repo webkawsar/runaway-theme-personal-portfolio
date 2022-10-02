@@ -4,17 +4,9 @@ import { BlogContext } from "../context/Blog.context";
 
 const Intro = () => {
   const { myInfo} = useContext(BlogContext);
-  console.log(myInfo, 'myInfo');
   const {fullName, professions, bio, cv_url } = myInfo.profile;
-
-
-  const typedStrings = [
-    "JS Developer.",
-    "React Developer.",
-    "Node.JS Developer.",
-    "MERN Stack Developer.",
-  ];
-
+  const typedStrings = professions.map(profession => profession.name);
+ 
   const typedOptions = {
     stringsElement: null,
     typeSpeed: 50,
