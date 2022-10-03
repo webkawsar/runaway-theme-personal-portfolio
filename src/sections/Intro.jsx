@@ -3,10 +3,18 @@ import Typed from "react-typed";
 import { BlogContext } from "../context/Blog.context";
 
 const Intro = () => {
-  const { myInfo} = useContext(BlogContext);
-  const {fullName, professions, bio, cv_url } = myInfo.profile;
-  const typedStrings = professions.map(profession => profession.name);
- 
+  const { myInfo } = useContext(BlogContext);
+  const {
+    introImage: {
+      formats: {
+        large: { url },
+      },
+    },
+  } = myInfo.profile;
+
+  const { fullName, professions, bio, cv_url } = myInfo.profile;
+  const typedStrings = professions.map((profession) => profession.name);
+
   const typedOptions = {
     stringsElement: null,
     typeSpeed: 50,
@@ -21,12 +29,12 @@ const Intro = () => {
     contentType: "html",
   };
 
-
   return (
     <section
       id="main_banner"
       name="main_banner"
-      className="banner_water_effect background3 overlay_one"
+      className="banner_water_effect overlay_one"
+      style={{ backgroundImage: `url(${url})` }}
     >
       <div className="container h-100">
         <div className="row h-100 align-items-center">
@@ -37,12 +45,12 @@ const Intro = () => {
               </span>
               <h1 className="cd-headline clip is-full-width text-uppercase mt-2 mb-3">
                 <span className="color_white">I am a </span>
-                <span className="color_default"><Typed strings={typedStrings} {...typedOptions} /></span>
+                <span className="color_default">
+                  <Typed strings={typedStrings} {...typedOptions} />
+                </span>
               </h1>
-              <p className="color_white mb_30">
-                {bio}
-              </p>
-              <a target='__blank' className="btn btn-default" href={cv_url}>
+              <p className="color_white mb_30">{bio}</p>
+              <a target="__blank" className="btn btn-default" href={cv_url}>
                 Download CV
               </a>
             </div>
