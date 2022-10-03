@@ -6,27 +6,27 @@ import { BlogContext } from "../context/Blog.context";
 const skillSets = [
   {
     id: 1,
-    skillName: "javaScript",
+    name: "javaScript",
     percent: 0,
   },
   {
     id: 2,
-    skillName: "React",
+    name: "React",
     percent: 0,
   },
   {
     id: 3,
-    skillName: "Node.js",
+    name: "Node.js",
     percent: 0,
   },
   {
     id: 4,
-    skillName: "MongoDB",
+    name: "MongoDB",
     percent: 0,
   },
   {
     id: 5,
-    skillName: "Strapi",
+    name: "Strapi",
     percent: 0,
   },
 ];

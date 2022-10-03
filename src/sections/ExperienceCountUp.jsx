@@ -1,49 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import { BlogContext } from "../context/Blog.context";
+
+
+const initialData = [
+  {
+    title: "Years of Experience",
+    value: 0,
+    duration: 0
+  },
+  {
+    title: "Projects Done",
+    value: 0,
+    duration: 0
+  },
+  {
+    title: "Happy Clients",
+    value: 0,
+    duration: 0
+  }
+];
 
 const ExperienceCountUp = () => {
-  const [counts, setCounts] = useState([
-    {
-      title: "Years of Experience",
-      value: 0,
-      duration: 0
-    },
-    {
-      title: "Projects Done",
-      value: 0,
-      duration: 0
-    },
-    {
-      title: "Happy Clients",
-      value: 0,
-      duration: 0
-    },
-  ]);
-
-  // const [counts, setCounts] = useState([0, 0, 0])
-
+  const {myInfo} = useContext(BlogContext);
+  const [counts, setCounts] = useState(initialData);
+  const {factCounts} = myInfo.countupSection;
   const [ref, inView] = useInView();
 
   useEffect(() => {
     if (inView) {
-      setCounts([
-        {
-          title: "Years of Experience",
-          value: 6,
-          duration: 3
-        },
-        {
-          title: "Projects Done",
-          value: 100,
-          duration: 4
-        },
-        {
-          title: "Happy Clients",
-          value: 27,
-          duration: 4
-        },
-      ]);
+      setCounts(factCounts);
     }
   }, [inView]);
 
