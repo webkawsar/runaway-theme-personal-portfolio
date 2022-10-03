@@ -17,7 +17,7 @@ const About = () => {
     introVideo,
     roundImage: {
       formats: {
-        thumbnail: { url },
+        small: { url },
       },
     },
   } = myInfo.profile;
@@ -48,19 +48,11 @@ const About = () => {
           </div>
         </Fade>
         <div className="about_one">
-          <div className="row">
+          <div className="row d-flex align-items-center">
             <Fade left>
               <div className="col-md-7 col-lg-7">
                 <div className="myself color_secondery wow animated fadeInLeft">
                   <p>{aboutIntroDetails}</p>
-
-                  <p>
-                    Duis vulputate nisi nam sem penatibus parturient volutpat
-                    justo phasellus. Netus. Hac montes tempor lorem tempor
-                    tincidunt vehicula velit. Tellus. className aenean leo elit
-                    maecenas. Vehicula sagittis. Curae; eget lacus. Fames neque
-                    diam elementum risus eleifend dui tortor netus turpis.
-                  </p>
                 </div>
                 <div className="personal_info">
                   <div className="row">
