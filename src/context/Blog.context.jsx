@@ -46,16 +46,16 @@ export const BlogProvider = ({ children }) => {
 
       const query = qs.stringify(
         {
-          populate: ["posts", "profile", "profile.professions", "profile.introVideo", 'profile.roundImage', 'profile.introImage'],
+          populate: ["introSection", 'introSection.introImage', 'introSection.professions', 'aboutSection', 'aboutSection.introVideo', 'aboutSection.roundImage', 'skillSection', 'skillSection.skills'],
         },
         {
           encodeValuesOnly: true, // prettify URL
         }
       );
 
-      const response = await axios.get(`/users?${query}`);
-      // console.log(response?.data[0], 'response');
-      setMyInfo(response?.data[0]);
+      const response = await axios.get(`/home?${query}`);
+      // console.log(response?.data?.data?.attributes, 'response');
+      setMyInfo(response?.data?.data?.attributes);
       setMyInfoLoaded(true);
       
     } catch (error) {

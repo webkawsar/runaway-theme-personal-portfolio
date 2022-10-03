@@ -5,14 +5,20 @@ import { BlogContext } from "../context/Blog.context";
 const Intro = () => {
   const { myInfo } = useContext(BlogContext);
   const {
+    fullName,
+    professions,
+    bio,
+    cv_url,
     introImage: {
-      formats: {
-        large: { url },
+      data: {
+        attributes: {
+          formats: {
+            large: { url },
+          },
+        },
       },
     },
-  } = myInfo.profile;
-
-  const { fullName, professions, bio, cv_url } = myInfo.profile;
+  } = myInfo.introSection;
   const typedStrings = professions.map((profession) => profession.name);
 
   const typedOptions = {

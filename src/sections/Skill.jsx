@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useInView } from 'react-intersection-observer';
 import { Fade } from "react-reveal";
+import { BlogContext } from "../context/Blog.context";
 
 const skillSets = [
   {
@@ -31,52 +33,20 @@ const skillSets = [
 
 const Skill = () => {
   const [skills, setSkills] = useState(skillSets);
+  const {myInfo} = useContext(BlogContext);
+  const {intro, introDetails, skills: updatedSkills} = myInfo.skillSection;
+  const [ref, inView ] = useInView();
 
-  const handleScroll = () => {
-    const scrolledValue = window.scrollY;
-
-    // set skills
-    if (scrolledValue >= 1400) {
-      setSkills([
-        {
-          id: 1,
-          skillName: "javaScript",
-          percent: 90,
-        },
-        {
-          id: 2,
-          skillName: "React",
-          percent: 90,
-        },
-        {
-          id: 3,
-          skillName: "Node.js",
-          percent: 85,
-        },
-        {
-          id: 4,
-          skillName: "MongoDB",
-          percent: 90,
-        },
-        {
-          id: 5,
-          skillName: "Strapi",
-          percent: 60,
-        },
-      ]);
-    }
-  };
-
+ 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    if (inView) {
+      
+     setSkills(updatedSkills);
+    }
+  }, [inView]);
 
   return (
-    <section id="skill" name="skill" className="py_80 bg_secondery full_row">
+    <section id="skill" name="skill" className="py_80 bg_secondery full_row" ref={ref}>
       <div className="container">
         <Fade bottom>
           <div className="row">
@@ -89,9 +59,7 @@ const Skill = () => {
                   Design skill
                 </h2>
                 <span className="sub_title">
-                  Interdum a etiam sagittis vehicula porta. Massa felis eros
-                  quam blandit nulla dolor habitant. Ullamcorper quis ornare et
-                  proin pellentesque.
+                 {intro}
                 </span>
               </div>
             </div>
@@ -105,19 +73,9 @@ const Skill = () => {
                   <h2 className="color_primary">
                     Some talk about my professional design skill
                   </h2>
-                  <p className="pt_15">
-                    At mattis condimentum leo cubilia dictumst purus cubilia
-                    nisl quisque lacus ultricies proin massa fermentum placerat
-                    sociosqu ornare felis ultricies taciti mauris. Tempor mi,
-                    cum a condimentum commodo bibendum risus mauris natoque
-                    molestie tellus. In iaculis ad augue gravida posuere.
-                  </p>
-                  <p className="pt_15">
-                    Lectus neque fames lacinia magnis primis. Dictumst torquent
-                    dictumst. Bibendum et rutrum feugiat fames interdum purus
-                    feugiat praesent Nunc vivamus habitant nam ultricies est.
-                    Massa amet cubilia, vitae nonummy nisl. Rutrum mus velit
-                    vivamus sapien est.
+                  
+                  <p className="pt_15 mb-5">
+                    {introDetails}
                   </p>
                 </div>
               </div>
@@ -128,7 +86,7 @@ const Skill = () => {
                   {skills.map((skill) => {
                     return (
                       <div key={skill.id} className="prgs-bar fact-counter">
-                        <span>{skill.skillName}</span>
+                        <span>{skill.name}</span>
                         <div
                           className="progress count wow"
                           data-wow-duration="0ms"

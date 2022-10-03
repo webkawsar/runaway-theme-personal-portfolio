@@ -8,19 +8,26 @@ const About = () => {
   const { myInfo } = useContext(BlogContext);
   const {
     aboutIntro,
+    email,
     aboutIntroDetails,
-    fullName,
-    phone_number,
-    dob,
-    blood_group,
     address,
-    introVideo,
-    roundImage: {
-      formats: {
-        small: { url },
+    blood_group,
+    dob,
+    phone_number,
+    introVideo: {
+      data: {
+        attributes: { url },
       },
     },
-  } = myInfo.profile;
+    roundImage: {
+      data: {
+        attributes: {
+          formats: { small },
+        },
+      },
+    },
+  } = myInfo.aboutSection;
+  const { fullName } = myInfo.introSection;
 
   useEffect(() => {
     new Venobox({
@@ -64,10 +71,11 @@ const About = () => {
                         </li>
                         <li>
                           <span className="color_secondery">Email : </span>
-                          {myInfo?.email}
+                          {email}
                         </li>
                         <li>
-                          <span className="color_secondery">Phone : </span> {phone_number}
+                          <span className="color_secondery">Phone : </span>{" "}
+                          {phone_number}
                         </li>
                       </ul>
                     </div>
@@ -77,9 +85,7 @@ const About = () => {
                           <span className="color_secondery">
                             Date of Birth :{" "}
                           </span>
-                          {
-                            format(new Date(dob), 'dd MMM yyyy')
-                          }
+                          {format(new Date(dob), "dd MMM yyyy")}
                         </li>
                         <li>
                           <span className="color_secondery">
@@ -101,11 +107,11 @@ const About = () => {
               <div className="col-md-5 col-lg-5">
                 <div className="profile_img personal_video wow animated fadeInRight">
                   {/* <img src="/images/about/03.png" alt="image" /> */}
-                  <img src={url} alt="image" />
+                  <img src={small?.url} alt="image" />
                   <div className="iconround ">
                     <a
                       className="venobox round_shape"
-                      href={introVideo?.url}
+                      href={url}
                       title="Runaway - Personal Portfolio"
                       data-vbtype="video"
                       data-maxwidth="600px"
