@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from "react";
+import Rating from "react-rating";
 import { Fade } from "react-reveal";
 import Slider from "react-slick";
 import { BlogContext } from "../context/Blog.context";
@@ -6,7 +7,6 @@ import { BlogContext } from "../context/Blog.context";
 const Testimonial = () => {
   const { myInfo } = useContext(BlogContext);
   const { testimonialIntro, clientsFeedback } = myInfo.testimonialSection;
-  console.log(myInfo.testimonialSection, "testimonialSection");
 
   const ref = useRef();
   const settings = {
@@ -59,23 +59,12 @@ const Testimonial = () => {
                           />
                         </div>
                         <div className="star d-inline-block mt_30 color_default">
-                          <ul>
-                            <li>
-                              <i className="fa fa-star" aria-hidden="true"></i>
-                            </li>
-                            <li>
-                              <i className="fa fa-star" aria-hidden="true"></i>
-                            </li>
-                            <li>
-                              <i className="fa fa-star" aria-hidden="true"></i>
-                            </li>
-                            <li>
-                              <i className="fa fa-star" aria-hidden="true"></i>
-                            </li>
-                            <li>
-                              <i className="fa fa-star" aria-hidden="true"></i>
-                            </li>
-                          </ul>
+                          <Rating
+                            readonly
+                            initialRating={feedback.rating}
+                            fullSymbol="fa fa-star fa-2x"
+                            emptySymbol="fa fa-star-o fa-2x"
+                          />
                         </div>
                         <h5 className="color_primary mb_15">
                           {feedback.fullName}
