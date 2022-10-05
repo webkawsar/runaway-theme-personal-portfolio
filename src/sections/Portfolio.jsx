@@ -1,86 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Fade } from "react-reveal";
+import { BlogContext } from "../context/Blog.context";
 
-const projectsData = [
-  {
-    image: "01.jpg",
-    tag_one: "Web Development",
-    tag_two: "Wordpress",
-    tags: ["development", "wordpress"],
-  },
-  {
-    image: "02.jpg",
-    tag_one: "Branding",
-    tag_two: "Wordpress",
-    tags: ["branding", "wordpress"],
-  },
-  {
-    image: "03.jpg",
-    tag_one: "Web Design",
-    tag_two: "Web Development",
-    tags: ["design", "development"],
-  },
-  {
-    image: "04.jpg",
-    tag_one: "Branding",
-    tag_two: "Wordpress",
-    tags: ["branding", "wordpress"],
-  },
-  {
-    image: "05.jpg",
-    tag_one: "Web Design",
-    tag_two: "Wordpress",
-    tags: ["design", "wordpress"],
-  },
-  {
-    image: "06.jpg",
-    tag_one: "Web Design",
-    tag_two: "Web Development",
-    tags: ["design", "development"],
-  },
-];
 
-const menusData = [
-  {
-    id: 1,
-    name: "all",
-    isActive: true,
-    tag: "all",
-  },
-  {
-    id: 2,
-    name: "web design",
-    isActive: false,
-    tag: "design",
-  },
-  {
-    id: 3,
-    name: "wordpress",
-    isActive: false,
-    tag: "wordpress",
-  },
-  {
-    id: 4,
-    name: "web development",
-    isActive: false,
-    tag: "development",
-  },
-  {
-    id: 5,
-    name: "branding",
-    isActive: false,
-    tag: "branding",
-  },
-];
+
 const Portfolio = () => {
-  const [projects, setProjects] = useState(projectsData);
-  const [previousSelectedMenu, setPreviousSelectedMenu] = useState("");
-  const [menus, setMenus] = useState(menusData);
+  const { myInfo } = useContext(BlogContext);
+  const {
+    portfolioIntro,
+    menus: menusFromDB,
+    projects: projectsDataFromDB,
+  } = myInfo.portfolioSection;
+  const [menus, setMenus] = useState(menusFromDB);
+  const [projects, setProjects] = useState(projectsDataFromDB);
 
-
+  
   const handleClick = (menu) => {
-    // add active and remove active 
-    const modifiedArr = menusData.map((singleMenu) => {
+    // modified clicked menu isActive field
+    const modifiedMenus = menus.map((singleMenu) => {
       if (singleMenu.id === menu.id) {
         singleMenu.isActive = true;
         return singleMenu;
@@ -89,13 +26,15 @@ const Portfolio = () => {
         return singleMenu;
       }
     });
-    setMenus(modifiedArr);
+    setMenus(modifiedMenus);
 
     // filtered data
-    const filteredArr = projectsData.filter((project) =>
-      menu.tag === "all" ? project : project.tags.includes(menu.tag)
+    const filteredProjects = projectsDataFromDB.filter((project) =>
+      menu?.keyword?.toLowerCase() === "all"
+        ? project
+        : project?.tags?.toLowerCase().includes(menu?.keyword?.toLowerCase())
     );
-    setProjects(filteredArr);
+    setProjects(filteredProjects);
   };
 
   return (
@@ -115,11 +54,7 @@ const Portfolio = () => {
                   </span>
                   Recent Projects
                 </h2>
-                <span className="sub_title">
-                  Interdum a etiam sagittis vehicula porta. Massa felis eros
-                  quam blandit nulla dolor habitant. Ullamcorper quis ornare et
-                  proin pellentesque.
-                </span>
+                <span className="sub_title">{portfolioIntro}</span>
               </div>
             </div>
           </Fade>
@@ -128,9 +63,7 @@ const Portfolio = () => {
               <div className="row">
                 <div className="col-md-12">
                   <div className="filters mb_30 w-100 text-center">
-                    <ul
-                      className="filter-tabs mx-auto d-inline-block"
-                    >
+                    <ul className="filter-tabs mx-auto d-inline-block">
                       {menus.map((menu) => {
                         return (
                           <li
@@ -139,7 +72,6 @@ const Portfolio = () => {
                               menu.isActive ? "active" : ""
                             }`}
                             data-role="button"
-                            data-filter="all"
                             onClick={() => handleClick(menu)}
                           >
                             {menu.name}
@@ -157,16 +89,16 @@ const Portfolio = () => {
                     {projects.map((project) => {
                       return (
                         <div
-                          key={project.image}
+                          key={project.id}
                           className="column mix mix_all graphic development wordpress mb_30 col-md-4 col-lg-4"
                         >
                           <div className="default-portfolio-item">
                             <a
-                              href={`/images/portfolio/${project.image}`}
+                              href={`${project?.image?.data?.attributes?.formats?.small?.url}`}
                               data-fancybox="gallery"
                             >
                               <img
-                                src={`/images/portfolio/${project.image}`}
+                                src={`${project?.image?.data?.attributes?.formats?.small?.url}`}
                                 alt="image"
                               />
                               <div className="overlay-box">
@@ -178,8 +110,7 @@ const Portfolio = () => {
                                 </span>
                                 <div className="tag">
                                   <ul>
-                                    <li>{project.tag_one},</li>
-                                    <li>{project.tag_two}</li>
+                                    <li>{project.tags}</li>
                                   </ul>
                                 </div>
                               </div>
