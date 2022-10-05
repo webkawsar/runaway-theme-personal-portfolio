@@ -46,7 +46,7 @@ export const BlogProvider = ({ children }) => {
 
       const query = qs.stringify(
         {
-          populate: ["introSection", 'introSection.introImage', 'introSection.professions', 'aboutSection', 'aboutSection.introVideo', 'aboutSection.roundImage', 'skillSection', 'skillSection.skills', 'countupSection', 'countupSection.factCounts', 'serviceSection', 'serviceSection.services', 'portfolioSection', 'portfolioSection.menus', 'portfolioSection.projects', 'portfolioSection.projects.image'],
+          populate: ["introSection", 'introSection.introImage', 'introSection.professions', 'aboutSection', 'aboutSection.introVideo', 'aboutSection.roundImage', 'skillSection', 'skillSection.skills', 'countupSection', 'countupSection.factCounts', 'serviceSection', 'serviceSection.services', 'portfolioSection', 'portfolioSection.menus', 'portfolioSection.projects', 'portfolioSection.projects.image', 'testimonialSection', 'testimonialSection.clientsFeedback', 'testimonialSection.clientsFeedback.image'],
         },
         {
           encodeValuesOnly: true, // prettify URL
