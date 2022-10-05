@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from "react";
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Rating from "react-rating";
 import { Fade } from "react-reveal";
 import Slider from "react-slick";
@@ -81,10 +82,10 @@ const Testimonial = () => {
                 style={{ textAlign: "center" }}
               >
                 <button className="testimonial_prev" onClick={previous}>
-                  {"<"}
+                  <FaArrowLeft />
                 </button>
                 <button className="testimonial_next" onClick={next}>
-                  {">"}
+                  <FaArrowRight />
                 </button>
               </div>
             </div>
