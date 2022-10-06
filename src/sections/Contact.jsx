@@ -1,8 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import * as FaIcons from "react-icons/fa";
 import { Fade } from "react-reveal";
 import * as yup from "yup";
+import { BlogContext } from "../context/Blog.context";
 
 const schema = yup
   .object({
@@ -14,6 +16,11 @@ const schema = yup
   .required();
 
 const Contact = () => {
+  const { myInfo } = useContext(BlogContext);
+  const { contactIntro, socials } = myInfo.contactSection;
+  const { email, phone_number, address, website } = myInfo.aboutSection;
+  console.log(myInfo, "myInfo");
+
   const {
     register,
     handleSubmit,
@@ -40,11 +47,7 @@ const Contact = () => {
                   </span>
                   Get In Touch
                 </h2>
-                <span className="sub_title">
-                  Interdum a etiam sagittis vehicula porta. Massa felis eros
-                  quam blandit nulla dolor habitant. Ullamcorper quis ornare et
-                  proin pellentesque.
-                </span>
+                <span className="sub_title">{contactIntro}</span>
               </div>
             </div>
           </Fade>
@@ -59,9 +62,7 @@ const Contact = () => {
                           <h6 className="font-weight-bold color_primary">
                             Email
                           </h6>
-                          <span className="color_secondery">
-                            kawsarahmed.dev@gmail.com
-                          </span>
+                          <span className="color_secondery">{email}</span>
                         </div>
                       </li>
                       <li>
@@ -70,7 +71,7 @@ const Contact = () => {
                             Phone
                           </h6>
                           <span className="color_secondery">
-                            +880 1715 103 606
+                            {phone_number}
                           </span>
                         </div>
                       </li>
@@ -79,9 +80,7 @@ const Contact = () => {
                           <h6 className="font-weight-bold color_primary">
                             Address
                           </h6>
-                          <span className="color_secondery">
-                            MoulviBazar, Sylhet, Bangladesh
-                          </span>
+                          <span className="color_secondery">{address}</span>
                         </div>
                       </li>
                       <li>
@@ -89,43 +88,24 @@ const Contact = () => {
                           <h6 className="font-weight-bold color_primary">
                             Website
                           </h6>
-                          <span className="color_secondery">
-                            kawsar-ahmed.web.app
-                          </span>
+                          <span className="color_secondery">{website}</span>
                         </div>
                       </li>
                     </ul>
                   </div>
                   <div className="socal_media_2 mt_15 d-inline-block">
                     <ul>
-                      <li>
-                        <a href="https://web.facebook.com/web.kawsarahmed">
-                          <i className="fa fa-facebook" aria-hidden="true"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i
-                            className="fa fa-google-plus"
-                            aria-hidden="true"
-                          ></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-instagram" aria-hidden="true"></i>
-                        </a>
-                      </li>
+                      {socials.map((social) => {
+                        const icon = social.icon;
+                        const DynamicIcon = FaIcons[icon];
+                        return (
+                          <li key={social.id}>
+                            <a href={social.link} target='__blank'>
+                              <DynamicIcon />
+                            </a>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
