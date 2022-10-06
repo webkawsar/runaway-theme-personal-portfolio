@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { Link } from "react-scroll";
+import { BlogContext } from "../../context/Blog.context";
 
 const Header = () => {
+  const {myInfo} = useContext(BlogContext);
   const elm = useRef();
   const { pathname } = useLocation();
 
@@ -43,7 +45,7 @@ const Header = () => {
           className="navbar navbar-expand-lg navbar-light w-100"
         >
           <Link className="navbar-brand" to="top" smooth={true}>
-            <img className="nav-logo" src="/images/logo/1.png" alt="logo" />
+            <img className="nav-logo" src={myInfo?.introSection?.logo?.data?.attributes?.url} alt="logo" />
           </Link>
           <button
             className="navbar-toggler"

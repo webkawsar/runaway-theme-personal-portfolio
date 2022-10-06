@@ -19,7 +19,6 @@ const Contact = () => {
   const { myInfo } = useContext(BlogContext);
   const { contactIntro, socials } = myInfo.contactSection;
   const { email, phone_number, address, website } = myInfo.aboutSection;
-  console.log(myInfo, "myInfo");
 
   const {
     register,

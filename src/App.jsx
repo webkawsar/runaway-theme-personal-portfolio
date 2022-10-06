@@ -15,7 +15,7 @@ import Home from "./pages/Home";
 
 // set global base url for every req
 axios.defaults.baseURL =
-  "http://localhost:1337/api";
+  "https://simple-runaway-theme-backend.herokuapp.com/api";
 // http://localhost:1337/api
 // https://simple-runaway-theme-backend.herokuapp.com/api
 
