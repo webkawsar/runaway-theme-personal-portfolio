@@ -10,8 +10,6 @@ const Blogs = () => {
   const { myInfo } = useContext(BlogContext);
   const { blogIntro, posts } = myInfo.blogSection;
 
-  
-
   return (
     <>
       {blogsLoaded ? (
@@ -31,14 +29,18 @@ const Blogs = () => {
                   </div>
                 </div>
               </Fade>
+
               {posts?.data.length && (
-                <div className="col-md-12 col-lg-12">
+                <div className="col-lg-12">
                   <div className="blog_grid_1 wow animated slideInUp">
                     <div className="row">
                       {posts?.data.map((blog) => {
                         return (
                           <Fade bottom key={blog.id}>
-                            <div key={blog.id} className="col-md-12 col-lg-4">
+                            <div
+                              key={blog.id}
+                              className="col-sm-12 col-md-6 col-lg-4"
+                            >
                               <div className="blog_item">
                                 <div className="comments">
                                   <i
@@ -49,12 +51,17 @@ const Blogs = () => {
                                     {blog?.attributes?.comments?.data?.length}
                                   </span>
                                 </div>
-                                <div className="blog_img overlay_one">
+                                <div className="blog_img">
                                   <img
+                                    style={{ height: "220px" }}
                                     src={`${
-                                      blog?.attributes?.image?.data?.attributes?.formats?.large?.url
-                                        ? blog?.attributes?.image?.data?.attributes?.formats?.large?.url
-                                        : blog?.attributes?.image?.data?.attributes?.formats?.thumbnail?.url
+                                      blog?.attributes?.image?.data?.attributes
+                                        ?.formats?.large?.url
+                                        ? blog?.attributes?.image?.data
+                                            ?.attributes?.formats?.large?.url
+                                        : blog?.attributes?.image?.data
+                                            ?.attributes?.formats?.thumbnail
+                                            ?.url
                                     }`}
                                     alt="image"
                                   />
@@ -69,16 +76,26 @@ const Blogs = () => {
                                     </Link>
                                   </div>
                                   <p className="mt_15 mb_30">
-                                    {blog?.attributes?.description.slice(0, 260).concat('...')}
+                                    {blog?.attributes?.description
+                                      .slice(0, 260)
+                                      .concat("...")}
                                   </p>
 
                                   <div className="admin">
                                     <img
-                                      src={blog?.attributes?.author?.data?.attributes?.profileImage?.data?.attributes?.url}
+                                      src={
+                                        blog?.attributes?.author?.data
+                                          ?.attributes?.profileImage?.data
+                                          ?.attributes?.url
+                                      }
                                       alt="image"
                                     />
                                     <span className="color_white">
-                                      By - {blog?.attributes?.author?.data?.attributes?.username}
+                                      By -{" "}
+                                      {
+                                        blog?.attributes?.author?.data
+                                          ?.attributes?.username
+                                      }
                                     </span>
                                   </div>
                                   <div className="date float-right color_primary">
