@@ -3,7 +3,7 @@ import Categories from "./Categories";
 import MonthArchives from "./MonthArchives";
 import RecentPosts from "./RecentPosts";
 import Social from "./Social";
-import TagsArchives from "./TagsArchives";
+import Tags from "./Tags";
 
 const BlogSidebar = () => {
   return (
@@ -14,7 +14,7 @@ const BlogSidebar = () => {
           <Categories />
           <RecentPosts />
           <MonthArchives />
-          <TagsArchives />
+          <Tags />
         </div>
       </div>
     </>

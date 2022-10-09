@@ -4,13 +4,14 @@ import BlogIntro from "../components/BlogIntro";
 import Layout from "../components/layout/Layout";
 import ScrollBottom from "../components/ScrollBottom";
 
-const BlogPage = () => {
 
+
+const BlogPage = () => {
   return (
     <>
       <Layout>
         <ScrollBottom />
-        <BlogIntro title='Blog' />
+        <BlogIntro title="Blog" />
         <BlogContents />
       </Layout>
     </>

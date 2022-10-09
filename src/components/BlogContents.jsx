@@ -1,13 +1,24 @@
 import { format } from "date-fns";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
 import BlogSidebar from "./BlogSidebar";
 import Loader from "./Loader";
 
+
+
+
 const BlogContents = () => {
-  const { blogsLoaded, blogs } = useContext(BlogContext);
+  const { blogsLoaded, blogs, loadBlogs, loadSidebarInfo } = useContext(BlogContext);
+
+  
+  useEffect(() => {
+
+    loadBlogs();
+    loadSidebarInfo();
+
+  }, [])
 
   return (
     <>

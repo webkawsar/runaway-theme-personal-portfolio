@@ -8,6 +8,12 @@ export const BlogContext = createContext();
 
 // create a provider
 export const BlogProvider = ({ children }) => {
+  
+  // load loadMyProfile in mounting stage
+  const [myInfo, setMyInfo] = useState({});
+  const [myInfoLoaded, setMyInfoLoaded] = useState(false);
+
+  // load all blogs
   const [blogs, setBlogs] = useState([]);
   const [blogsLoaded, setBlogsLoaded] = useState(false);
   const navigate = useNavigate();
@@ -17,36 +23,63 @@ export const BlogProvider = ({ children }) => {
   const [blogLoaded, setBlogLoaded] = useState(false);
   const [isComponentRender, setIsComponentRender] = useState(false);
 
-  const [categories, setCategories] = useState([]);
+
   const [categoryLoaded, setCategoryLoaded] = useState(false);
 
   const [categoryBlog, setCategoryBlog] = useState([]);
   const [categoryBlogLoaded, setCategoryBlogLoaded] = useState(false);
 
-  const [tags, setTags] = useState([]);
+  
   const [tagsLoaded, setTagsLoaded] = useState(false);
 
 
+  // load sidebar info
+  const [socials, setSocials] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
+
   useEffect(() => {
-    loadBlogs();
-    fetchCategories();
-    fetchTags();
-    loadMyProfile();
     
+    loadHomeInfo();
     // console.log('context loaded in first time');
     
-  }, [isComponentRender]);
+  }, []);
 
-
-  const [myInfo, setMyInfo] = useState({});
-  const [myInfoLoaded, setMyInfoLoaded] = useState(false);
-
-  const loadMyProfile = async () => {
+  const loadHomeInfo = async () => {
     try {
-
       const query = qs.stringify(
         {
-          populate: ["introSection", 'introSection.introImage', 'introSection.professions', 'aboutSection', 'aboutSection.introVideo', 'aboutSection.roundImage', 'skillSection', 'skillSection.skills', 'countupSection', 'countupSection.factCounts', 'serviceSection', 'serviceSection.services', 'portfolioSection', 'portfolioSection.menus', 'portfolioSection.projects', 'portfolioSection.projects.image', 'testimonialSection', 'testimonialSection.clientsFeedback', 'testimonialSection.clientsFeedback.image', 'blogSection', 'blogSection.posts', 'blogSection.posts', 'blogSection.posts.image', 'blogSection.posts.author', 'blogSection.posts.comments', 'blogSection.posts.author.profileImage', 'contactSection', 'contactSection.socials', 'introSection.logo'],
+          populate: [
+            "introSection",
+            "introSection.introImage",
+            "introSection.professions",
+            "aboutSection",
+            "aboutSection.introVideo",
+            "aboutSection.roundImage",
+            "skillSection",
+            "skillSection.skills",
+            "countupSection",
+            "countupSection.factCounts",
+            "serviceSection",
+            "serviceSection.services",
+            "portfolioSection",
+            "portfolioSection.menus",
+            "portfolioSection.projects",
+            "portfolioSection.projects.image",
+            "testimonialSection",
+            "testimonialSection.clientsFeedback",
+            "testimonialSection.clientsFeedback.image",
+            "blogSection",
+            "blogSection.posts",
+            "blogSection.posts",
+            "blogSection.posts.image",
+            "blogSection.posts.author",
+            "blogSection.posts.comments",
+            "blogSection.posts.author.profileImage",
+            "contactSection",
+            "contactSection.socials",
+            "introSection.logo",
+          ],
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -54,22 +87,59 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/home?${query}`);
-      // console.log(response?.data?.data?.attributes, 'response');
       setMyInfo(response?.data?.data?.attributes);
       setMyInfoLoaded(true);
       
     } catch (error) {
-      
-      console.log(error, 'error');
+
+      console.log(error, "loadMyProfile error");
       setMyInfoLoaded(true);
     }
-  }
+  };
 
+  const loadSidebarInfo = async () => {
+    try {
+      const query = qs.stringify(
+        {
+          populate: "*",
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
 
+      const response = await axios.get(`/static?${query}`);
+      console.log(response?.data?.data?.attributes, "loadSidebarInfo response");
+      setSocials(response?.data?.data?.attributes?.socials);
+      setCategories(response?.data?.data?.attributes?.categories?.data);
+      setTags(response?.data?.data?.attributes?.tags?.data);
+
+      
+    } catch (error) {
+      
+      console.log(error, "loadSidebarInfo error");
+    }
+  };
 
   const loadBlogs = async () => {
     try {
-      const response = await axios.get("/posts?populate=*");
+      const query = qs.stringify(
+        {
+          populate: [
+            "image",
+            "author",
+            "comments",
+            "category",
+            "tag",
+            "author.socials",
+            "author.profileImage",
+          ],
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
+      const response = await axios.get(`/posts?${query}`);
       //   console.log(response?.data?.data, "loadBlogs response");
 
       const formattedBlogs = response?.data?.data.map((blog) => {
@@ -89,9 +159,7 @@ export const BlogProvider = ({ children }) => {
 
       setBlogs(formattedBlogs);
       setBlogsLoaded(true);
-      
     } catch (error) {
-      
       console.log(error, "loadBlogs error");
       setBlogsLoaded(true);
     }
@@ -112,7 +180,6 @@ export const BlogProvider = ({ children }) => {
       setBlog(response?.data?.data);
       setComments(response?.data?.data?.attributes?.comments?.data);
       setBlogLoaded(true);
-
     } catch (error) {
       console.log(error, "fetchBlog error");
       setBlogLoaded(true);
@@ -122,13 +189,12 @@ export const BlogProvider = ({ children }) => {
   const createNewComment = async (newComment) => {
     try {
       const response = await axios.post("/comments?populate=*", {
-        data: newComment
+        data: newComment,
       });
-   
+
       // console.log(response?.data?.data, "response");
       setComments([...comments, response?.data?.data]);
       setIsComponentRender(!isComponentRender);
-
     } catch (error) {
       console.log(error, "createNewComment error");
     }
@@ -148,9 +214,7 @@ export const BlogProvider = ({ children }) => {
       const response = await axios.get(`/categories?${query}`);
       setCategories(response?.data?.data);
       setCategoryLoaded(true);
-
     } catch (error) {
-      
       console.log(error, "fetchCategories error");
       setCategoryLoaded(true);
     }
@@ -187,9 +251,7 @@ export const BlogProvider = ({ children }) => {
       );
       setCategoryBlog(formattedData);
       setCategoryBlogLoaded(true);
-
     } catch (error) {
-      
       console.log(error, "fetchBlogByCategoryID error");
       setCategoryBlogLoaded(true);
     }
@@ -210,23 +272,20 @@ export const BlogProvider = ({ children }) => {
 
       setTags(response?.data?.data);
       setTagsLoaded(true);
-
     } catch (error) {
-      
       console.log(error, "fetchTags error");
       setTagsLoaded(true);
     }
   };
 
-
- 
-
   const value = {
+    loadSidebarInfo,
     myInfoLoaded,
     myInfo,
     blogsLoaded,
     blogs,
     blogLoaded,
+    loadBlogs,
     blog,
     comments,
     fetchBlog,
@@ -237,7 +296,7 @@ export const BlogProvider = ({ children }) => {
     categoryBlogLoaded,
     categoryBlog,
     tags,
-    tagsLoaded,
+    socials
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
