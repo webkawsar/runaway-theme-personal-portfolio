@@ -1,25 +1,18 @@
 import { format } from "date-fns";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
-import BlogSidebar from "./BlogSidebar";
 import Loader from "./Loader";
+import Sidebar from "./Sidebar";
 
 
 
 
 const BlogContents = () => {
-  const { blogsLoaded, blogs, loadBlogs, loadSidebarInfo } = useContext(BlogContext);
+  const { blogsLoaded, blogs } = useContext(BlogContext);
 
   
-  useEffect(() => {
-
-    loadBlogs();
-    loadSidebarInfo();
-
-  }, [])
-
   return (
     <>
       {blogsLoaded ? (
@@ -115,7 +108,7 @@ const BlogContents = () => {
                   </div>
                 )}
               </div>
-              <BlogSidebar />
+              <Sidebar />
             </div>
           </div>
         </section>

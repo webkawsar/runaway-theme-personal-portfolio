@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
-import CategorySideBar from "./CategorySideBar";
 import Loader from "./Loader";
+import Sidebar from "./Sidebar";
 
 const CategoryContents = () => {
   const { categoryBlogLoaded, categoryBlog, fetchBlogByCategoryID } =
@@ -112,7 +112,7 @@ const CategoryContents = () => {
                   </div>
                 )}
               </div>
-              <CategorySideBar />
+              <Sidebar />
             </div>
           </div>
         </section>

@@ -41,6 +41,8 @@ export const BlogProvider = ({ children }) => {
   useEffect(() => {
     
     loadHomeInfo();
+    loadBlogs();
+    loadSidebarInfo();
     // console.log('context loaded in first time');
     
   }, []);
@@ -101,7 +103,7 @@ export const BlogProvider = ({ children }) => {
     try {
       const query = qs.stringify(
         {
-          populate: "*",
+          populate: ['socials', 'categories', 'tags', 'categories.posts'],
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -109,11 +111,10 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/static?${query}`);
-      console.log(response?.data?.data?.attributes, "loadSidebarInfo response");
+      // console.log(response?.data?.data?.attributes, "loadSidebarInfo response");
       setSocials(response?.data?.data?.attributes?.socials);
       setCategories(response?.data?.data?.attributes?.categories?.data);
       setTags(response?.data?.data?.attributes?.tags?.data);
-
       
     } catch (error) {
       
@@ -200,26 +201,6 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      const query = qs.stringify(
-        {
-          populate: "*",
-        },
-        {
-          encodeValuesOnly: true, // prettify URL
-        }
-      );
-
-      const response = await axios.get(`/categories?${query}`);
-      setCategories(response?.data?.data);
-      setCategoryLoaded(true);
-    } catch (error) {
-      console.log(error, "fetchCategories error");
-      setCategoryLoaded(true);
-    }
-  };
-
   const fetchBlogByCategoryID = async (id) => {
     try {
       const query = qs.stringify(
@@ -257,26 +238,7 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
-  const fetchTags = async () => {
-    try {
-      const query = qs.stringify(
-        {
-          populate: "*",
-        },
-        {
-          encodeValuesOnly: true, // prettify URL
-        }
-      );
 
-      const response = await axios.get(`/tags?${query}`);
-
-      setTags(response?.data?.data);
-      setTagsLoaded(true);
-    } catch (error) {
-      console.log(error, "fetchTags error");
-      setTagsLoaded(true);
-    }
-  };
 
   const value = {
     loadSidebarInfo,

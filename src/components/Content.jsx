@@ -3,16 +3,18 @@ import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
 import AddComment from "./AddComment";
-import BlogSidebar from "./BlogSidebar";
 import Comments from "./Comments";
 import Loader from "./Loader";
+import Sidebar from "./Sidebar";
 
 const Content = () => {
   const { blogId } = useParams();
   const { blogLoaded, blog, comments, fetchBlog } = useContext(BlogContext);
 
   useEffect(() => {
+    
     fetchBlog(blogId);
+    
   }, [blogId]);
 
 
@@ -142,7 +144,7 @@ const Content = () => {
                   </div>
                 )}
               </div>
-              <BlogSidebar />
+              <Sidebar />
             </div>
           </div>
         </section>
