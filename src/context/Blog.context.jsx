@@ -45,7 +45,7 @@ export const BlogProvider = ({ children }) => {
     loadSidebarInfo();
     // console.log('context loaded in first time');
     
-  }, []);
+  }, [isComponentRender]);
 
   const loadHomeInfo = async () => {
     try {
@@ -170,7 +170,7 @@ export const BlogProvider = ({ children }) => {
     try {
       const query = qs.stringify(
         {
-          populate: ["image", "author", "comments", "comments.user"],
+          populate: ["image", "author", "comments", "comments.user", "author.profileImage"],
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -196,7 +196,9 @@ export const BlogProvider = ({ children }) => {
       // console.log(response?.data?.data, "response");
       setComments([...comments, response?.data?.data]);
       setIsComponentRender(!isComponentRender);
+      
     } catch (error) {
+      
       console.log(error, "createNewComment error");
     }
   };
@@ -205,7 +207,7 @@ export const BlogProvider = ({ children }) => {
     try {
       const query = qs.stringify(
         {
-          populate: ["posts", "posts.image", "posts.author", "posts.comments"],
+          populate: ["posts", "posts.image", "posts.author", "posts.comments", 'posts.author.profileImage'],
         },
         {
           encodeValuesOnly: true, // prettify URL

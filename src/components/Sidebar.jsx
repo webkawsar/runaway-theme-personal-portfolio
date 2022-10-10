@@ -1,7 +1,5 @@
 import React from "react";
 import Categories from "./Categories";
-import MonthArchives from "./MonthArchives";
-import RecentPosts from "./RecentPosts";
 import Social from "./Social";
 import Tags from "./Tags";
 
@@ -12,8 +10,8 @@ const Sidebar = () => {
         <div className="blog_sidebar">
           <Social />
           <Categories />
-          <RecentPosts />
-          <MonthArchives />
+          {/* <RecentPosts /> */}
+          {/* <MonthArchives /> */}
           <Tags />
         </div>
       </div>

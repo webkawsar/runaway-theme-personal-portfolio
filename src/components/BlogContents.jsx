@@ -57,7 +57,7 @@ const BlogContents = () => {
                               <p className="mt_15 mb_30">{blog?.description}</p>
 
                               <div className="admin">
-                                <img src="/images/about/02.jpg" alt="image" />
+                                <img src={blog?.author?.profileImage?.data?.attributes?.formats?.thumbnail?.url} alt="image" />
                                 <span className="color_white">
                                   By - {blog?.author?.username}
                                 </span>

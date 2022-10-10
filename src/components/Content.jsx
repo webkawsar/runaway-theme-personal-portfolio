@@ -17,7 +17,7 @@ const Content = () => {
     
   }, [blogId]);
 
-
+  
   return (
     <>
       {blogLoaded ? (
@@ -45,7 +45,7 @@ const Content = () => {
                         <h5>{blog?.attributes?.title}</h5>
                       </div>
                       <div className="admin">
-                        <img src="/images/about/02.jpg" alt="image" />
+                        <img src={blog?.attributes?.author?.data?.attributes?.profileImage?.data?.attributes?.formats?.thumbnail?.url} alt="image" />
                         <span className="color_primary">
                           By -{" "}
                           {blog?.attributes?.author?.data?.attributes?.username}
@@ -63,28 +63,6 @@ const Content = () => {
                       </div>
                       <div className="single_blog_content d-inline-block mt_30 color_secondery wow animated slideInUp">
                         <p>{blog?.attributes?.description}</p>
-                        <p className="mt_15 wow animated slideInUp">
-                          Sit lacinia dolor arcu vel quisque neque felis proin
-                          ante,
-                        </p>
-                        <blockquote className="color_primary mt_15 wow animated slideInUp">
-                          <sup>
-                            <i
-                              className="fa fa-quote-left"
-                              aria-hidden="true"
-                            ></i>
-                          </sup>{" "}
-                          Netus vestibulum nostra facilisi tellus.
-                          <sup>
-                            <i
-                              className="fa fa-quote-right"
-                              aria-hidden="true"
-                            ></i>
-                          </sup>
-                        </blockquote>
-                        <p className="mt_15">
-                          Ante nascetur className fames leo nisi arcu Fringilla
-                        </p>
                       </div>
                       <div className="share_post mt_30 wow animated slideInUp">
                         <h4 className="float-left mr_20">Share : </h4>

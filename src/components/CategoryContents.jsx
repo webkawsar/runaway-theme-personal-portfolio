@@ -7,15 +7,16 @@ import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
 const CategoryContents = () => {
-  const { categoryBlogLoaded, categoryBlog, fetchBlogByCategoryID } =
-    useContext(BlogContext);
+  const { categoryBlogLoaded, categoryBlog, fetchBlogByCategoryID } = useContext(BlogContext);
 
   const { catId } = useParams();
   useEffect(() => {
+
     fetchBlogByCategoryID(catId);
+    
   }, [catId]);
 
-  // console.log(categoryBlog, 'categoryBlog');
+
 
   return (
     <>
@@ -61,7 +62,7 @@ const CategoryContents = () => {
                               <p className="mt_15 mb_30">{blog?.description}</p>
 
                               <div className="admin">
-                                <img src="/images/about/02.jpg" alt="image" />
+                                <img src={blog?.author?.profileImage?.data?.attributes?.formats?.thumbnail?.url} alt="image" />
                                 <span className="color_white">
                                   By - {blog?.author?.username}
                                 </span>
