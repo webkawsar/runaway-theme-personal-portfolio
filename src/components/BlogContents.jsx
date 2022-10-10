@@ -6,11 +6,29 @@ import { BlogContext } from "../context/Blog.context";
 import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
-
-
-
 const BlogContents = () => {
   const { blogsLoaded, blogs } = useContext(BlogContext);
+  // console.log(blogs, 'blogs');
+
+  const imageUrl = (blog) => {
+    console.log(blog, 'blog');
+
+    // if (blog?.image?.formats?.large?.url) {
+
+    //   return blog?.image?.formats?.large?.url;
+    // } else if (blog?.image?.formats?.medium?.url) {
+
+    //   return blog?.image?.formats?.medium?.url;
+    // } else if (blog?.image?.formats?.small?.url) {
+
+    //   return blog?.image?.formats?.small?.url;
+    // } else {
+      
+    //   return blog?.image?.formats?.thumbnail?.url;
+    // }
+
+    // return 'https://res.cloudinary.com/dqu7xtx64/image/upload/v1665377266/thumbnail_01_f26a239062.jpg'
+  };
 
   
   return (
@@ -28,6 +46,7 @@ const BlogContents = () => {
                           <div
                             key={blog.id}
                             className="blog_item mb_30 wow animated slideInUp"
+                            
                           >
                             <div className="comments">
                               <FaComment />
@@ -37,11 +56,7 @@ const BlogContents = () => {
                             </div>
                             <div className="blog_img overlay_one">
                               <img
-                                src={`${
-                                  blog?.image?.formats?.large?.url
-                                    ? blog?.image?.formats?.large?.url
-                                    : blog?.image?.formats?.thumbnail?.url
-                                }`}
+                                src={blog?.image?.formats?.large?.url ? blog?.image?.formats?.large?.url : blog?.image?.formats?.medium?.url}
                                 alt="Blog Image"
                               />
                             </div>
@@ -57,7 +72,13 @@ const BlogContents = () => {
                               <p className="mt_15 mb_30">{blog?.description}</p>
 
                               <div className="admin">
-                                <img src={blog?.author?.profileImage?.data?.attributes?.formats?.thumbnail?.url} alt="image" />
+                                <img
+                                  src={
+                                    blog?.author?.profileImage?.data?.attributes
+                                      ?.formats?.thumbnail?.url
+                                  }
+                                  alt="image"
+                                />
                                 <span className="color_white">
                                   By - {blog?.author?.username}
                                 </span>

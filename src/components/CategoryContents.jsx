@@ -45,7 +45,7 @@ const CategoryContents = () => {
                                 src={`${
                                   blog?.image?.formats?.large?.url
                                     ? blog?.image?.formats?.large?.url
-                                    : blog?.image?.formats?.thumbnail?.url
+                                    : blog?.image?.formats?.medium?.url
                                 }`}
                                 alt="Blog Image"
                               />
