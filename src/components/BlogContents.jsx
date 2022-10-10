@@ -7,30 +7,22 @@ import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
 const BlogContents = () => {
-  const { blogsLoaded, blogs } = useContext(BlogContext);
+  const { blogsLoaded, blogs, page, pageCount, setPage } = useContext(BlogContext);
   // console.log(blogs, 'blogs');
 
-  const imageUrl = (blog) => {
-    console.log(blog, 'blog');
-
-    // if (blog?.image?.formats?.large?.url) {
-
-    //   return blog?.image?.formats?.large?.url;
-    // } else if (blog?.image?.formats?.medium?.url) {
-
-    //   return blog?.image?.formats?.medium?.url;
-    // } else if (blog?.image?.formats?.small?.url) {
-
-    //   return blog?.image?.formats?.small?.url;
-    // } else {
-      
-    //   return blog?.image?.formats?.thumbnail?.url;
-    // }
-
-    // return 'https://res.cloudinary.com/dqu7xtx64/image/upload/v1665377266/thumbnail_01_f26a239062.jpg'
+  const generateArr = (num) => {
+    const arr = [];
+    for (let i = 1; i <= num; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+  const pageCountArr = generateArr(pageCount);
+  const handlePageClick = (pageNum) => {
+    
+    setPage(+pageNum);
   };
 
-  
   return (
     <>
       {blogsLoaded ? (
@@ -46,7 +38,6 @@ const BlogContents = () => {
                           <div
                             key={blog.id}
                             className="blog_item mb_30 wow animated slideInUp"
-                            
                           >
                             <div className="comments">
                               <FaComment />
@@ -56,7 +47,11 @@ const BlogContents = () => {
                             </div>
                             <div className="blog_img overlay_one">
                               <img
-                                src={blog?.image?.formats?.large?.url ? blog?.image?.formats?.large?.url : blog?.image?.formats?.medium?.url}
+                                src={
+                                  blog?.image?.formats?.large?.url
+                                    ? blog?.image?.formats?.large?.url
+                                    : blog?.image?.formats?.medium?.url
+                                }
                                 alt="Blog Image"
                               />
                             </div>
@@ -97,21 +92,36 @@ const BlogContents = () => {
                     </div>
                     <nav>
                       <ul className="pagination wow animated slideInUp full_row">
-                        <li className="page-item active">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
+                        {pageCountArr.map((count) => {
+                          return (
+                            <li
+                              key={count}
+                              className={
+                                count === page
+                                  ? "page-item active"
+                                  : "page-item"
+                              }
+                              onClick={() => handlePageClick(count)}
+                            >
+                              <span className="page-link">
+                                {count}
+                              </span>
+                            </li>
+                          );
+                        })}
+
+                        {/* <li className="page-item">
                           <a className="page-link" href="#">
                             2
                           </a>
                         </li>
+
                         <li className="page-item">
                           <a className="page-link" href="#">
                             3
                           </a>
                         </li>
+
                         <li className="page-item">
                           <a className="page-link" href="#">
                             <i
@@ -119,7 +129,7 @@ const BlogContents = () => {
                               aria-hidden="true"
                             ></i>
                           </a>
-                        </li>
+                        </li> */}
                       </ul>
                     </nav>
                   </>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import 'react-typed/dist/animatedCursor.css';
+import "react-typed/dist/animatedCursor.css";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "venobox/dist/venobox.min.css";
@@ -13,12 +13,13 @@ import BlogPage from "./pages/BlogPage";
 import Category from "./pages/Category";
 import Home from "./pages/Home";
 
+const isProduction = import.meta.env.PROD;
+
 // set global base url for every req
-axios.defaults.baseURL = "https://simple-runaway-theme-backend.herokuapp.com/api";
+axios.defaults.baseURL = isProduction
+  ? import.meta.env.VITE_PRODUCTION_URL
+  : import.meta.env.VITE_DEVELOPMENT_URL
 
-
-// http://localhost:1337/api
-// https://simple-runaway-theme-backend.herokuapp.com/api
 
 const App = () => {
   return (

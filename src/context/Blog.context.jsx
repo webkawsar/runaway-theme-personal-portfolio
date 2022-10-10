@@ -38,6 +38,10 @@ export const BlogProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
 
+  // pagination
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(null);
+
   useEffect(() => {
     
     loadHomeInfo();
@@ -45,7 +49,7 @@ export const BlogProvider = ({ children }) => {
     loadSidebarInfo();
     // console.log('context loaded in first time');
     
-  }, [isComponentRender]);
+  }, [isComponentRender, page]);
 
   const loadHomeInfo = async () => {
     try {
@@ -135,13 +139,17 @@ export const BlogProvider = ({ children }) => {
             "author.socials",
             "author.profileImage",
           ],
+          pagination: {
+            page,
+            pageSize: import.meta.env.VITE_PAGE_SIZE
+          }
         },
         {
           encodeValuesOnly: true, // prettify URL
         }
       );
       const response = await axios.get(`/posts?${query}`);
-      //   console.log(response?.data?.data, "loadBlogs response");
+        // console.log(response?.data, "loadBlogs response");
 
       const formattedBlogs = response?.data?.data.map((blog) => {
         const { author, comments, image, likes, tag, ...restData } =
@@ -160,7 +168,10 @@ export const BlogProvider = ({ children }) => {
 
       setBlogs(formattedBlogs);
       setBlogsLoaded(true);
+      setPageCount(response?.data?.meta?.pagination?.pageCount);
+
     } catch (error) {
+      
       console.log(error, "loadBlogs error");
       setBlogsLoaded(true);
     }
@@ -260,7 +271,10 @@ export const BlogProvider = ({ children }) => {
     categoryBlogLoaded,
     categoryBlog,
     tags,
-    socials
+    socials,
+    page,
+    pageCount,
+    setPage
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

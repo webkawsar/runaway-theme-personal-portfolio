@@ -43,7 +43,7 @@ const AddComment = ({ postId }) => {
 
   return (
     <>
-      <div className="replay mt_60 wow animated slideInUp">
+      <div className="replay mt_60 wow animated slideInUp" name="createComment">
         <h4 className="text-uppercase color_primary mb_30">Leave A Replay</h4>
         <form className="reply_form" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
