@@ -38,9 +38,17 @@ export const BlogProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
 
-  // pagination
+  // recent posts
+  const [recentPosts, setRecentPosts] = useState([]);
+
+  // pagination for blogs page
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(null);
+
+  // pagination for category page
+  const [catPageNum, setCatPageNum] = useState(1);
+  const [catPageCount, setCatPageCount] = useState(null);
+
 
   useEffect(() => {
     
@@ -49,7 +57,7 @@ export const BlogProvider = ({ children }) => {
     loadSidebarInfo();
     // console.log('context loaded in first time');
     
-  }, [isComponentRender, page]);
+  }, [isComponentRender, page, catPageNum]);
 
   const loadHomeInfo = async () => {
     try {
@@ -142,7 +150,8 @@ export const BlogProvider = ({ children }) => {
           pagination: {
             page,
             pageSize: import.meta.env.VITE_PAGE_SIZE
-          }
+          },
+          sort: ['id:desc']
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -219,6 +228,10 @@ export const BlogProvider = ({ children }) => {
       const query = qs.stringify(
         {
           populate: ["posts", "posts.image", "posts.author", "posts.comments", 'posts.author.profileImage'],
+          pagination: {
+            page: catPageNum,
+            pageSize: import.meta.env.VITE_PAGE_SIZE
+          }
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -226,7 +239,7 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/categories/${id}?${query}`);
-
+      // console.log(response?.data?.meta?.pagination?.pageCount, 'res');
       const formattedData = response?.data?.data?.attributes?.posts?.data?.map(
         (blog) => {
           const { author, comments, image, likes, tag, ...restData } =
@@ -245,12 +258,65 @@ export const BlogProvider = ({ children }) => {
       );
       setCategoryBlog(formattedData);
       setCategoryBlogLoaded(true);
+      // setCatPageCount(response?.data?.meta?.pagination?.pageCount);
+
     } catch (error) {
+      
       console.log(error, "fetchBlogByCategoryID error");
       setCategoryBlogLoaded(true);
     }
   };
 
+
+  const loadRecentPosts = async () => {
+
+    try {
+      const query = qs.stringify(
+        {
+          populate: [
+            "image",
+            "author",
+            "comments",
+            "category",
+            "tag",
+            "author.socials",
+            "author.profileImage",
+          ],
+          pagination: {
+            page: 1,
+            pageSize: import.meta.env.VITE_RECENT_POST_PAGE_SIZE
+          },
+          sort: ['id:desc']
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
+      const response = await axios.get(`/posts?${query}`);
+        // console.log(response?.data, "loadBlogs response");
+
+      const formattedBlogs = response?.data?.data.map((blog) => {
+        const { author, comments, image, likes, tag, ...restData } =
+          blog.attributes;
+        return {
+          id: blog.id,
+          author: {
+            id: author?.data?.id,
+            ...author?.data?.attributes,
+          },
+          comments: comments?.data,
+          image: image?.data?.attributes,
+          ...restData,
+        };
+      });
+
+      setRecentPosts(formattedBlogs);
+
+    } catch (error) {
+      
+      console.log(error, "loadBlogs error");
+    }
+  }
 
 
   const value = {
@@ -274,7 +340,12 @@ export const BlogProvider = ({ children }) => {
     socials,
     page,
     pageCount,
-    setPage
+    setPage,
+    catPageNum,
+    catPageCount,
+    setCatPageNum,
+    recentPosts,
+    loadRecentPosts
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

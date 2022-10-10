@@ -7,7 +7,14 @@ import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
 const CategoryContents = () => {
-  const { categoryBlogLoaded, categoryBlog, fetchBlogByCategoryID } = useContext(BlogContext);
+  const {
+    categoryBlogLoaded,
+    categoryBlog,
+    fetchBlogByCategoryID,
+    catPageNum,
+    catPageCount,
+    setCatPageNum,
+  } = useContext(BlogContext);
 
   const { catId } = useParams();
   useEffect(() => {
@@ -16,7 +23,19 @@ const CategoryContents = () => {
     
   }, [catId]);
 
+  // const generateArr = (num) => {
+  //   const arr = [];
+  //   for (let i = 1; i <= num; i++) {
+  //     arr.push(i);
+  //   }
+  //   return arr;
+  // };
 
+  // const pageCountArr = generateArr(catPageNum);
+  // const handlePageClick = (pageNum) => {
+    
+  //   setCatPageNum(+pageNum);
+  // };
 
   return (
     <>
@@ -62,7 +81,13 @@ const CategoryContents = () => {
                               <p className="mt_15 mb_30">{blog?.description}</p>
 
                               <div className="admin">
-                                <img src={blog?.author?.profileImage?.data?.attributes?.formats?.thumbnail?.url} alt="image" />
+                                <img
+                                  src={
+                                    blog?.author?.profileImage?.data?.attributes
+                                      ?.formats?.thumbnail?.url
+                                  }
+                                  alt="image"
+                                />
                                 <span className="color_white">
                                   By - {blog?.author?.username}
                                 </span>
@@ -79,33 +104,25 @@ const CategoryContents = () => {
                         );
                       })}
                     </div>
-                    <nav>
+                    {/* <nav>
                       <ul className="pagination wow animated slideInUp full_row">
-                        <li className="page-item active">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            <i
-                              className="fa fa-angle-right"
-                              aria-hidden="true"
-                            ></i>
-                          </a>
-                        </li>
+                        {pageCountArr.map((count) => {
+                          return (
+                            <li
+                              key={count}
+                              className={
+                                count === catPageNum
+                                  ? "page-item active"
+                                  : "page-item"
+                              }
+                              onClick={() => handlePageClick(count)}
+                            >
+                              <span className="page-link">{count}</span>
+                            </li>
+                          );
+                        })}
                       </ul>
-                    </nav>
+                    </nav> */}
                   </>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>

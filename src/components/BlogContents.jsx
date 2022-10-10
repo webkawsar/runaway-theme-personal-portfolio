@@ -2,13 +2,14 @@ import { format } from "date-fns";
 import React, { useContext } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { animateScroll as scroll } from 'react-scroll';
 import { BlogContext } from "../context/Blog.context";
 import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
+
 const BlogContents = () => {
   const { blogsLoaded, blogs, page, pageCount, setPage } = useContext(BlogContext);
-  // console.log(blogs, 'blogs');
 
   const generateArr = (num) => {
     const arr = [];
@@ -21,12 +22,13 @@ const BlogContents = () => {
   const handlePageClick = (pageNum) => {
     
     setPage(+pageNum);
+    scroll.scrollToTop()
   };
 
   return (
     <>
       {blogsLoaded ? (
-        <section className="blog_area py_80 bg_secondery full_row">
+        <section className="blog_area py_80 bg_secondery full_row" name='blogContent'>
           <div className="container">
             <div className="row">
               <div className="col-md-7 col-lg-8">

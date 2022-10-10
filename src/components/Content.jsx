@@ -31,9 +31,9 @@ const Content = () => {
                       <img
                         src={`${
                           blog?.attributes?.image?.data?.attributes?.formats
-                            ?.large?.url
+                            ?.medium?.url
                             ? blog?.attributes?.image?.data?.attributes?.formats
-                                ?.large?.url
+                                ?.medium?.url
                             : blog?.attributes?.image?.data?.attributes?.formats
                                 ?.thumbnail?.url
                         }`}
