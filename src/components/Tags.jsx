@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { BlogContext } from "../context/Blog.context";
 
 const Tags = () => {
   const { tags } = useContext(BlogContext);
 
+  
   return (
     <>
       <div className="widget mb_60 d-inline-block p_30 bg_white full_row wow animated slideInUp">
@@ -14,7 +16,7 @@ const Tags = () => {
               {tags.map((tag) => {
                 return (
                   <li key={tag.id} className="text-capitalize">
-                    <a href={`/tags/${tag.id}`}>{tag?.attributes?.tagName}</a>
+                    <Link to={`/tags/${tag.attributes?.slug}`}>{tag?.attributes?.name}</Link>
                   </li>
                 );
               })}

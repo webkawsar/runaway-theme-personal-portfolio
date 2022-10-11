@@ -2,69 +2,62 @@ import { format } from "date-fns";
 import React, { useContext, useEffect } from "react";
 import { FaComment } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import { BlogContext } from "../context/Blog.context";
 import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
 const CategoryContents = () => {
   const {
-    categoryBlogLoaded,
-    categoryBlog,
-    fetchBlogByCategoryID,
-    catPageNum,
-    catPageCount,
-    setCatPageNum,
+    categoryLoaded,
+    category,
+    categoryPosts,
+    fetchCategory,
+    catPageNumber,
+    setCatPageNumber,
   } = useContext(BlogContext);
-
-  const { catId } = useParams();
+  const { slug } = useParams();
+  
   useEffect(() => {
 
-    fetchBlogByCategoryID(catId);
+    fetchCategory(slug);
     
-  }, [catId]);
+  }, [slug, catPageNumber]);
 
-  // const generateArr = (num) => {
-  //   const arr = [];
-  //   for (let i = 1; i <= num; i++) {
-  //     arr.push(i);
-  //   }
-  //   return arr;
-  // };
-
-  // const pageCountArr = generateArr(catPageNum);
-  // const handlePageClick = (pageNum) => {
+  const handlePageClick = (pageNum) => {
     
-  //   setCatPageNum(+pageNum);
-  // };
+    scroll.scrollToTop();
+    setCatPageNumber(pageNum);
+  };
 
   return (
     <>
-      {categoryBlogLoaded ? (
+      {categoryLoaded ? (
         <section className="blog_area py_80 bg_secondery full_row">
           <div className="container">
             <div className="row">
               <div className="col-md-7 col-lg-8">
-                {categoryBlog.length ? (
+                {categoryPosts.length ? (
                   <>
                     <div className="blog_list mb_60">
-                      {categoryBlog.map((blog) => {
+                      {categoryPosts.map((post) => {
                         return (
                           <div
-                            key={blog.id}
+                            key={post.id}
                             className="blog_item mb_30 wow animated slideInUp"
                           >
                             <div className="comments">
                               <FaComment />
                               <span className="color_white">
-                                {blog?.comments?.length}
+                                {post?.comments?.length}
                               </span>
                             </div>
                             <div className="blog_img overlay_one">
                               <img
                                 src={`${
-                                  blog?.image?.formats?.large?.url
-                                    ? blog?.image?.formats?.large?.url
-                                    : blog?.image?.formats?.medium?.url
+                                  post?.image?.formats?.large?.url
+                                    ? post?.image?.formats?.large?.url
+                                    : post?.image?.formats?.medium?.url
                                 }`}
                                 alt="Blog Image"
                               />
@@ -73,29 +66,29 @@ const CategoryContents = () => {
                               <div className="blog_title">
                                 <Link
                                   className="color_primary"
-                                  to={`/blogs/${blog.id}`}
+                                  to={`/blogs/${post.id}`}
                                 >
-                                  <h5>{blog?.title}</h5>
+                                  <h5>{post?.title}</h5>
                                 </Link>
                               </div>
-                              <p className="mt_15 mb_30">{blog?.description}</p>
+                              <p className="mt_15 mb_30">{post?.description}</p>
 
                               <div className="admin">
                                 <img
                                   src={
-                                    blog?.author?.profileImage?.data?.attributes
-                                      ?.formats?.thumbnail?.url
+                                    post?.author?.profileImage?.formats
+                                      ?.thumbnail?.url
                                   }
                                   alt="image"
                                 />
                                 <span className="color_white">
-                                  By - {blog?.author?.username}
+                                  By - {post?.author?.username}
                                 </span>
                               </div>
                               <div className="date float-right color_primary">
-                                {blog?.publishedAt &&
+                                {post?.publishedAt &&
                                   format(
-                                    new Date(blog?.publishedAt),
+                                    new Date(post?.publishedAt),
                                     "d MMM yyyy"
                                   )}
                               </div>
@@ -104,29 +97,49 @@ const CategoryContents = () => {
                         );
                       })}
                     </div>
-                    {/* <nav>
+                    <nav>
                       <ul className="pagination wow animated slideInUp full_row">
-                        {pageCountArr.map((count) => {
-                          return (
-                            <li
-                              key={count}
-                              className={
-                                count === catPageNum
-                                  ? "page-item active"
-                                  : "page-item"
-                              }
-                              onClick={() => handlePageClick(count)}
-                            >
-                              <span className="page-link">{count}</span>
-                            </li>
-                          );
-                        })}
+                        {category?.pagination?.hasPreviousPage && (
+                          <li
+                            className="page-item"
+                            onClick={() =>
+                              handlePageClick(
+                                category?.pagination?.previousPage
+                              )
+                            }
+                          >
+                            <span className="page-link">
+                              {category?.pagination?.previousPage}
+                            </span>
+                          </li>
+                        )}
+
+                        {
+                          <li className="page-item active">
+                            <span className="page-link">
+                              {category?.pagination?.currentPage}
+                            </span>
+                          </li>
+                        }
+
+                        {category?.pagination?.hasNextPage && (
+                          <li
+                            className="page-item"
+                            onClick={() =>
+                              handlePageClick(category?.pagination?.nextPage)
+                            }
+                          >
+                            <span className="page-link">
+                              {category?.pagination?.nextPage}
+                            </span>
+                          </li>
+                        )}
                       </ul>
-                    </nav> */}
+                    </nav>
                   </>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>
-                    <h2>Post is not available to show</h2>
+                    <h2><span style={{textTransform: 'capitalize'}}>{category.name}</span> category post is not available to show</h2>
                   </div>
                 )}
               </div>

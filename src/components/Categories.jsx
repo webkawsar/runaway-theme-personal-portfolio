@@ -4,6 +4,7 @@ import { BlogContext } from "../context/Blog.context";
 
 const Categories = () => {
   const { categories } = useContext(BlogContext);
+ 
 
   return (
     <>
@@ -15,8 +16,8 @@ const Categories = () => {
               {categories.map((category) => {
                 return (
                   <li key={category?.id} className="category">
-                    <Link to={`/categories/${category.id}`}>
-                      {category?.attributes?.categoryName}
+                    <Link to={`/categories/${category?.attributes?.slug}`}>
+                      {category?.attributes?.name}
                     </Link>
                     <span>({category?.attributes?.posts?.data?.length})</span>
                   </li>
