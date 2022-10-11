@@ -66,7 +66,7 @@ const CategoryContents = () => {
                               <div className="blog_title">
                                 <Link
                                   className="color_primary"
-                                  to={`/blogs/${post.id}`}
+                                  to={`/blogs/${post?.slug}`}
                                 >
                                   <h5>{post?.title}</h5>
                                 </Link>

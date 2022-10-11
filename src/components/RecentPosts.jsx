@@ -7,51 +7,50 @@ const RecentPosts = () => {
   const { recentPosts, loadRecentPosts } = useContext(BlogContext);
 
   useEffect(() => {
-
     loadRecentPosts();
-    
-  }, [])
+  }, []);
 
   return (
     <>
       <div className="widget mb_60 d-inline-block p_30 primary_link bg_white full_row wow animated slideInUp">
         <h3 className="widget_title mb_30 text-capitalize">Recent Post</h3>
-        <div className="recent_post">
-          <ul>
-            {recentPosts.map((blog) => {
-              return (
-                <li key={blog.id} className="mb_30">
-                  <Link to={`/blogs/${blog.id}`}>
-                    <div className="d-flex">
-                      <div className="post_img">
-                        <img
-                          src={
-                            blog?.image?.formats?.thumbnail?.url
-                              ? blog?.image?.formats?.thumbnail?.url
-                              : blog?.image?.formats?.medium?.url
-                          }
-                          alt="image"
-                        />
+        {recentPosts.length ? (
+          <div className="recent_post">
+            <ul>
+              {recentPosts.map((blog) => {
+                return (
+                  <li key={blog.id} className="mb_30">
+                    <Link to={`/blogs/${blog.slug}`}>
+                      <div className="d-flex">
+                        <div className="post_img">
+                          <img
+                            src={
+                              blog?.image?.formats?.thumbnail?.url
+                                ? blog?.image?.formats?.thumbnail?.url
+                                : blog?.image?.formats?.medium?.url
+                            }
+                            alt="image"
+                          />
+                        </div>
+                        <div className="recent_post_content">
+                          <h6>
+                            {blog?.title?.length >= 40
+                              ? blog.title.slice(0, 40) + "..."
+                              : blog.title}
+                          </h6>
+                          <span className="color_gray">
+                            {" "}
+                            {blog?.publishedAt &&
+                              format(new Date(blog?.publishedAt), "d MMM yyyy")}
+                          </span>
+                        </div>
                       </div>
-                      <div className="recent_post_content">
-                        <h6>
-                          {blog?.title?.length >= 40
-                            ? blog.title.slice(0, 40) + "..."
-                            : blog.title}
-                        </h6>
-                        <span className="color_gray">
-                          {" "}
-                          {blog?.publishedAt &&
-                            format(new Date(blog?.publishedAt), "d MMM yyyy")}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
+                    </Link>
+                  </li>
+                );
+              })}
 
-            {/* <li className="mb_30">
+              {/* <li className="mb_30">
               <a href="#">
                 <div className="post_img">
                   <img src="/images/recent-post/02.jpg" alt="image" />
@@ -84,8 +83,13 @@ const RecentPosts = () => {
                 </div>
               </a>
             </li> */}
-          </ul>
-        </div>
+            </ul>
+          </div>
+        ) : (
+          <div style={{ color: "red", textAlign: "center" }}>
+            <h5>Post is not available to show</h5>
+          </div>
+        )}
       </div>
     </>
   );

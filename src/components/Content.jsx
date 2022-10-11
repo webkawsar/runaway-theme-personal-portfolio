@@ -8,16 +8,13 @@ import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
 const Content = () => {
-  const { blogId } = useParams();
+  const { slug } = useParams();
   const { blogLoaded, blog, comments, fetchBlog } = useContext(BlogContext);
 
   useEffect(() => {
-    
-    fetchBlog(blogId);
-    
-  }, [blogId]);
+    fetchBlog(slug);
+  }, [slug]);
 
-  
   return (
     <>
       {blogLoaded ? (
@@ -30,39 +27,42 @@ const Content = () => {
                     <div className="blog_img overlay_one wow animated slideInUp">
                       <img
                         src={`${
-                          blog?.attributes?.image?.data?.attributes?.formats
-                            ?.medium?.url
-                            ? blog?.attributes?.image?.data?.attributes?.formats
-                                ?.medium?.url
-                            : blog?.attributes?.image?.data?.attributes?.formats
-                                ?.thumbnail?.url
+                          blog?.image?.formats?.medium?.url
+                            ? blog?.image?.formats?.medium?.url
+                            : blog?.image?.formats?.thumbnail?.url
                         }`}
                         alt="image"
                       />
                     </div>
                     <div className="blog_content bg_white">
                       <div className="blog_title mb_20 color_primary">
-                        <h5>{blog?.attributes?.title}</h5>
+                        <h5>{blog?.title}</h5>
                       </div>
                       <div className="admin">
-                        <img src={blog?.attributes?.author?.data?.attributes?.profileImage?.data?.attributes?.formats?.thumbnail?.url} alt="image" />
+                        <img
+                          src={
+                            blog?.author?.profileImage?.formats?.thumbnail?.url
+                          }
+                          alt="image"
+                        />
                         <span className="color_primary">
                           By -{" "}
-                          {blog?.attributes?.author?.data?.attributes?.username}
+                          {blog?.author?.username}
                         </span>
                       </div>
                       <div className="date color_primary float-left">
-                        
-                        {blog?.attributes?.publishedAt &&  format(new Date(blog?.attributes?.publishedAt), "d MMM yyyy")}
+                        {blog?.publishedAt &&
+                          format(
+                            new Date(blog?.publishedAt),
+                            "d MMM yyyy"
+                          )}
                       </div>
                       <div className="comments">
                         <i className="fa fa-comment" aria-hidden="true"></i>
-                        <span className="color_primary">
-                          {comments.length}
-                        </span>
+                        <span className="color_primary">{comments.length}</span>
                       </div>
                       <div className="single_blog_content d-inline-block mt_30 color_secondery wow animated slideInUp">
-                        <p>{blog?.attributes?.description}</p>
+                        <p>{blog?.description}</p>
                       </div>
                       <div className="share_post mt_30 wow animated slideInUp">
                         <h4 className="float-left mr_20">Share : </h4>

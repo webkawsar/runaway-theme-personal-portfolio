@@ -61,7 +61,7 @@ const BlogContents = () => {
                               <div className="blog_title">
                                 <Link
                                   className="color_primary"
-                                  to={`/blogs/${blog.id}`}
+                                  to={`/blogs/${blog.slug}`}
                                 >
                                   <h5>{blog?.title}</h5>
                                 </Link>

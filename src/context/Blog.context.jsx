@@ -183,7 +183,7 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
-  const fetchBlog = async (blogId) => {
+  const fetchBlog = async (slug) => {
     try {
       const query = qs.stringify(
         {
@@ -193,12 +193,16 @@ export const BlogProvider = ({ children }) => {
           encodeValuesOnly: true, // prettify URL
         }
       );
-      const response = await axios.get(`/posts/${blogId}?${query}`);
+      // http://localhost:1337/api/categories?filters[slug][$eq]=web-development
+      const response = await axios.get(`/posts/${slug}?${query}`);
+      console.log(response.data, 'fetchBlog response');
 
-      setBlog(response?.data?.data);
-      setComments(response?.data?.data?.attributes?.comments?.data);
+      setBlog(response?.data);
+      setComments(response?.data?.comments);
       setBlogLoaded(true);
+
     } catch (error) {
+      
       console.log(error, "fetchBlog error");
       setBlogLoaded(true);
     }
