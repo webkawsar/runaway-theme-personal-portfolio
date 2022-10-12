@@ -92,12 +92,12 @@ const Portfolio = () => {
                   <div className="row">
                     {projects.map((project) => {
                       return (
-                        <AnimatePresence>
+                        <AnimatePresence key={project.id}>
                           <motion.div
                             layout
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.9 }}
-                            key={project.id}
+                            
                             className="column mix mix_all graphic development wordpress mb_30 col-md-4 col-lg-4"
                           >
                             <div className="default-portfolio-item">
