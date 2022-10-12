@@ -12,6 +12,7 @@ import BlogDetails from "./pages/BlogDetails";
 import BlogPage from "./pages/BlogPage";
 import Category from "./pages/Category";
 import Home from "./pages/Home";
+import Tag from "./pages/Tag";
 
 const isProduction = import.meta.env.PROD;
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/blogs" element={<BlogPage />} />
           <Route path="/blogs/:slug" element={<BlogDetails />} />
           <Route path="/categories/:slug" element={<Category />} />
+          <Route path="/tags/:slug" element={<Tag />} />
           <Route path="/loader" element={<Loader />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

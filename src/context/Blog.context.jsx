@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from "qs";
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 // create a context
 export const BlogContext = createContext();
@@ -9,26 +8,16 @@ export const BlogContext = createContext();
 // create a provider
 export const BlogProvider = ({ children }) => {
   
-  // load loadMyProfile in mounting stage
-  const [myInfo, setMyInfo] = useState({});
-  const [myInfoLoaded, setMyInfoLoaded] = useState(false);
+  // load home info in mounting stage
+  const [homeInfoLoaded, setHomeInfoLoaded] = useState(false);
+  const [homeInfo, setHomeInfo] = useState({});
 
   // load all blogs
-  const [blogs, setBlogs] = useState([]);
   const [blogsLoaded, setBlogsLoaded] = useState(false);
-  const navigate = useNavigate();
-
-  const [blog, setBlog] = useState({});
-  const [comments, setComments] = useState([]);
-  const [blogLoaded, setBlogLoaded] = useState(false);
-  const [isComponentRender, setIsComponentRender] = useState(false);
-
-
-  // category wise fetch posts data
-  const [category, setCategory] = useState({});
-  const [categoryLoaded, setCategoryLoaded] = useState(false);
-  const [categoryPosts, setCategoryPosts] = useState([]);
-
+  const [blogs, setBlogs] = useState([]);
+  // pagination for blogs page
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(null);
 
   // load sidebar info
   const [socials, setSocials] = useState([]);
@@ -36,12 +25,26 @@ export const BlogProvider = ({ children }) => {
   const [tagsLoaded, setTagsLoaded] = useState(false);
   const [tags, setTags] = useState([]);
 
+  // load single blog
+  const [blogLoaded, setBlogLoaded] = useState(false);
+  const [blog, setBlog] = useState({});
+  const [comments, setComments] = useState([]);
+  const [isComponentRender, setIsComponentRender] = useState(false);
+
+  // category wise fetch posts data
+  const [category, setCategory] = useState({});
+  const [categoryLoaded, setCategoryLoaded] = useState(false);
+  const [categoryPosts, setCategoryPosts] = useState([]);
+
+  // fetch data by tag
+  const [tag, setTag] = useState({});
+  const [tagPosts, setTagPosts] = useState([]);
+  const [tagLoaded, setTagLoaded] = useState(false);
+  // pagination for tag page
+  const [tagPageNumber, setTagPageNumber] = useState(1);
+
   // recent posts
   const [recentPosts, setRecentPosts] = useState([]);
-
-  // pagination for blogs page
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(null);
 
   // pagination for category page
   const [catPageNumber, setCatPageNumber] = useState(1);
@@ -54,8 +57,10 @@ export const BlogProvider = ({ children }) => {
     loadSidebarInfo();
     // console.log('context loaded in first time');
     
-  }, [isComponentRender, page, catPageNumber]);
+  }, [isComponentRender, page, catPageNumber, tagPageNumber]);
 
+
+  
   const loadHomeInfo = async () => {
     try {
       const query = qs.stringify(
@@ -81,12 +86,12 @@ export const BlogProvider = ({ children }) => {
             "testimonialSection.clientsFeedback",
             "testimonialSection.clientsFeedback.image",
             "blogSection",
-            "blogSection.posts",
-            "blogSection.posts",
-            "blogSection.posts.image",
-            "blogSection.posts.author",
-            "blogSection.posts.comments",
-            "blogSection.posts.author.profileImage",
+            "blogSection.blogs",
+            "blogSection.blogs",
+            "blogSection.blogs.image",
+            "blogSection.blogs.author",
+            "blogSection.blogs.comments",
+            "blogSection.blogs.author.profileImage",
             "contactSection",
             "contactSection.socials",
             "introSection.logo",
@@ -98,36 +103,15 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/home?${query}`);
-      setMyInfo(response?.data?.data?.attributes);
-      setMyInfoLoaded(true);
+      // console.log(response.data, 'loadHomeInfo res');
+      
+      setHomeInfo(response?.data?.data?.attributes);
+      setHomeInfoLoaded(true);
       
     } catch (error) {
 
       console.log(error, "loadMyProfile error");
-      setMyInfoLoaded(true);
-    }
-  };
-
-  const loadSidebarInfo = async () => {
-    try {
-      const query = qs.stringify(
-        {
-          populate: ['socials', 'categories', 'tags', 'categories.posts'],
-        },
-        {
-          encodeValuesOnly: true, // prettify URL
-        }
-      );
-
-      const response = await axios.get(`/static?${query}`);
-      // console.log(response?.data?.data?.attributes, "loadSidebarInfo response");
-      setSocials(response?.data?.data?.attributes?.socials);
-      setCategories(response?.data?.data?.attributes?.categories?.data);
-      setTags(response?.data?.data?.attributes?.tags?.data);
-      
-    } catch (error) {
-      
-      console.log(error, "loadSidebarInfo error");
+      setHomeInfoLoaded(true);
     }
   };
 
@@ -154,25 +138,10 @@ export const BlogProvider = ({ children }) => {
           encodeValuesOnly: true, // prettify URL
         }
       );
-      const response = await axios.get(`/posts?${query}`);
-        // console.log(response?.data, "loadBlogs response");
+      const response = await axios.get(`/blogs?${query}`);
+      // console.log(response?.data, "loadBlogs response");
 
-      const formattedBlogs = response?.data?.data.map((blog) => {
-        const { author, comments, image, likes, tag, ...restData } =
-          blog.attributes;
-        return {
-          id: blog.id,
-          author: {
-            id: author?.data?.id,
-            ...author?.data?.attributes,
-          },
-          comments: comments?.data,
-          image: image?.data?.attributes,
-          ...restData,
-        };
-      });
-
-      setBlogs(formattedBlogs);
+      setBlogs(response?.data?.data);
       setBlogsLoaded(true);
       setPageCount(response?.data?.meta?.pagination?.pageCount);
 
@@ -180,6 +149,30 @@ export const BlogProvider = ({ children }) => {
       
       console.log(error, "loadBlogs error");
       setBlogsLoaded(true);
+    }
+  };
+  
+  const loadSidebarInfo = async () => {
+    try {
+      const query = qs.stringify(
+        {
+          populate: ['socials', 'categories', 'tags', 'categories.blogs'],
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
+
+      const response = await axios.get(`/static?${query}`);
+      // console.log(response?.data?.data?.attributes, "loadSidebarInfo response");
+      
+      setSocials(response?.data?.data?.attributes?.socials);
+      setCategories(response?.data?.data?.attributes?.categories?.data);
+      setTags(response?.data?.data?.attributes?.tags?.data);
+      
+    } catch (error) {
+      
+      console.log(error, "loadSidebarInfo error");
     }
   };
 
@@ -193,9 +186,9 @@ export const BlogProvider = ({ children }) => {
           encodeValuesOnly: true, // prettify URL
         }
       );
-      // http://localhost:1337/api/categories?filters[slug][$eq]=web-development
-      const response = await axios.get(`/posts/${slug}?${query}`);
-      console.log(response.data, 'fetchBlog response');
+      
+      const response = await axios.get(`/blogs/${slug}?${query}`);
+      // console.log(response.data, 'fetchBlog response');
 
       setBlog(response?.data);
       setComments(response?.data?.comments);
@@ -278,7 +271,7 @@ export const BlogProvider = ({ children }) => {
           encodeValuesOnly: true, // prettify URL
         }
       );
-      const response = await axios.get(`/posts?${query}`);
+      const response = await axios.get(`/blogs?${query}`);
         // console.log(response?.data, "loadBlogs response");
 
       const formattedBlogs = response?.data?.data.map((blog) => {
@@ -304,33 +297,54 @@ export const BlogProvider = ({ children }) => {
     }
   }
 
+  const fetchBlogsByTag = async (slug) => {
+
+    try {
+      const query = qs.stringify(
+        {
+          populate:  ["posts", "posts.image", "posts.author", "posts.comments", 'posts.author.profileImage'],
+          pagination: {
+            page: tagPageNumber,
+            pageSize: import.meta.env.VITE_PAGE_SIZE
+          }
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        }
+      );
+
+      const response = await axios.get(`/tags/${slug}?${query}`);
+      // console.log(response?.data, 'fetchBlogsByTag res');
+
+      setTag(response?.data);
+      setTagLoaded(true);
+      setTagPosts(response?.data?.posts);
+
+    } catch (error) {
+      
+      console.log(error, "fetchBlogsByTag error");
+      setTagLoaded(true);
+    }
+  }
+
 
   const value = {
-    loadSidebarInfo,
-    myInfoLoaded,
-    myInfo,
+    homeInfoLoaded,
+    homeInfo,
     blogsLoaded,
     blogs,
-    blogLoaded,
-    loadBlogs,
-    blog,
-    comments,
-    fetchBlog,
-    createNewComment,
-    categories,
-    categoryLoaded,
-    categoryPosts,
-    category,
-    fetchCategory,
-    tags,
-    socials,
     page,
     pageCount,
     setPage,
-    catPageNumber,
-    setCatPageNumber,
+    socials,
+    categories,
+    loadRecentPosts,
     recentPosts,
-    loadRecentPosts
+    tags,
+    fetchBlog,
+    blogLoaded,
+    blog,
+    comments
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

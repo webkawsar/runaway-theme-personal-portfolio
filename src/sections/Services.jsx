@@ -4,8 +4,8 @@ import { Fade } from "react-reveal";
 import { BlogContext } from "../context/Blog.context";
 
 const Services = () => {
-  const { myInfo } = useContext(BlogContext);
-  const { serviceIntro, services } = myInfo.serviceSection;
+  const { homeInfo } = useContext(BlogContext);
+  const { serviceIntro, services } = homeInfo.serviceSection;
 
 
   return (

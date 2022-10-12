@@ -9,10 +9,12 @@ import Sidebar from "./Sidebar";
 
 const Content = () => {
   const { slug } = useParams();
-  const { blogLoaded, blog, comments, fetchBlog } = useContext(BlogContext);
+  const { fetchBlog, blogLoaded, blog, comments } = useContext(BlogContext);
 
   useEffect(() => {
+
     fetchBlog(slug);
+    
   }, [slug]);
 
   return (
@@ -46,16 +48,12 @@ const Content = () => {
                           alt="image"
                         />
                         <span className="color_primary">
-                          By -{" "}
-                          {blog?.author?.username}
+                          By - {blog?.author?.username}
                         </span>
                       </div>
                       <div className="date color_primary float-left">
                         {blog?.publishedAt &&
-                          format(
-                            new Date(blog?.publishedAt),
-                            "d MMM yyyy"
-                          )}
+                          format(new Date(blog?.publishedAt), "d MMM yyyy")}
                       </div>
                       <div className="comments">
                         <i className="fa fa-comment" aria-hidden="true"></i>
@@ -112,9 +110,10 @@ const Content = () => {
                         </div>
                       </div>
                     </div>
+                    
                     {comments && <Comments comments={comments} />}
-
                     <AddComment postId={blog?.id} />
+                    
                   </div>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>

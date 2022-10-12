@@ -6,8 +6,8 @@ import Slider from "react-slick";
 import { BlogContext } from "../context/Blog.context";
 
 const Testimonial = () => {
-  const { myInfo } = useContext(BlogContext);
-  const { testimonialIntro, clientsFeedback } = myInfo.testimonialSection;
+  const { homeInfo } = useContext(BlogContext);
+  const { testimonialIntro, clientsFeedback } = homeInfo.testimonialSection;
 
   const ref = useRef();
   const settings = {

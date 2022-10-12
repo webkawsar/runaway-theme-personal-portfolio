@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 import { BlogContext } from "../../context/Blog.context";
 
 const Header = () => {
-  const {myInfo} = useContext(BlogContext);
+  const {homeInfo} = useContext(BlogContext);
   const elm = useRef();
   const { pathname } = useLocation();
 
@@ -45,7 +45,7 @@ const Header = () => {
           className="navbar navbar-expand-lg navbar-light w-100"
         >
           <Link className="navbar-brand" to="top" smooth={true}>
-            <img className="nav-logo" src={myInfo?.introSection?.logo?.data?.attributes?.url} alt="logo" />
+            <img className="nav-logo" src={homeInfo?.introSection?.logo?.data?.attributes?.url} alt="logo" />
           </Link>
           <button
             className="navbar-toggler"

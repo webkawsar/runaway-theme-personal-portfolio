@@ -16,9 +16,9 @@ const schema = yup
   .required();
 
 const Contact = () => {
-  const { myInfo } = useContext(BlogContext);
-  const { contactIntro, socials } = myInfo.contactSection;
-  const { email, phone_number, address, website } = myInfo.aboutSection;
+  const { homeInfo } = useContext(BlogContext);
+  const { contactIntro, socials } = homeInfo.contactSection;
+  const { email, phone_number, address, website } = homeInfo.aboutSection;
 
   const {
     register,

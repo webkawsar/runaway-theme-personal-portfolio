@@ -33,8 +33,8 @@ const skillSets = [
 
 const Skill = () => {
   const [skills, setSkills] = useState(skillSets);
-  const {myInfo} = useContext(BlogContext);
-  const {intro, introDetails, skills: updatedSkills} = myInfo.skillSection;
+  const {homeInfo} = useContext(BlogContext);
+  const {intro, introDetails, skills: updatedSkills} = homeInfo.skillSection;
   const [ref, inView ] = useInView();
 
  

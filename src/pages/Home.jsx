@@ -16,11 +16,13 @@ import Skill from "../sections/Skill";
 import Testimonial from "../sections/Testimonial";
 
 const Home = () => {
-  const { myInfoLoaded } = useContext(BlogContext);
+  const { homeInfoLoaded } = useContext(BlogContext);
   const location = useLocation();
 
   useEffect(() => {
+    
     if (location.state) {
+
       scroller.scrollTo(`${location.state}`, {
         smooth: true,
       });
@@ -31,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      {myInfoLoaded ? (
+      {homeInfoLoaded ? (
         <Layout>
           <>
             <Intro />

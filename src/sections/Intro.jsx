@@ -3,7 +3,7 @@ import Typed from "react-typed";
 import { BlogContext } from "../context/Blog.context";
 
 const Intro = () => {
-  const { myInfo } = useContext(BlogContext);
+  const { homeInfo } = useContext(BlogContext);
   const {
     fullName,
     professions,
@@ -18,7 +18,7 @@ const Intro = () => {
         },
       },
     },
-  } = myInfo.introSection;
+  } = homeInfo.introSection;
   const typedStrings = professions.map((profession) => profession.name);
 
   const typedOptions = {

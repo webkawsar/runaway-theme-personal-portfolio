@@ -7,7 +7,9 @@ const RecentPosts = () => {
   const { recentPosts, loadRecentPosts } = useContext(BlogContext);
 
   useEffect(() => {
+
     loadRecentPosts();
+    
   }, []);
 
   return (

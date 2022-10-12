@@ -5,7 +5,7 @@ import { BlogContext } from "../context/Blog.context";
 const Categories = () => {
   const { categories } = useContext(BlogContext);
  
-
+  
   return (
     <>
       <div className="widget mb_60 d-inline-block p_30 primary_link bg_white full_row wow animated slideInUp">
@@ -19,7 +19,7 @@ const Categories = () => {
                     <Link to={`/categories/${category?.attributes?.slug}`}>
                       {category?.attributes?.name}
                     </Link>
-                    <span>({category?.attributes?.posts?.data?.length})</span>
+                    <span>({category?.attributes?.blogs?.data?.length})</span>
                   </li>
                 );
               })}

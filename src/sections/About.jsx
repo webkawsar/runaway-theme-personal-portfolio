@@ -5,7 +5,7 @@ import Venobox from "venobox";
 import { BlogContext } from "../context/Blog.context";
 
 const About = () => {
-  const { myInfo } = useContext(BlogContext);
+  const { homeInfo } = useContext(BlogContext);
   const {
     aboutIntro,
     email,
@@ -26,8 +26,8 @@ const About = () => {
         },
       },
     },
-  } = myInfo.aboutSection;
-  const { fullName } = myInfo.introSection;
+  } = homeInfo.aboutSection;
+  const { fullName } = homeInfo.introSection;
 
   useEffect(() => {
     new Venobox({

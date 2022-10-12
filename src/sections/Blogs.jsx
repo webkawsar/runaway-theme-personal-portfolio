@@ -1,14 +1,13 @@
-import { format } from "date-fns";
 import { useContext } from "react";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
+import HomeBlog from "../components/HomeBlog";
 import { BlogContext } from "../context/Blog.context";
 
 const Blogs = () => {
-  const { myInfo } = useContext(BlogContext);
-  const { blogIntro, posts } = myInfo.blogSection;
+  const { homeInfo } = useContext(BlogContext);
+  const { blogIntro, blogs } = homeInfo.blogSection;
 
-  
   return (
     <>
       <section id="blog" name="blog" className="py_80 bg_secondery full_row">
@@ -28,84 +27,13 @@ const Blogs = () => {
               </div>
             </Fade>
 
-            {posts?.data.length && (
+            {blogs?.data.length ? (
               <div className="col-lg-12">
                 <div className="blog_grid_1 wow animated slideInUp">
                   <div className="row">
-                    {posts?.data.map((blog) => {
-                      return (
-                        <Fade bottom key={blog.id}>
-                          <div
-                            key={blog.id}
-                            className="col-sm-12 col-md-6 col-lg-4"
-                          >
-                            <div className="blog_item">
-                              <div className="comments">
-                                <i
-                                  className="fa fa-comment"
-                                  aria-hidden="true"
-                                ></i>
-                                <span className="color_white">
-                                  {blog?.attributes?.comments?.data?.length}
-                                </span>
-                              </div>
-                              <div className="blog_img">
-                                <img
-                                  style={{ height: "220px" }}
-                                  src={`${
-                                    blog?.attributes?.image?.data?.attributes
-                                      ?.formats?.large?.url
-                                      ? blog?.attributes?.image?.data
-                                          ?.attributes?.formats?.large?.url
-                                      : blog?.attributes?.image?.data
-                                          ?.attributes?.formats?.thumbnail?.url
-                                  }`}
-                                  alt="image"
-                                />
-                              </div>
-                              <div className="blog_content bg_white color_secondery">
-                                <div className="blog_title">
-                                  <Link
-                                    className="color_primary"
-                                    to={`/blogs/${blog.id}`}
-                                  >
-                                    <h5>{blog?.attributes?.title}</h5>
-                                  </Link>
-                                </div>
-                                <p className="mt_15 mb_30">
-                                  {blog?.attributes?.description
-                                    .slice(0, 260)
-                                    .concat("...")}
-                                </p>
-
-                                <div className="admin">
-                                  <img
-                                    src={
-                                      blog?.attributes?.author?.data?.attributes
-                                        ?.profileImage?.data?.attributes?.url
-                                    }
-                                    alt="image"
-                                  />
-                                  <span className="color_white">
-                                    By -{" "}
-                                    {
-                                      blog?.attributes?.author?.data?.attributes
-                                        ?.username
-                                    }
-                                  </span>
-                                </div>
-                                <div className="date float-right color_primary">
-                                  {format(
-                                    new Date(blog?.attributes?.publishedAt),
-                                    "d MMM yyyy"
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </Fade>
-                      );
-                    })}
+                    {blogs?.data.map((blog) => (
+                      <HomeBlog key={blog.id} blog={blog} />
+                    ))}
                   </div>
                   <div className="mx-auto text-center mt_60">
                     <Link className="btn btn-default" to="/blogs">
@@ -113,6 +41,13 @@ const Blogs = () => {
                     </Link>
                   </div>
                 </div>
+              </div>
+            ) : (
+              <div
+                className="col-lg-12"
+                style={{ color: "red", textAlign: "center" }}
+              >
+                <h4>Blogs is not available to show</h4>
               </div>
             )}
           </div>

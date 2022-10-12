@@ -26,9 +26,9 @@ const initialData = [
 ];
 
 const ExperienceCountUp = () => {
-  const { myInfo } = useContext(BlogContext);
+  const { homeInfo } = useContext(BlogContext);
   const [counts, setCounts] = useState(initialData);
-  const { factCounts } = myInfo.countupSection;
+  const { factCounts } = homeInfo.countupSection;
   const [ref, inView] = useInView();
 
 

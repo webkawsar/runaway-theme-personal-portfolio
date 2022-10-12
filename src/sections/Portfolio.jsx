@@ -5,12 +5,12 @@ import { BlogContext } from "../context/Blog.context";
 
 
 const Portfolio = () => {
-  const { myInfo } = useContext(BlogContext);
+  const { homeInfo } = useContext(BlogContext);
   const {
     portfolioIntro,
     menus: menusFromDB,
     projects: projectsDataFromDB,
-  } = myInfo.portfolioSection;
+  } = homeInfo.portfolioSection;
   const [menus, setMenus] = useState(menusFromDB);
   const [projects, setProjects] = useState(projectsDataFromDB);
 
