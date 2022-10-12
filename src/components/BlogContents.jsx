@@ -63,7 +63,7 @@ const BlogContents = () => {
                   </>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>
-                    <h2>Blog is not available to show</h2>
+                    <h2>Blogs is not available to show</h2>
                   </div>
                 )}
               </div>

@@ -139,7 +139,7 @@ const CategoryContents = () => {
                   </>
                 ) : (
                   <div style={{ color: "red", textAlign: "center" }}>
-                    <h2><span style={{textTransform: 'capitalize'}}>{category.name}</span> category post is not available to show</h2>
+                    <h3><span style={{textTransform: 'capitalize'}}>"{category.name}"</span> category blogs is not available to show</h3>
                   </div>
                 )}
               </div>

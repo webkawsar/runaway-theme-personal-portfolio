@@ -89,7 +89,7 @@ const RecentPosts = () => {
           </div>
         ) : (
           <div style={{ color: "red", textAlign: "center" }}>
-            <h5>Post is not available to show</h5>
+            <h5>Recent posts is not available to show</h5>
           </div>
         )}
       </div>

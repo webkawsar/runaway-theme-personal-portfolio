@@ -139,9 +139,9 @@ const TagContents = () => {
                   <div style={{ color: "red", textAlign: "center" }}>
                     <h2>
                       <span style={{ textTransform: "capitalize" }}>
-                        {tag.name}
+                        "{tag.name}"
                       </span>{" "}
-                      related blog is not available to show
+                      related blogs is not available to show
                     </h2>
                   </div>
                 )}
