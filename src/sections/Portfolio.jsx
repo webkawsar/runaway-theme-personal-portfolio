@@ -1,6 +1,7 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Fade } from "react-reveal";
-import VenoBox from 'venobox';
+import VenoBox from "venobox";
 import { BlogContext } from "../context/Blog.context";
 
 const Portfolio = () => {
@@ -36,9 +37,9 @@ const Portfolio = () => {
   };
 
   new VenoBox({
-    selector: '.venobox',
-    spinner: 'rotating-plane'
-});
+    selector: ".venobox",
+    spinner: "rotating-plane",
+  });
 
   return (
     <section
@@ -91,37 +92,45 @@ const Portfolio = () => {
                   <div className="row">
                     {projects.map((project) => {
                       return (
-                        <div
-                          key={project.id}
-                          className="column mix mix_all graphic development wordpress mb_30 col-md-4 col-lg-4"
-                        >
-                          <div className="default-portfolio-item">
-                            <a
-                              href={`${project?.image?.data?.attributes?.formats?.small?.url}`}
-                              data-fancybox="gallery"
-                              data-gall="myGallery"
-                              className="venobox"
-                            >
-                              <img
-                                src={`${project?.image?.data?.attributes?.formats?.medium?.url}`}
-                                alt="image"
-                              />
-                              <div className="overlay-box">
-                                <span>
-                                  <i
-                                    className="fa fa-eye"
-                                    aria-hidden="true"
-                                  ></i>
-                                </span>
-                                <div className="tag">
-                                  <ul>
-                                    <li>{project.tags}</li>
-                                  </ul>
+                        <AnimatePresence>
+                          <motion.div
+                            layout
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.9 }}
+                            key={project.id}
+                            className="column mix mix_all graphic development wordpress mb_30 col-md-4 col-lg-4"
+                          >
+                            <div className="default-portfolio-item">
+                              <motion.a
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                transition={{ duration: 1 }}
+                                href={`${project?.image?.data?.attributes?.formats?.small?.url}`}
+                                data-fancybox="gallery"
+                                data-gall="myGallery"
+                                className="venobox"
+                              >
+                                <img
+                                  src={`${project?.image?.data?.attributes?.formats?.medium?.url}`}
+                                  alt="image"
+                                />
+                                <div className="overlay-box">
+                                  <span>
+                                    <i
+                                      className="fa fa-eye"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </span>
+                                  <div className="tag">
+                                    <ul>
+                                      <li>{project.tags}</li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
+                              </motion.a>
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
                       );
                     })}
                   </div>
