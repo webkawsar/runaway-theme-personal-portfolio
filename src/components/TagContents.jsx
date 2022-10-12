@@ -8,7 +8,14 @@ import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 
 const TagContents = () => {
-  const { fetchBlogsByTag, tag, tagPosts, tagLoaded, tagPageNumber, setTagPageNumber } = useContext(BlogContext);
+  const {
+    fetchBlogsByTag,
+    tagLoaded,
+    tag,
+    tagBlogs,
+    tagPageNumber,
+    setTagPageNumber,
+  } = useContext(BlogContext);
   const { slug } = useParams();
 
   useEffect(() => {
@@ -30,27 +37,27 @@ const TagContents = () => {
           <div className="container">
             <div className="row">
               <div className="col-md-7 col-lg-8">
-                {tagPosts.length ? (
+                {tagBlogs.length ? (
                   <>
                     <div className="blog_list mb_60">
-                      {tagPosts.map((post) => {
+                      {tagBlogs.map((blog) => {
                         return (
                           <div
-                            key={post.id}
+                            key={blog.id}
                             className="blog_item mb_30 wow animated slideInUp"
                           >
                             <div className="comments">
                               <FaComment />
                               <span className="color_white">
-                                {post?.comments?.length}
+                                {blog?.comments?.length}
                               </span>
                             </div>
                             <div className="blog_img overlay_one">
                               <img
                                 src={`${
-                                  post?.image?.formats?.large?.url
-                                    ? post?.image?.formats?.large?.url
-                                    : post?.image?.formats?.medium?.url
+                                  blog?.image?.formats?.large?.url
+                                    ? blog?.image?.formats?.large?.url
+                                    : blog?.image?.formats?.medium?.url
                                 }`}
                                 alt="Blog Image"
                               />
@@ -59,29 +66,29 @@ const TagContents = () => {
                               <div className="blog_title">
                                 <Link
                                   className="color_primary"
-                                  to={`/blogs/${post?.slug}`}
+                                  to={`/blogs/${blog?.slug}`}
                                 >
-                                  <h5>{post?.title}</h5>
+                                  <h5>{blog?.title}</h5>
                                 </Link>
                               </div>
-                              <p className="mt_15 mb_30">{post?.description}</p>
+                              <p className="mt_15 mb_30">{blog?.description}</p>
 
                               <div className="admin">
                                 <img
                                   src={
-                                    post?.author?.profileImage?.formats
+                                    blog?.author?.profileImage?.formats
                                       ?.thumbnail?.url
                                   }
                                   alt="image"
                                 />
                                 <span className="color_white">
-                                  By - {post?.author?.username}
+                                  By - {blog?.author?.username}
                                 </span>
                               </div>
                               <div className="date float-right color_primary">
-                                {post?.publishedAt &&
+                                {blog?.publishedAt &&
                                   format(
-                                    new Date(post?.publishedAt),
+                                    new Date(blog?.publishedAt),
                                     "d MMM yyyy"
                                   )}
                               </div>
@@ -96,9 +103,7 @@ const TagContents = () => {
                           <li
                             className="page-item"
                             onClick={() =>
-                              handlePageClick(
-                                tag?.pagination?.previousPage
-                              )
+                              handlePageClick(tag?.pagination?.previousPage)
                             }
                           >
                             <span className="page-link">
@@ -136,7 +141,7 @@ const TagContents = () => {
                       <span style={{ textTransform: "capitalize" }}>
                         {tag.name}
                       </span>{" "}
-                      tag post is not available to show
+                      related blog is not available to show
                     </h2>
                   </div>
                 )}

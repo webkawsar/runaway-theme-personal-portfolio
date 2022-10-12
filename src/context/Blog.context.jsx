@@ -24,30 +24,31 @@ export const BlogProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [tagsLoaded, setTagsLoaded] = useState(false);
   const [tags, setTags] = useState([]);
+  // recent posts
+  const [recentPosts, setRecentPosts] = useState([]);
 
-  // load single blog
+
+  // load single blog data
   const [blogLoaded, setBlogLoaded] = useState(false);
   const [blog, setBlog] = useState({});
   const [comments, setComments] = useState([]);
   const [isComponentRender, setIsComponentRender] = useState(false);
 
   // category wise fetch posts data
-  const [category, setCategory] = useState({});
   const [categoryLoaded, setCategoryLoaded] = useState(false);
-  const [categoryPosts, setCategoryPosts] = useState([]);
+  const [category, setCategory] = useState({});
+  const [categoryBlogs, setCategoryBlogs] = useState([]);
+  // pagination for category page
+  const [catPageNumber, setCatPageNumber] = useState(1);
 
-  // fetch data by tag
-  const [tag, setTag] = useState({});
-  const [tagPosts, setTagPosts] = useState([]);
+  // fetch data by tag 
   const [tagLoaded, setTagLoaded] = useState(false);
+  const [tag, setTag] = useState({});
+  const [tagBlogs, setTagBlogs] = useState([]);
   // pagination for tag page
   const [tagPageNumber, setTagPageNumber] = useState(1);
 
-  // recent posts
-  const [recentPosts, setRecentPosts] = useState([]);
 
-  // pagination for category page
-  const [catPageNumber, setCatPageNumber] = useState(1);
 
 
   useEffect(() => {
@@ -221,7 +222,7 @@ export const BlogProvider = ({ children }) => {
     try {
       const query = qs.stringify(
         {
-          populate: ["posts", "posts.image", "posts.author", "posts.comments", 'posts.author.profileImage'],
+          populate: ["blogs", "blogs.image", "blogs.author", "blogs.comments", 'blogs.author.profileImage'],
           pagination: {
             page: catPageNumber,
             pageSize: import.meta.env.VITE_PAGE_SIZE
@@ -233,19 +234,18 @@ export const BlogProvider = ({ children }) => {
       );
 
       const response = await axios.get(`/categories/${slug}?${query}`);
-      console.log(response?.data, 'fetchBlogsByCategory res');
+      // console.log(response?.data, 'fetchCategory res');
 
       setCategory(response?.data);
+      setCategoryBlogs(response?.data?.posts);
       setCategoryLoaded(true);
-      setCategoryPosts(response?.data?.posts);
 
     } catch (error) {
       
-      console.log(error, "fetchBlogByCategoryID error");
+      console.log(error, "fetchCategory error");
       setCategoryLoaded(true);
     }
   };
-
 
   const loadRecentPosts = async () => {
 
@@ -272,7 +272,7 @@ export const BlogProvider = ({ children }) => {
         }
       );
       const response = await axios.get(`/blogs?${query}`);
-        // console.log(response?.data, "loadBlogs response");
+        // console.log(response?.data, "loadRecentPosts response");
 
       const formattedBlogs = response?.data?.data.map((blog) => {
         const { author, comments, image, likes, tag, ...restData } =
@@ -293,7 +293,7 @@ export const BlogProvider = ({ children }) => {
 
     } catch (error) {
       
-      console.log(error, "loadBlogs error");
+      console.log(error, "loadRecentPosts error");
     }
   }
 
@@ -302,7 +302,7 @@ export const BlogProvider = ({ children }) => {
     try {
       const query = qs.stringify(
         {
-          populate:  ["posts", "posts.image", "posts.author", "posts.comments", 'posts.author.profileImage'],
+          populate:  ["blogs", "blogs.image", "blogs.author", "blogs.comments", 'blogs.author.profileImage'],
           pagination: {
             page: tagPageNumber,
             pageSize: import.meta.env.VITE_PAGE_SIZE
@@ -317,8 +317,8 @@ export const BlogProvider = ({ children }) => {
       // console.log(response?.data, 'fetchBlogsByTag res');
 
       setTag(response?.data);
+      setTagBlogs(response?.data?.blogs);
       setTagLoaded(true);
-      setTagPosts(response?.data?.posts);
 
     } catch (error) {
       
@@ -344,7 +344,20 @@ export const BlogProvider = ({ children }) => {
     fetchBlog,
     blogLoaded,
     blog,
-    comments
+    comments,
+    createNewComment,
+    fetchCategory,
+    categoryLoaded,
+    category,
+    categoryBlogs,
+    catPageNumber,
+    setCatPageNumber,
+    fetchBlogsByTag,
+    tagLoaded,
+    tag,
+    tagBlogs,
+    tagPageNumber,
+    setTagPageNumber
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
