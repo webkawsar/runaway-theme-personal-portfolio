@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Fade } from "react-reveal";
+import VenoBox from 'venobox';
 import { BlogContext } from "../context/Blog.context";
-
-
 
 const Portfolio = () => {
   const { homeInfo } = useContext(BlogContext);
@@ -14,7 +13,6 @@ const Portfolio = () => {
   const [menus, setMenus] = useState(menusFromDB);
   const [projects, setProjects] = useState(projectsDataFromDB);
 
-  
   const handleClick = (menu) => {
     // modified clicked menu isActive field
     const modifiedMenus = menus.map((singleMenu) => {
@@ -36,6 +34,11 @@ const Portfolio = () => {
     );
     setProjects(filteredProjects);
   };
+
+  new VenoBox({
+    selector: '.venobox',
+    spinner: 'rotating-plane'
+});
 
   return (
     <section
@@ -96,9 +99,11 @@ const Portfolio = () => {
                             <a
                               href={`${project?.image?.data?.attributes?.formats?.small?.url}`}
                               data-fancybox="gallery"
+                              data-gall="myGallery"
+                              className="venobox"
                             >
                               <img
-                                src={`${project?.image?.data?.attributes?.formats?.small?.url}`}
+                                src={`${project?.image?.data?.attributes?.formats?.medium?.url}`}
                                 alt="image"
                               />
                               <div className="overlay-box">
