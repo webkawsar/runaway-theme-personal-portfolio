@@ -13,10 +13,12 @@ const schema = yup
   })
   .required();
 
-const Comment = ({comment}) => {
+const Comment = ({ comment }) => {
   const { createRepliedComment } = useContext(BlogContext);
   const elm = useRef();
-  const [repliedComments, setRepliedComments] = useState(comment.replied_comments);
+  const [repliedComments, setRepliedComments] = useState(
+    comment.replied_comments
+  );
 
   const {
     register,
@@ -29,13 +31,11 @@ const Comment = ({comment}) => {
   });
 
   const onSubmit = async (data) => {
-    
     const modifiedData = { ...data, comment: comment.id };
     createRepliedComment(modifiedData);
   };
 
   useEffect(() => {
-    
     if (isSubmitSuccessful) {
       resetField("name");
       resetField("email");
@@ -46,7 +46,6 @@ const Comment = ({comment}) => {
   const handleRepliedComment = () => {
     elm.current.classList.add("custom_replied_block");
   };
-
 
   return (
     <div>
@@ -103,11 +102,7 @@ const Comment = ({comment}) => {
                 </div>
                 <div>
                   <p>{repliedComment?.text}</p>
-                  <span
-                    className="btn btn_info mt_15"
-                  >
-                    Replay
-                  </span>
+                  <span className="btn btn_info mt_15">Replay</span>
                 </div>
               </div>
             </div>
@@ -179,7 +174,7 @@ const Comment = ({comment}) => {
             </div>
           </form>
         </div>
-      </li> 
+      </li>
     </div>
   );
 };
