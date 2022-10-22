@@ -26,18 +26,17 @@ const AddComment = ({ blogId }) => {
   });
 
   const onSubmit = async (data) => {
+    
     const modifiedData = { ...data, blog: blogId };
-    // console.log(modifiedData, 'modifiedData');
-
     createNewComment(modifiedData);
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
     
-      resetField('name')
-      resetField('email')
-      resetField('text')
+      resetField('name');
+      resetField('email');
+      resetField('text');
     }
   }, [isSubmitSuccessful]);
 

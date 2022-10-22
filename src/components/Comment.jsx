@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import { format } from "date-fns";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 import * as yup from "yup";
-import { BlogContext } from "../context/Blog.context";
 
 const schema = yup
   .object({
@@ -14,11 +15,11 @@ const schema = yup
   .required();
 
 const Comment = ({ comment }) => {
-  const { createRepliedComment } = useContext(BlogContext);
-  const elm = useRef();
   const [repliedComments, setRepliedComments] = useState(
     comment.replied_comments
   );
+  const [showForm, setShowForm] = useState(false);
+  //   console.log(comment.replied_comments, 'replied_comments');
 
   const {
     register,
@@ -29,6 +30,29 @@ const Comment = ({ comment }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const createRepliedComment = async (newComment) => {
+    try {
+      const response = await axios.post("/replied-comments?populate=*", {
+        data: newComment,
+      });
+
+      //   console.log(response?.data, "createRepliedComment response");
+      setRepliedComments([
+        ...repliedComments,
+        { ...response?.data?.data?.attributes, id: response?.data?.data?.id },
+      ]);
+      setShowForm(false);
+      
+      // show message
+      toast.success('Replied comment successfully');
+            
+    } catch (error) {
+      console.log(error, "createRepliedComment error");
+
+      toast.error('Server Error!');
+    }
+  };
 
   const onSubmit = async (data) => {
     const modifiedData = { ...data, comment: comment.id };
@@ -42,10 +66,6 @@ const Comment = ({ comment }) => {
       resetField("text");
     }
   }, [isSubmitSuccessful]);
-
-  const handleRepliedComment = () => {
-    elm.current.classList.add("custom_replied_block");
-  };
 
   return (
     <div>
@@ -69,7 +89,7 @@ const Comment = ({ comment }) => {
               <p>{comment.text}</p>
               <span
                 className="btn btn_info mt_15"
-                onClick={handleRepliedComment}
+                onClick={() => setShowForm(true)}
               >
                 Replay
               </span>
@@ -109,72 +129,74 @@ const Comment = ({ comment }) => {
           </li>
         );
       })}
-      <li className="custom_replied_none" ref={elm}>
-        <div className="comment_description replied ">
-          <form className="reply_form" onSubmit={handleSubmit(onSubmit)}>
-            <div className="row">
-              <div className="col-md-6 col-lg-6">
-                <input
-                  className={`form-control ${
-                    errors?.name?.message ? "is-invalid" : ""
-                  }`}
-                  name="author_name"
-                  type="text"
-                  placeholder="Your Name*"
-                  {...register("name")}
-                />
-                {errors?.name?.message && (
-                  <div className="invalid-feedback">
-                    {errors?.name?.message}
-                  </div>
-                )}
+      {showForm && (
+        <li className="custom_replied_block">
+          <div className="comment_description replied ">
+            <form className="reply_form" onSubmit={handleSubmit(onSubmit)}>
+              <div className="row">
+                <div className="col-md-6 col-lg-6">
+                  <input
+                    className={`form-control ${
+                      errors?.name?.message ? "is-invalid" : ""
+                    }`}
+                    name="author_name"
+                    type="text"
+                    placeholder="Your Name*"
+                    {...register("name")}
+                  />
+                  {errors?.name?.message && (
+                    <div className="invalid-feedback">
+                      {errors?.name?.message}
+                    </div>
+                  )}
+                </div>
+                <div className="col-md-6 col-lg-6">
+                  <input
+                    className={`form-control ${
+                      errors?.email?.message ? "is-invalid" : ""
+                    }`}
+                    name="author_email"
+                    type="email"
+                    placeholder="Email Address*"
+                    {...register("email")}
+                  />
+                  {errors?.email?.message && (
+                    <div className="invalid-feedback">
+                      {errors?.email?.message}
+                    </div>
+                  )}
+                </div>
+                <div className="col-md-12">
+                  <textarea
+                    className={`form-control ${
+                      errors?.text?.message ? "is-invalid" : ""
+                    }`}
+                    name="author_comments"
+                    rows="3"
+                    placeholder="Type Comments..."
+                    {...register("text")}
+                  ></textarea>
+                  {errors?.text?.message && (
+                    <div className="invalid-feedback">
+                      {errors?.text?.message}
+                    </div>
+                  )}
+                </div>
+                <div className="col-md-12">
+                  <button
+                    type="submit"
+                    name="submit"
+                    className="btn btn-default"
+                    disabled={isSubmitting ? true : false}
+                  >
+                    Replied comment
+                  </button>
+                </div>
               </div>
-              <div className="col-md-6 col-lg-6">
-                <input
-                  className={`form-control ${
-                    errors?.email?.message ? "is-invalid" : ""
-                  }`}
-                  name="author_email"
-                  type="email"
-                  placeholder="Email Address*"
-                  {...register("email")}
-                />
-                {errors?.email?.message && (
-                  <div className="invalid-feedback">
-                    {errors?.email?.message}
-                  </div>
-                )}
-              </div>
-              <div className="col-md-12">
-                <textarea
-                  className={`form-control ${
-                    errors?.text?.message ? "is-invalid" : ""
-                  }`}
-                  name="author_comments"
-                  rows="3"
-                  placeholder="Type Comments..."
-                  {...register("text")}
-                ></textarea>
-                {errors?.text?.message && (
-                  <div className="invalid-feedback">
-                    {errors?.text?.message}
-                  </div>
-                )}
-              </div>
-              <div className="col-md-12">
-                <button
-                  type="submit"
-                  name="submit"
-                  className="btn btn-default"
-                  disabled={isSubmitting ? true : false}
-                >
-                  Replied comment
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
+            </form>
+          </div>
+        </li>
+      )}
     </div>
   );
 };

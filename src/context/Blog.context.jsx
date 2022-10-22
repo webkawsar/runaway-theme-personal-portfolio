@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import { createContext, useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 // create a context
 export const BlogContext = createContext();
@@ -113,20 +114,7 @@ export const BlogProvider = ({ children }) => {
   // console.log(response, 'response');
 
 
-  const createRepliedComment = async (newComment) => {
-    try {
-      const response = await axios.post("/replied-comments?populate=*", {
-        data: newComment,
-      });
 
-      // console.log(response?.data, "createRepliedComment response");
-      // setIsComponentRender(!isComponentRender);
-      
-    } catch (error) {
-      
-      console.log(error, "createRepliedComment error");
-    }
-  };
 
   
   const loadHomeInfo = async () => {
@@ -276,12 +264,18 @@ export const BlogProvider = ({ children }) => {
       });
 
       // console.log(response?.data, "createNewComment response");
-      setComments([...comments, {...response?.data?.data?.attributes, id: response?.data?.data?.id}]);
+      setComments([...comments, 
+        {...response?.data?.data?.attributes, id: response?.data?.data?.id, replied_comments: response?.data?.data?.attributes?.replied_comments?.data
+        }]);
       setIsComponentRender(!isComponentRender);
+
+      // show message
+      toast.success('Comment submit successfully');
       
     } catch (error) {
       
       console.log(error, "createNewComment error");
+      toast.error('Server Error!');
     }
   };
 
@@ -413,7 +407,6 @@ export const BlogProvider = ({ children }) => {
     blog,
     comments,
     createNewComment,
-    createRepliedComment,
     fetchCategory,
     categoryLoaded,
     category,
