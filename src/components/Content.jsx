@@ -112,7 +112,7 @@ const Content = () => {
                     </div>
                     
                     {comments && <Comments comments={comments} />}
-                    <AddComment postId={blog?.id} />
+                    <AddComment blogId={blog?.id} />
                     
                   </div>
                 ) : (

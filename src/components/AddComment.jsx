@@ -12,7 +12,7 @@ const schema = yup
   })
   .required();
 
-const AddComment = ({ postId }) => {
+const AddComment = ({ blogId }) => {
   const { createNewComment } = useContext(BlogContext);
 
   const {
@@ -26,7 +26,7 @@ const AddComment = ({ postId }) => {
   });
 
   const onSubmit = async (data) => {
-    const modifiedData = { ...data, post: postId };
+    const modifiedData = { ...data, blog: blogId };
     // console.log(modifiedData, 'modifiedData');
 
     createNewComment(modifiedData);
@@ -43,7 +43,7 @@ const AddComment = ({ postId }) => {
 
   return (
     <>
-      <div className="replay mt_60 wow animated slideInUp" name="createComment">
+      <div className="replay mt_60 wow animated slideInUp">
         <h4 className="text-uppercase color_primary mb_30">Leave A Replay</h4>
         <form className="reply_form" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">

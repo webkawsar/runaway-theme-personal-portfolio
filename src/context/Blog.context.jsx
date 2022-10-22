@@ -61,6 +61,73 @@ export const BlogProvider = ({ children }) => {
   }, [isComponentRender, page, catPageNumber, tagPageNumber]);
 
 
+
+
+  // const homeQuery = qs.stringify(
+  //   {
+  //     populate: [
+  //       "introSection",
+  //       "introSection.introImage",
+  //       "introSection.professions",
+  //       "aboutSection",
+  //       "aboutSection.introVideo",
+  //       "aboutSection.roundImage",
+  //       "skillSection",
+  //       "skillSection.skills",
+  //       "countupSection",
+  //       "countupSection.factCounts",
+  //       "serviceSection",
+  //       "serviceSection.services",
+  //       "portfolioSection",
+  //       "portfolioSection.menus",
+  //       "portfolioSection.projects",
+  //       "portfolioSection.projects.image",
+  //       "testimonialSection",
+  //       "testimonialSection.clientsFeedback",
+  //       "testimonialSection.clientsFeedback.image",
+  //       "blogSection",
+  //       "blogSection.blogs",
+  //       "blogSection.blogs",
+  //       "blogSection.blogs.image",
+  //       "blogSection.blogs.author",
+  //       "blogSection.blogs.comments",
+  //       "blogSection.blogs.author.profileImage",
+  //       "contactSection",
+  //       "contactSection.socials",
+  //       "introSection.logo",
+  //     ],
+  //   },
+  //   {
+  //     encodeValuesOnly: true, // prettify URL
+  //   }
+  // );
+  
+  // const { response, loading, error } = useAxios({
+  //   method: 'GET',
+  //   url: `/home?${homeQuery}`,
+  //   headers: { // no need to stringify
+  //     accept: '*/*'
+  //   }
+  // });
+
+  // console.log(response, 'response');
+
+
+  const createRepliedComment = async (newComment) => {
+    try {
+      const response = await axios.post("/replied-comments?populate=*", {
+        data: newComment,
+      });
+
+      // console.log(response?.data, "createRepliedComment response");
+      // setIsComponentRender(!isComponentRender);
+      
+    } catch (error) {
+      
+      console.log(error, "createRepliedComment error");
+    }
+  };
+
   
   const loadHomeInfo = async () => {
     try {
@@ -181,7 +248,7 @@ export const BlogProvider = ({ children }) => {
     try {
       const query = qs.stringify(
         {
-          populate: ["image", "author", "comments", "comments.user", "author.profileImage"],
+          populate: ["image", "author", "comments", "comments.replied_comments", "author.profileImage"],
         },
         {
           encodeValuesOnly: true, // prettify URL
@@ -208,8 +275,8 @@ export const BlogProvider = ({ children }) => {
         data: newComment,
       });
 
-      // console.log(response?.data?.data, "response");
-      setComments([...comments, response?.data?.data]);
+      // console.log(response?.data, "createNewComment response");
+      setComments([...comments, {...response?.data?.data?.attributes, id: response?.data?.data?.id}]);
       setIsComponentRender(!isComponentRender);
       
     } catch (error) {
@@ -346,6 +413,7 @@ export const BlogProvider = ({ children }) => {
     blog,
     comments,
     createNewComment,
+    createRepliedComment,
     fetchCategory,
     categoryLoaded,
     category,

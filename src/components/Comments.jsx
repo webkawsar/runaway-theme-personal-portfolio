@@ -1,13 +1,10 @@
-import { format } from "date-fns";
 import React from "react";
-import { Link } from "react-scroll";
+import Comment from "./Comment";
+
+
 
 const Comments = ({ comments }) => {
-  const handleRepliedComment = (commentId) => {
-    console.log("clicked replied ");
-    console.log(commentId, "commentId");
-  };
-
+  
   return (
     <>
       <div className="comment_area mt_60">
@@ -35,8 +32,9 @@ const Comments = ({ comments }) => {
                 </a>
               </div>
             </div>
-          </li>
-          <li className="mb_20 wow animated slideInUp">
+          </li>  */}
+
+          {/* <li className="mb_20 wow animated slideInUp">
             <div className="comment_description replied bg_white p_20">
               <div className="author_img">
                 <img src="/images/comments/02.png" alt="images" />
@@ -56,46 +54,9 @@ const Comments = ({ comments }) => {
                 </a>
               </div>
             </div>
-          </li> */}
+          </li>  */}
 
-          {comments.map((comment) => {
-            return (
-              <li key={comment.id} className="mb_20 wow animated slideInUp">
-                <div className="comment_description bg_white p_20">
-                  <div className="author_img">
-                    <img
-                      src="https://res.cloudinary.com/dqu7xtx64/image/upload/v1664089025/user_avatar_9871a28f94.png?updated_at=2022-09-25T06:57:07.024Z"
-                      alt="images"
-                    />
-                  </div>
-                  <div className="author_text">
-                    <div className="author_info">
-                      <h5 className="author_name color_primary">
-                        {comment?.attributes?.name}
-                      </h5>
-                      <span>
-                        {comment?.attributes?.publishedAt &&
-                          format(
-                            new Date(comment?.attributes?.publishedAt),
-                            "d MMM yyyy"
-                          )}
-                      </span>
-                    </div>
-                    <div>
-                      <p>{comment?.attributes?.text}</p>
-                      <Link
-                        to="createComment"
-                        className="btn btn_info mt_15"
-                        onClick={() => handleRepliedComment(comment.id)}
-                      >
-                        Replay
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+          {comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
         </ul>
       </div>
     </>
