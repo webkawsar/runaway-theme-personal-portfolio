@@ -7,7 +7,7 @@ import Tags from "./Tags";
 const Sidebar = () => {
   return (
     <>
-      <div className="col-md-5 col-lg-4">
+      <div className="col-md-12 col-lg-4">
         <div className="blog_sidebar">
           <Social />
           <Categories />
